@@ -1,10 +1,85 @@
-import { dbConnection } from "./init/conn";
-import app from "./init/app";
-import { Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
+import mongoose from "mongoose";
+import http from "http";
+import config from "./config/config";
+import animalRoutes from "./routes/animal";
+const api: Express = express();
 
-app.use("/", (req: Request, res: Response) => {
-    res.send({ test: 1 });
-    res.end();
-});
+// api.use("/", (req: Request, res: Response) => {
+//     res.send({ test: 1 });
+//     res.end();
+// });
 
-dbConnection();
+//Connexion à la base MongoDb
+mongoose
+    .connect(config.dbUrl!)
+    .then(() => {
+        console.log("Connexion à MongoDB réussie !");
+        startServer();
+    })
+    .catch(() => console.log("Connexion à MongoDB échouée !"));
+
+// On se connecte au serveur uniquement si on peut se connecter à la base
+const startServer = () => {
+    api.use((req: Request, res: Response, next) => {
+        // Log de la requête
+        console.log(
+            `Requête: METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`
+        );
+
+        res.on("finish", () => {
+            // Log de la réponse
+            console.log(
+                `Réponse: METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}] - STATUS: [${res.statusCode}]`
+            );
+        });
+
+        next();
+    });
+
+    api.use(express.urlencoded({ extended: true }));
+    api.use(express.json());
+
+    // On envoie les headers pour éviter les erreurs CORS
+    api.use((req: Request, res: Response, next) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+        );
+
+        if (req.method == "OPTIONS") {
+            res.header(
+                "Access-Control-Allow-Methods",
+                "PUT, POST, PATCH, DELETE, GET"
+            );
+            return res.status(200).json({});
+        }
+
+        next();
+    });
+
+    // Routes
+    api.use("/api/animals", animalRoutes);
+    // api.use('/books', bookRoutes);
+
+    // Ping pour voir si tout est en place
+    api.get("/ping", (req: Request, res: Response, next) =>
+        res.status(200).json({ message: "pong" })
+    );
+
+    // Gère les erreurs qui pourraient arriver
+    api.use((req: Request, res: Response, next) => {
+        const error = new Error("Not found");
+
+        console.log(error);
+
+        res.status(404).json({
+            message: error.message,
+        });
+    });
+
+    http.createServer(api).listen(config.port, () =>
+        console.log(`Serveur démarré sur le port ${config.port}`)
+    );
+};

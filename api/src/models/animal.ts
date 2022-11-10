@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
-import { Animal } from "./animal.interface";
+import mongoose, { Schema } from "mongoose";
+import { IAnimal } from "./animal.interface";
 
-const animalSchema = new mongoose.Schema<Animal>({
+const animalSchema: Schema = new mongoose.Schema<IAnimal>({
     nom: { type: String, required: true },
     espece: { type: String, required: true },
     naissance: { type: String, required: false },
@@ -11,4 +11,4 @@ const animalSchema = new mongoose.Schema<Animal>({
     position: { type: String, required: true },
 });
 
-module.exports = mongoose.model<Animal>("Animal", animalSchema);
+export default mongoose.model<IAnimal>("Animal", animalSchema);

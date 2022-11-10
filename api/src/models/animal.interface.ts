@@ -1,4 +1,4 @@
-export interface Animal {
+export interface IAnimal {
     nom: string;
     espece: string;
     naissance?: string;

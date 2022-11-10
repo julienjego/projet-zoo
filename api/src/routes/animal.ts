@@ -1,5 +1,8 @@
 import express, { Request, Response } from "express";
+import animalController from "../controllers/animal";
 
 const router = express.Router();
 
-// router.get("/", (req, res, next) => {});
+router.get("/", animalController.getAllAnimals);
+
+export default router;
