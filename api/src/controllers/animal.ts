@@ -3,12 +3,9 @@ import { NextFunction, Request, Response } from "express";
 
 const createAnimal = (req: Request, res: Response, next: NextFunction) => {
     const animalObject: typeof Animal = req.body;
-    console.log(animalObject);
     const animal = new Animal({
         ...animalObject,
     });
-
-    console.log(animal);
 
     animal
         .save()
@@ -19,6 +16,24 @@ const createAnimal = (req: Request, res: Response, next: NextFunction) => {
             res.status(400).json({ error });
         });
 };
+
+// TODO fix getoutanimal
+
+// const getOutAnimal = (req: Request, res: Response, next: NextFunction) => {
+//     Animal.findOne({ _id: req.params.id }).then((animal) => {
+//         const listingQuery = { _id: req.body.id };
+//         const updates = {
+//             $set: {
+//                 position: "dehors",
+//             },
+//         };
+//         if (animal) {
+//             animal.updateOne(listingQuery, updates);
+
+//         } else {
+//         }
+//     });
+// };
 
 const getAnAnimal = (req: Request, res: Response, next: NextFunction) => {
     Animal.findOne({ _id: req.params.id })

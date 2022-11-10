@@ -1,11 +1,10 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
-import http from "http";
 import config from "./config/config";
 import animalRoutes from "./routes/animal";
 const api: Express = express();
 
-//Connexion à la base MongoDb
+//Connexion à la base MongoDB
 mongoose
     .connect(config.dbUrl!)
     .then(() => {
@@ -73,7 +72,7 @@ const startServer = () => {
         });
     });
 
-    http.createServer(api).listen(config.port, () =>
+    api.listen(config.port, () =>
         console.log(`Serveur démarré sur le port ${config.port}`)
     );
 };

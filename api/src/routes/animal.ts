@@ -4,6 +4,7 @@ import animalController from "../controllers/animal";
 const router = express.Router();
 
 router.post("/", animalController.createAnimal);
+// router.post("/animals/out/:id", animalController.getOutAnimal);
 router.get("/", animalController.getAllAnimals);
 router.get("/:id", animalController.getAnAnimal);
 router.put("/:id", animalController.updateAnimal);
