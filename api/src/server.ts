@@ -1,14 +1,9 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express, Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
 import http from "http";
 import config from "./config/config";
 import animalRoutes from "./routes/animal";
 const api: Express = express();
-
-// api.use("/", (req: Request, res: Response) => {
-//     res.send({ test: 1 });
-//     res.end();
-// });
 
 //Connexion à la base MongoDb
 mongoose
@@ -21,7 +16,7 @@ mongoose
 
 // On se connecte au serveur uniquement si on peut se connecter à la base
 const startServer = () => {
-    api.use((req: Request, res: Response, next) => {
+    api.use((req: Request, res: Response, next: NextFunction) => {
         // Log de la requête
         console.log(
             `Requête: METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`
@@ -41,7 +36,7 @@ const startServer = () => {
     api.use(express.json());
 
     // On envoie les headers pour éviter les erreurs CORS
-    api.use((req: Request, res: Response, next) => {
+    api.use((req: Request, res: Response, next: NextFunction) => {
         res.header("Access-Control-Allow-Origin", "*");
         res.header(
             "Access-Control-Allow-Headers",
@@ -61,15 +56,14 @@ const startServer = () => {
 
     // Routes
     api.use("/api/animals", animalRoutes);
-    // api.use('/books', bookRoutes);
 
     // Ping pour voir si tout est en place
-    api.get("/ping", (req: Request, res: Response, next) =>
+    api.get("/ping", (req: Request, res: Response, next: NextFunction) =>
         res.status(200).json({ message: "pong" })
     );
 
     // Gère les erreurs qui pourraient arriver
-    api.use((req: Request, res: Response, next) => {
+    api.use((req: Request, res: Response, next: NextFunction) => {
         const error = new Error("Not found");
 
         console.log(error);
