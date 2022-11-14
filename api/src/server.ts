@@ -63,11 +63,11 @@ const startServer = () => {
 
     // Gère les erreurs qui pourraient arriver
     api.use((req: Request, res: Response, next: NextFunction) => {
-        const error = new Error("Not found");
+        const error = new Error("Bad request");
 
         console.log(error);
 
-        res.status(404).json({
+        res.status(400).json({
             message: error.message,
         });
     });

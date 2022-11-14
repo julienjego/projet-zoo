@@ -1,4 +1,5 @@
 import Animal from "../models/animal";
+import Species from "../models/species";
 import { NextFunction, Request, Response } from "express";
 
 const createAnimal = (req: Request, res: Response, next: NextFunction) => {
@@ -32,9 +33,7 @@ const moveAnimal = (req: Request, res: Response, next: NextFunction) => {
                     .then(() => {
                         res.status(202).json(
                             url.includes("/out/")
-                                ? {
-                                      message: "Animal sorti !",
-                                  }
+                                ? { message: "Animal sorti !" }
                                 : { message: "Animal rentré !" }
                         );
                     })
@@ -57,6 +56,12 @@ const getAllAnimals = (req: Request, res: Response, next: NextFunction) => {
         .then((animals) => res.status(200).json(animals))
         .catch((error) => res.status(404).json({ error }));
 };
+
+const getAnimalEnclosure = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {};
 
 const updateAnimal = (req: Request, res: Response, next: NextFunction) => {
     Animal.findOne({ _id: req.params.id }).then((animal) => {
@@ -100,4 +105,5 @@ export default {
     updateAnimal,
     deleteAnimal,
     moveAnimal,
+    getAnimalEnclosure,
 };
