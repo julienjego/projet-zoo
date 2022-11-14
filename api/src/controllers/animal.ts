@@ -17,23 +17,34 @@ const createAnimal = (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
-// TODO fix getoutanimal
+const moveAnimal = (req: Request, res: Response, next: NextFunction) => {
+    const url = req.url;
 
-// const getOutAnimal = (req: Request, res: Response, next: NextFunction) => {
-//     Animal.findOne({ _id: req.params.id }).then((animal) => {
-//         const listingQuery = { _id: req.body.id };
-//         const updates = {
-//             $set: {
-//                 position: "dehors",
-//             },
-//         };
-//         if (animal) {
-//             animal.updateOne(listingQuery, updates);
-
-//         } else {
-//         }
-//     });
-// };
+    Animal.findOne({ _id: req.params.id })
+        .then((animal) => {
+            if (animal) {
+                Animal.updateOne(
+                    { _id: req.params.id },
+                    url.includes("/out/")
+                        ? { $set: { position: "dehors" } }
+                        : { $set: { position: "dedans" } }
+                )
+                    .then(() => {
+                        res.status(202).json(
+                            url.includes("/out/")
+                                ? {
+                                      message: "Animal sorti !",
+                                  }
+                                : { message: "Animal rentré !" }
+                        );
+                    })
+                    .catch((error) => res.status(400).json({ error }));
+            } else {
+                console.log("Animal inconnu");
+            }
+        })
+        .catch((error) => res.status(404).json({ error }));
+};
 
 const getAnAnimal = (req: Request, res: Response, next: NextFunction) => {
     Animal.findOne({ _id: req.params.id })
@@ -88,4 +99,5 @@ export default {
     getAnAnimal,
     updateAnimal,
     deleteAnimal,
+    moveAnimal,
 };
