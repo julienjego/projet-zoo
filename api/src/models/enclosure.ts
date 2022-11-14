@@ -9,4 +9,4 @@ const enclosureSchema: Schema = new mongoose.Schema<IEnclosure>({
     superficie: { type: Number, required: true },
 });
 
-export default mongoose.model<IEnclosure>("Species", enclosureSchema);
+export default mongoose.model<IEnclosure>("Enclosure", enclosureSchema);

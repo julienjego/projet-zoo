@@ -1,6 +1,8 @@
 import Animal from "../models/animal";
 import Species from "../models/species";
+import Enclosure from "../models/enclosure";
 import { NextFunction, Request, Response } from "express";
+import mongoose from "mongoose";
 
 const createAnimal = (req: Request, res: Response, next: NextFunction) => {
     const animalObject: typeof Animal = req.body;
@@ -61,7 +63,77 @@ const getAnimalEnclosure = (
     req: Request,
     res: Response,
     next: NextFunction
-) => {};
+) => {
+    Animal.findOne({ _id: req.params.id })
+        .then((animal) => {
+            if (animal) {
+                Animal.aggregate([
+                    {
+                        $match: {
+                            _id: new mongoose.Types.ObjectId(req.params.id),
+                        },
+                    },
+                    {
+                        $lookup: {
+                            from: "species",
+                            localField: "espece",
+                            foreignField: "nom",
+                            as: "speciesResult",
+                        },
+                    },
+                    {
+                        $unwind: {
+                            path: "$speciesResult",
+                        },
+                    },
+                    {
+                        $project: {
+                            nom: 1,
+                            espece: 1,
+                            naissance: 1,
+                            deces: 1,
+                            sexe: 1,
+                            observations: 1,
+                            position: 1,
+                            enclos: "$speciesResult.enclos",
+                        },
+                    },
+                    {
+                        $lookup: {
+                            from: "enclosures",
+                            localField: "enclos",
+                            foreignField: "nom",
+                            as: "enclosuresResult",
+                        },
+                    },
+                    {
+                        $unwind: {
+                            path: "$enclosuresResult",
+                        },
+                    },
+                    {
+                        $project: {
+                            nom: 1,
+                            espece: 1,
+                            naissance: 1,
+                            deces: 1,
+                            sexe: 1,
+                            observations: 1,
+                            position: 1,
+                            enclos: "$enclosuresResult.nomApp",
+                        },
+                    },
+                ]).exec((err, results) => {
+                    res.status(200).json(results);
+                });
+            } else {
+                res.status(404).json({ message: "Animal non trouvé" });
+            }
+        })
+        .catch(() => {
+            res.status(400).json({ erreur: "Syntaxe de la requête erronée" });
+        });
+};
 
 const updateAnimal = (req: Request, res: Response, next: NextFunction) => {
     Animal.findOne({ _id: req.params.id }).then((animal) => {
