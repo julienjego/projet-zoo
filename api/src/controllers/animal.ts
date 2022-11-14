@@ -1,6 +1,4 @@
 import Animal from "../models/animal";
-import Species from "../models/species";
-import Enclosure from "../models/enclosure";
 import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 

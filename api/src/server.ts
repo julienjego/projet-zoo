@@ -2,6 +2,7 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
 import config from "./config/config";
 import animalRoutes from "./routes/animal";
+import speciesRoutes from "./routes/species";
 const api: Express = express();
 
 //Connexion à la base MongoDB
@@ -55,6 +56,7 @@ const startServer = () => {
 
     // Routes
     api.use("/api/animals", animalRoutes);
+    api.use("/api/species", speciesRoutes);
 
     // Ping pour voir si tout est en place
     api.get("/ping", (req: Request, res: Response, next: NextFunction) =>
