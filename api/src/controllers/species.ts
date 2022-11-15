@@ -55,4 +55,29 @@ const moveSpecies = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
-export default { getAnimalsBySpecies, moveSpecies };
+// Nourrir les animaux d'une espèce
+const feedSpecies = (req: Request, res: Response, next: NextFunction) => {
+    Species.findById(req.params.id)
+        .then((species) => {
+            if (species) {
+                Animal.find({ espece: species.nom })
+                    .then((animals) => {
+                        if (animals) {
+                            res.status(200).json({
+                                message: `Animaux [${species.nom}] nourris !`,
+                            });
+                        } else {
+                            res.status(404).json({
+                                message: "Pas d'animaux à nourrir",
+                            });
+                        }
+                    })
+                    .catch((error) => res.status(400).json({ error }));
+            } else {
+                res.status(404).json({ message: "Animaux introuvables" });
+            }
+        })
+        .catch((error) => res.status(404).json({ error }));
+};
+
+export default { getAnimalsBySpecies, moveSpecies, feedSpecies };

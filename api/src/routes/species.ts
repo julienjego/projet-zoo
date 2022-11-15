@@ -6,5 +6,6 @@ const router = express.Router();
 router.get("/:id/animals", speciesController.getAnimalsBySpecies);
 router.post("/in/:id", speciesController.moveSpecies);
 router.post("/out/:id", speciesController.moveSpecies);
+router.post("/feed/:id", speciesController.feedSpecies);
 
 export default router;
