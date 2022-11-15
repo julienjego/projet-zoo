@@ -2,6 +2,7 @@ import Animal from "../models/animal";
 import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 
+// Créer un animal
 const createAnimal = (req: Request, res: Response, next: NextFunction) => {
     const animalObject: typeof Animal = req.body;
     const animal = new Animal({
@@ -18,6 +19,7 @@ const createAnimal = (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
+// Rentrer ou sortir un animal
 const moveAnimal = (req: Request, res: Response, next: NextFunction) => {
     const url = req.url;
 
@@ -45,18 +47,21 @@ const moveAnimal = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(404).json({ error }));
 };
 
+// Récupérer un animal par son Id
 const getAnAnimal = (req: Request, res: Response, next: NextFunction) => {
     Animal.findOne({ _id: req.params.id })
         .then((animal) => res.status(200).json(animal))
         .catch((error) => res.status(404).json({ error }));
 };
 
+// Récupérer tous les animaux
 const getAllAnimals = (req: Request, res: Response, next: NextFunction) => {
     Animal.find()
         .then((animals) => res.status(200).json(animals))
         .catch((error) => res.status(404).json({ error }));
 };
 
+// Connaître l'enclos d'un animal
 const getAnimalEnclosure = (
     req: Request,
     res: Response,
@@ -133,6 +138,7 @@ const getAnimalEnclosure = (
         });
 };
 
+// Mettre à jour un animal
 const updateAnimal = (req: Request, res: Response, next: NextFunction) => {
     Animal.findOne({ _id: req.params.id }).then((animal) => {
         if (animal) {
@@ -152,6 +158,8 @@ const updateAnimal = (req: Request, res: Response, next: NextFunction) => {
         }
     });
 };
+
+// Supprimer un animal
 const deleteAnimal = (req: Request, res: Response, next: NextFunction) => {
     Animal.findOne({ _id: req.params.id }).then((animal) => {
         if (animal) {
