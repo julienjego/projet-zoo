@@ -1,5 +1,6 @@
 import Species from "../models/species";
 import Animal from "../models/animal";
+import logger from "../utils/log";
 import { NextFunction, Request, Response } from "express";
 
 // Récupérer tous les animaux d'une espèce
@@ -66,6 +67,13 @@ const feedSpecies = (req: Request, res: Response, next: NextFunction) => {
                             res.status(200).json({
                                 message: `Animaux [${species.nom}] nourris !`,
                             });
+                            logger.logEvents(
+                                species.enclos,
+                                species.nom,
+                                animals.map((animal) => animal.nom),
+                                "nourissage",
+                                "RAS"
+                            );
                         } else {
                             res.status(404).json({
                                 message: "Pas d'animaux à nourrir",
