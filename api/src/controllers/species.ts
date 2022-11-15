@@ -36,8 +36,22 @@ const moveSpecies = (req: Request, res: Response, next: NextFunction) => {
                         Animal.updateMany(
                             { espece: species.nom },
                             url.includes("/out/")
-                                ? { $set: { position: "dehors" } }
-                                : { $set: { position: "dedans" } }
+                                ? (logger.logEvent(
+                                      species.enclos,
+                                      species.nom,
+                                      animals.map((animal) => animal.nom),
+                                      "sortie",
+                                      req.body.observations
+                                  ),
+                                  { $set: { position: "dehors" } })
+                                : (logger.logEvent(
+                                      species.enclos,
+                                      species.nom,
+                                      animals.map((animal) => animal.nom),
+                                      "entree",
+                                      req.body.observations
+                                  ),
+                                  { $set: { position: "dedans" } })
                         )
                             .then(() => {
                                 res.status(202).json(
@@ -67,12 +81,13 @@ const feedSpecies = (req: Request, res: Response, next: NextFunction) => {
                             res.status(200).json({
                                 message: `Animaux [${species.nom}] nourris !`,
                             });
-                            logger.logEvents(
+                            // Log de l'événement
+                            logger.logEvent(
                                 species.enclos,
                                 species.nom,
                                 animals.map((animal) => animal.nom),
                                 "nourissage",
-                                "RAS"
+                                req.body.observations
                             );
                         } else {
                             res.status(404).json({

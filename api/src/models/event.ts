@@ -7,7 +7,7 @@ const eventSchema: Schema = new mongoose.Schema<IEvent>({
     espece: { type: String, required: false },
     animal: { type: [String], required: true },
     type: { type: String, required: true },
-    observations: { type: String, required: false },
+    observations: { type: String, required: false, default: "RAS" },
 });
 
 export default mongoose.model<IEvent>("Event", eventSchema);

@@ -1,11 +1,11 @@
 import Event from "../models/event";
 
-const logEvents = (
-    enclos: String,
-    espece: String,
-    animal: String | String[],
-    type: String,
-    observations: String
+const logEvent = (
+    enclos: string,
+    espece: string,
+    animal: string[],
+    type: string,
+    observations: string
 ) => {
     const event = new Event({
         date: Date.now(),
@@ -18,4 +18,4 @@ const logEvents = (
     event.save();
 };
 
-export default { logEvents };
+export default { logEvent };
