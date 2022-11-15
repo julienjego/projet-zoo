@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import { ISpecies } from "./species.interface";
 
 const speciesSchema: Schema = new mongoose.Schema<ISpecies>({
+    _id: { type: Number, requirred: true },
     nom: { type: String, required: true },
     nomApp: { type: String, required: true },
     sociable: { type: Boolean, required: true },
