@@ -29,12 +29,14 @@ const moveSpecies = (req: Request, res: Response, next: NextFunction) => {
     Species.findById(req.params.id).then((species) => {
         if (species) {
             const url = req.url;
-
+            const notMoving: string[] | null = req.body.notMoving;
+            console.log(notMoving);
+            // TODO remove not moving animals from log
             Animal.find({ espece: species.nom })
                 .then((animals) => {
                     if (animals) {
                         Animal.updateMany(
-                            { espece: species.nom },
+                            { espece: species.nom, _id: { $nin: notMoving } },
                             url.includes("/out/")
                                 ? (logger.logEvent(
                                       species.enclos,
@@ -54,6 +56,7 @@ const moveSpecies = (req: Request, res: Response, next: NextFunction) => {
                                   { $set: { position: "dedans" } })
                         )
                             .then(() => {
+                                console.log(animals);
                                 res.status(202).json(
                                     url.includes("/out/")
                                         ? { message: "Animaux sortis !" }
