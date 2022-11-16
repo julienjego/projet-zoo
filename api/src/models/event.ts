@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import { IEvent } from "./event.interface";
 
 const eventSchema: Schema = new mongoose.Schema<IEvent>({
-    date: { type: Date, required: true },
+    date: { type: Date, required: false },
     enclos: { type: String, required: false },
     espece: { type: String, required: false },
     animal: { type: [String], required: true },

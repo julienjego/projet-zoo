@@ -4,7 +4,23 @@ import Species from "../models/species";
 import Animal from "../models/animal";
 import Zone from "../models/zone";
 import { NextFunction, Request, Response } from "express";
-import mongoose from "mongoose";
+
+// Créer un événément
+const createEvent = (req: Request, res: Response, next: NextFunction) => {
+    const eventObject: typeof Event = req.body;
+    const event = new Event({
+        date: new Date(),
+        ...eventObject,
+    });
+    event
+        .save()
+        .then(() => {
+            res.status(201).json({ message: "Evénement enregistré !" });
+        })
+        .catch((error) => {
+            res.status(400).json({ error });
+        });
+};
 
 //Récupère tous les événements d'une zone
 const getEventsByZone = (req: Request, res: Response, next: NextFunction) => {
@@ -92,6 +108,7 @@ const getEventsByAnimal = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export default {
+    createEvent,
     getEventsByEnclosure,
     getEventsBySpecies,
     getEventsByAnimal,
