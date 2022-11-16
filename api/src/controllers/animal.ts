@@ -1,6 +1,7 @@
 import Animal from "../models/animal";
 import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
+import logger from "../utils/log";
 
 // Créer un animal
 const createAnimal = (req: Request, res: Response, next: NextFunction) => {
@@ -23,7 +24,7 @@ const createAnimal = (req: Request, res: Response, next: NextFunction) => {
 const moveAnimal = (req: Request, res: Response, next: NextFunction) => {
     const url = req.url;
 
-    Animal.findOne({ _id: req.params.id })
+    Animal.findById({ _id: req.params.id })
         .then((animal) => {
             if (animal) {
                 Animal.updateOne(
@@ -49,7 +50,7 @@ const moveAnimal = (req: Request, res: Response, next: NextFunction) => {
 
 // Récupérer un animal par son Id
 const getAnAnimal = (req: Request, res: Response, next: NextFunction) => {
-    Animal.findOne({ _id: req.params.id })
+    Animal.findById({ _id: req.params.id })
         .then((animal) => res.status(200).json(animal))
         .catch((error) => res.status(404).json({ error }));
 };
@@ -62,12 +63,8 @@ const getAllAnimals = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Connaître l'enclos d'un animal
-const getAnimalEnclosure = (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
-    Animal.findOne({ _id: req.params.id })
+const getAnimalEnclosure = (req: Request, res: Response) => {
+    Animal.findById({ _id: req.params.id })
         .then((animal) => {
             if (animal) {
                 Animal.aggregate([
@@ -126,9 +123,31 @@ const getAnimalEnclosure = (
                             enclos: "$enclosuresResult.nomApp",
                         },
                     },
-                ]).exec((err, results) => {
-                    res.status(200).json(results);
+                ]).exec((err, result) => {
+                    res.status(200).json(result);
                 });
+            } else {
+                res.status(404).json({ message: "Animal non trouvé" });
+            }
+        })
+        .catch(() => {
+            res.status(400).json({ erreur: "Syntaxe de la requête erronée" });
+        });
+};
+
+// Soigner un animal
+const careAnimal = (req: Request, res: Response, next: NextFunction) => {
+    Animal.findById({ _id: req.params.id })
+        .then((animal) => {
+            if (animal) {
+                res.status(200).json({ message: `${animal.nom} soigné` });
+                logger.logEvent(
+                    "enclos",
+                    animal.espece,
+                    animal.nom,
+                    "soins",
+                    req.body.observations
+                );
             } else {
                 res.status(404).json({ message: "Animal non trouvé" });
             }
@@ -140,7 +159,7 @@ const getAnimalEnclosure = (
 
 // Mettre à jour un animal
 const updateAnimal = (req: Request, res: Response, next: NextFunction) => {
-    Animal.findOne({ _id: req.params.id }).then((animal) => {
+    Animal.findById({ _id: req.params.id }).then((animal) => {
         if (animal) {
             animal.set(req.body);
             animal
@@ -161,7 +180,7 @@ const updateAnimal = (req: Request, res: Response, next: NextFunction) => {
 
 // Supprimer un animal
 const deleteAnimal = (req: Request, res: Response, next: NextFunction) => {
-    Animal.findOne({ _id: req.params.id }).then((animal) => {
+    Animal.findById({ _id: req.params.id }).then((animal) => {
         if (animal) {
             Animal.deleteOne({ _id: req.params.id })
                 .then(() => {
@@ -184,4 +203,5 @@ export default {
     deleteAnimal,
     moveAnimal,
     getAnimalEnclosure,
+    careAnimal,
 };

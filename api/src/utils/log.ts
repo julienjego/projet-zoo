@@ -3,7 +3,7 @@ import Event from "../models/event";
 const logEvent = (
     enclos: string,
     espece: string,
-    animal: string[],
+    animal: string | string[],
     type: string,
     observations: string
 ) => {
