@@ -103,4 +103,42 @@ const feedSpecies = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(404).json({ error }));
 };
 
-export default { getAnimalsBySpecies, moveSpecies, feedSpecies };
+// Stimulation des animaux d'une espèce
+const stimulateSpecies = (req: Request, res: Response, next: NextFunction) => {
+    Species.findById(req.params.id)
+        .then((species) => {
+            if (species) {
+                Animal.find({ espece: species.nom })
+                    .then((animals) => {
+                        if (animals) {
+                            res.status(200).json({
+                                message: `Animaux [${species.nom}] stimulés !`,
+                            });
+                            // Log de l'événement
+                            logger.logEvent(
+                                species.enclos,
+                                species.nom,
+                                animals.map((animal) => animal.nom),
+                                "stimulation",
+                                req.body.observations
+                            );
+                        } else {
+                            res.status(404).json({
+                                message: "Pas d'animaux à stimuler",
+                            });
+                        }
+                    })
+                    .catch((error) => res.status(400).json({ error }));
+            } else {
+                res.status(404).json({ message: "Animaux introuvables" });
+            }
+        })
+        .catch((error) => res.status(404).json({ error }));
+};
+
+export default {
+    getAnimalsBySpecies,
+    moveSpecies,
+    feedSpecies,
+    stimulateSpecies,
+};
