@@ -28,32 +28,18 @@ const getAnimalsBySpecies = (
 const moveSpecies = (req: Request, res: Response, next: NextFunction) => {
     Species.findById(req.params.id).then((species) => {
         if (species) {
-            const url = req.url;
+            const url: string = req.url;
             const notMoving: string[] | null = req.body.notMoving;
-
-            console.log(notMoving);
-            // TODO remove not moving animals from log
+            let inOut: string;
             Animal.find({ espece: species.nom })
                 .then((animals) => {
                     if (animals) {
                         Animal.updateMany(
                             { espece: species.nom, _id: { $nin: notMoving } },
                             url.includes("/out/")
-                                ? (logger.logEvent(
-                                      species.enclos,
-                                      species.nom,
-                                      animals.map((animal) => animal.nom),
-                                      "sortie",
-                                      req.body.observations
-                                  ),
+                                ? ((inOut = "out"),
                                   { $set: { position: "dehors" } })
-                                : (logger.logEvent(
-                                      species.enclos,
-                                      species.nom,
-                                      animals.map((animal) => animal.nom),
-                                      "entree",
-                                      req.body.observations
-                                  ),
+                                : ((inOut = "in"),
                                   { $set: { position: "dedans" } })
                         )
                             .then(() => {
@@ -62,14 +48,41 @@ const moveSpecies = (req: Request, res: Response, next: NextFunction) => {
                                         ? { message: "Animaux sortis !" }
                                         : { message: "Animaux rentrés !" }
                                 );
+
+                                // Log uniquement les animaux entrés ou sortis
+                                if (inOut === "in") {
+                                    Animal.find({
+                                        espece: species.nom,
+                                        position: { $eq: "dedans" },
+                                    }).then((animals) => {
+                                        logger.logEvent(
+                                            species.enclos,
+                                            species.nom,
+                                            animals.map((animal) => animal.nom),
+                                            "entree",
+                                            req.body.observations
+                                        );
+                                    });
+                                } else {
+                                    Animal.find({
+                                        espece: species.nom,
+                                        position: { $eq: "dehors" },
+                                    }).then((animals) => {
+                                        logger.logEvent(
+                                            species.enclos,
+                                            species.nom,
+                                            animals.map((animal) => animal.nom),
+                                            "sortie",
+                                            req.body.observations
+                                        );
+                                    });
+                                }
                             })
-                            .catch((error) => res.status(400).json({ error }))
-                            .finally(() => {
-                                console.log("finally");
-                                console.log(animals);
-                            });
+                            .catch((error) => res.status(400).json({ error }));
                     } else {
-                        console.log("Animaux inconnus");
+                        res.status(404).json({
+                            message: "Animaux introuvables",
+                        });
                     }
                 })
                 .catch((error) => res.status(404).json({ error }));
@@ -149,3 +162,6 @@ export default {
     feedSpecies,
     stimulateSpecies,
 };
+function customLog() {
+    throw new Error("Function not implemented.");
+}
