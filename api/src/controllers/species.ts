@@ -30,6 +30,7 @@ const moveSpecies = (req: Request, res: Response, next: NextFunction) => {
         if (species) {
             const url = req.url;
             const notMoving: string[] | null = req.body.notMoving;
+
             console.log(notMoving);
             // TODO remove not moving animals from log
             Animal.find({ espece: species.nom })
@@ -56,14 +57,17 @@ const moveSpecies = (req: Request, res: Response, next: NextFunction) => {
                                   { $set: { position: "dedans" } })
                         )
                             .then(() => {
-                                console.log(animals);
                                 res.status(202).json(
                                     url.includes("/out/")
                                         ? { message: "Animaux sortis !" }
                                         : { message: "Animaux rentrés !" }
                                 );
                             })
-                            .catch((error) => res.status(400).json({ error }));
+                            .catch((error) => res.status(400).json({ error }))
+                            .finally(() => {
+                                console.log("finally");
+                                console.log(animals);
+                            });
                     } else {
                         console.log("Animaux inconnus");
                     }
