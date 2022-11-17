@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { IAnimal } from "./animal.interface";
+import { IAnimal } from "../interfaces/animal.interface";
 
 const animalSchema: Schema = new mongoose.Schema<IAnimal>({
     nom: { type: String, required: true },

@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { IZone } from "./zone.interface";
+import { IZone } from "../interfaces/zone.interface";
 
 const zoneSchema: Schema = new mongoose.Schema<IZone>({
     _id: { type: Number, required: true },

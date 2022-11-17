@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { IEnclosure } from "./enclosure.interface";
+import { IEnclosure } from "../interfaces/enclosure.interface";
 
 const enclosureSchema: Schema = new mongoose.Schema<IEnclosure>({
     _id: { type: Number, required: true },

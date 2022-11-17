@@ -1,4 +1,4 @@
-import { IEventType } from "./eventType.interface";
+import { IEventType } from "../interfaces/eventType.interface";
 import mongoose, { Schema } from "mongoose";
 
 const eventTypeSchema: Schema = new mongoose.Schema<IEventType>({

@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { IAction } from "./action.interface";
+import { IAction } from "../interfaces/action.interface";
 
 const actionSchema: Schema = new mongoose.Schema<IAction>({
     enclos: { type: String, required: true },

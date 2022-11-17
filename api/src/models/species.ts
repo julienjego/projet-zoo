@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { ISpecies } from "./species.interface";
+import { ISpecies } from "../interfaces/species.interface";
 
 const speciesSchema: Schema = new mongoose.Schema<ISpecies>({
     _id: { type: Number, requirred: true },
