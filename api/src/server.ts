@@ -5,6 +5,8 @@ import animalRoutes from "./routes/animal";
 import speciesRoutes from "./routes/species";
 import eventRoutes from "./routes/event";
 import enclosureRoutes from "./routes/enclosure";
+import actionRoutes from "./routes/action";
+
 const api: Express = express();
 
 //Connexion à la base MongoDB
@@ -60,7 +62,8 @@ const startServer = () => {
     api.use("/api/animals", animalRoutes);
     api.use("/api/species", speciesRoutes);
     api.use("/api/events", eventRoutes);
-    api.use("/api/enclosure", enclosureRoutes);
+    api.use("/api/enclosures", enclosureRoutes);
+    api.use("/api/actions", actionRoutes);
 
     // Ping pour voir si tout est en place
     api.get("/ping", (req: Request, res: Response, next: NextFunction) =>
