@@ -5,4 +5,6 @@ export interface IEmployee {
     secu: number;
     naissance: string;
     role: string;
+    username: string;
+    password: string;
 }
