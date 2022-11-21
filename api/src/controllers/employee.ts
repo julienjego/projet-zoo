@@ -10,9 +10,10 @@ const register = (req: Request, res: Response, next: NextFunction) => {
 
     bcryptjs.hash(password, 10, (hashError, hash) => {
         if (hashError) {
-            return res
-                .status(500)
-                .json({ message: hashError.message, error: hashError });
+            res.status(500).json({
+                message: hashError.message,
+                error: hashError,
+            });
         }
         const _employee = new Employee({
             _id: new mongoose.Types.ObjectId(),
@@ -25,14 +26,22 @@ const register = (req: Request, res: Response, next: NextFunction) => {
             password: hash,
         });
 
-        return _employee
-            .save()
-            .then((employee) => {
-                return res.status(201).json({ employee });
-            })
-            .catch((error) => {
-                return res.status(500).json({ message: error });
-            });
+        Employee.findOne({ username: _employee.username }).then((exists) => {
+            if (exists) {
+                res.status(409).send(
+                    "Vous êtes déjà inscrit·e, connectez-vous."
+                );
+            } else {
+                _employee
+                    .save()
+                    .then((employee) => {
+                        res.status(201).json({ employee });
+                    })
+                    .catch((error) => {
+                        res.status(500).json({ message: error });
+                    });
+            }
+        });
     });
 };
 const login = (req: Request, res: Response, next: NextFunction) => {
@@ -42,7 +51,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
         .exec()
         .then((employees) => {
             if (employees.length !== 1) {
-                return res.status(401).json({ message: "Non autorisé" });
+                res.status(401).json({ message: "Non autorisé" });
             }
 
             bcryptjs.compare(
@@ -50,18 +59,16 @@ const login = (req: Request, res: Response, next: NextFunction) => {
                 employees[0].password,
                 (error, result) => {
                     if (error) {
-                        return res
-                            .status(401)
-                            .json({ message: "Non autorisé" });
+                        res.status(401).json({ message: "Non autorisé" });
                     } else if (result) {
                         signToken(employees[0], (_error, token) => {
                             if (_error) {
-                                return res.status(401).json({
+                                res.status(401).json({
                                     message: "Non autorisé",
                                     erreur: error,
                                 });
                             } else if (token) {
-                                return res.status(200).json({
+                                res.status(200).json({
                                     message: "Authentification réussie !",
                                     token,
                                     employee: employees[0],
@@ -73,7 +80,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
             );
         })
         .catch((error) => {
-            return res.status(500).json({ message: error });
+            res.status(500).json({ message: error });
         });
 };
 

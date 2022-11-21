@@ -162,6 +162,3 @@ export default {
     feedSpecies,
     stimulateSpecies,
 };
-function customLog() {
-    throw new Error("Function not implemented.");
-}

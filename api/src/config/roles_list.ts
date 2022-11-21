@@ -1,7 +1,7 @@
-const ROLES_LIST = {
+const ROLES = {
     ADMIN: "ADMIN",
     VETERINAIRE: "VETERINAIRE",
     RESPONSABLE_ZONE: "RESPONSABLE_ZONE",
     SOIGNEUR: "SOIGNEUR",
 };
-export default { ROLES_LIST };
+export default { ROLES };
