@@ -1,6 +1,8 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
 import config from "./config/config";
+import swaggerUi from "swagger-ui-express";
+import * as swaggerDocument from "./config/swagger.json";
 import animalRoutes from "./routes/animal";
 import speciesRoutes from "./routes/species";
 import eventRoutes from "./routes/event";
@@ -39,6 +41,7 @@ const startServer = () => {
 
     api.use(express.urlencoded({ extended: true }));
     api.use(express.json());
+    api.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
     // On envoie les headers pour éviter les erreurs CORS
     api.use((req: Request, res: Response, next: NextFunction) => {
@@ -68,6 +71,19 @@ const startServer = () => {
     api.use("/api/employees", employeeRoutes);
 
     // Ping pour voir si tout est en place
+    /**
+     * @swagger
+     * /ping:
+     *  get:
+     *      description: Call a ping
+     *      responses:
+     *          "200":
+     *            description: Get a pong
+     *          "500":
+     *            description: Server error
+     *
+     *
+     */
     api.get("/ping", (req: Request, res: Response, next: NextFunction) =>
         res.status(200).json({ message: "pong" })
     );

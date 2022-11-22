@@ -1,0 +1,532 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "0.0.1",
+        "title": "Zoo API",
+        "description": "API du projet zoo",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "servers": [{ "url": "/api/" }],
+    "tags": [
+        { "name": "Actions", "description": "Gestion des actions" },
+        { "name": "Animals", "description": "Gestion des animaux" },
+        { "name": "Employees", "description": "Gestion des employés" },
+        { "name": "Enclosures", "description": "Gestion des enclos" },
+        { "name": "Events", "description": "Gestion des événements" },
+        { "name": "Species", "description": "Gestion des espèces" }
+    ],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/actions/zones/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de la zone à rechercher",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": ["Actions"],
+                "summary": "Lister les actions d'une zone",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Action"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé à effectuer cette opération."
+                    }
+                }
+            }
+        },
+        "/actions/enclosures/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'enclos à rechercher",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": ["Actions"],
+                "summary": "Lister les actions d'un enclos",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Action"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé à effectuer cette opération."
+                    }
+                }
+            }
+        },
+
+        "/actions/species/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'espèce à rechercher",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": ["Actions"],
+                "summary": "Lister les actions qui concernent une espèce",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Action"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé à effectuer cette opération."
+                    }
+                }
+            }
+        },
+        "/actions/animals/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'animal à rechercher",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": ["Actions"],
+                "summary": "Lister les actions qui concernent un animal",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Action"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé à effectuer cette opération."
+                    }
+                }
+            }
+        },
+        "/actions/create": {
+            "put": {
+                "tags": ["Actions"],
+                "summary": "Créer une action à effectuer",
+                "requestBody": {
+                    "description": "Objet Action",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Action"
+                            }
+                        }
+                    }
+                },
+                "produces": ["application/json"],
+                "responses": {
+                    "201": {
+                        "description": "Action créée.",
+                        "schema": {
+                            "$ref": "#/definitions/Action"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé à effectuer cette opération."
+                    }
+                }
+            }
+        },
+        "/animals/": {
+            "get": {
+                "tags": ["Animals"],
+                "summary": "Lister les infos de tous les animaux du zoo",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Animal"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Animal inconnu."
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Animals"],
+                "summary": "Entrer un nouvel animal dans la base",
+                "requestBody": {
+                    "description": "Objet Animal",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Animal"
+                            }
+                        }
+                    }
+                },
+                "produces": ["application/json"],
+                "responses": {
+                    "201": {
+                        "description": "Animal entré dans la base.",
+                        "schema": {
+                            "$ref": "#/definitions/Animal"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    }
+                }
+            }
+        },
+        "/animals/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'animal à rechercher",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": ["Animals"],
+                "summary": "Lister les infos d'un animal",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Animal"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Animal inconnu."
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Animals"],
+                "summary": "Mettre à jour un animal",
+                "requestBody": {
+                    "description": "Objet Animal",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Animal"
+                            }
+                        }
+                    }
+                },
+                "produces": ["application/json"],
+                "responses": {
+                    "202": {
+                        "description": "Animal mis à jour.",
+                        "schema": {
+                            "$ref": "#/definitions/Animal"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Animal inconnu"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Animals"],
+                "summary": "Supprimer un animal de la base",
+                "responses": {
+                    "410": {
+                        "description": "Animal supprimé.",
+                        "schema": {
+                            "$ref": "#/definitions/Animal"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Animal inconnu."
+                    }
+                }
+            }
+        },
+        "/animals/{id}/enclosure": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'animal à rechercher",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": ["Animals"],
+                "summary": "Obtenir l'enclos d'un animal",
+                "responses": {
+                    "200": {
+                        "description": "Succès."
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Animal inconnu."
+                    }
+                }
+            }
+        },
+        "/animals/out/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'animal à faire sortir",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": ["Animals"],
+                "summary": "Faire sortir un animal",
+                "responses": {
+                    "200": {
+                        "description": "Succès."
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Animal inconnu."
+                    }
+                }
+            }
+        },
+        "/animals/in/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'animal à faire rentrer",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": ["Animals"],
+                "summary": "Faire rentrer un animal",
+                "responses": {
+                    "200": {
+                        "description": "Succès."
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Animal inconnu."
+                    }
+                }
+            }
+        },
+        "/animals/care/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'animal soigné",
+                    "type": "string"
+                }
+            ],
+            "post": {
+                "tags": ["Animals"],
+                "summary": "Soigner un animal",
+                "responses": {
+                    "200": {
+                        "description": "Succès."
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Animal inconnu."
+                    }
+                }
+            }
+        },
+        "/employee/register": {
+            "post": {
+                "requestBody": {
+                    "description": "Objet Employee",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Employee"
+                            }
+                        }
+                    }
+                },
+                "tags": ["Employees"],
+                "summary": "Enregistrer un nouvel employé",
+                "response": {
+                    "201": {
+                        "description": "Utilisateur créé."
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "409": {
+                        "description": "Utilisateur déjà existant."
+                    }
+                }
+            }
+        },
+        "/employee/login": {
+            "post": {
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "items": {
+                                    "username": "string",
+                                    "password": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["Employees"],
+                "summary": "Se connecter comme employé",
+                "response": {
+                    "200": {
+                        "description": "Connexion réussie."
+                    },
+                    "401": {
+                        "description": "Connexion refusée"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Action": {
+            "type": "object",
+            "properties": {
+                "creation": {
+                    "type": "string"
+                },
+                "enclos": {
+                    "type": "string"
+                },
+                "espece": {
+                    "type": "string"
+                },
+                "animal": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "observations": {
+                    "type": "string"
+                }
+            }
+        },
+        "Animal": {
+            "type": "object",
+            "properties": {
+                "nom": {
+                    "type": "string"
+                },
+                "espece": {
+                    "type": "string"
+                },
+                "naissance": {
+                    "type": "string"
+                },
+                "deces": {
+                    "type": "string"
+                },
+                "sexe": {
+                    "type": "string"
+                },
+                "observations": {
+                    "type": "string"
+                },
+                "position": {
+                    "type": "string"
+                }
+            }
+        },
+        "Employee": {
+            "type": "object",
+            "properties": {
+                "nom": {
+                    "type": "string"
+                },
+                "prenom": {
+                    "type": "string"
+                },
+                "secu": {
+                    "type": "string"
+                },
+                "naissance": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

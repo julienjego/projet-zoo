@@ -4,6 +4,12 @@ import auth from "../middlewares/auth";
 
 const router = express.Router();
 
+router.get("/", animalController.getAllAnimals);
+
+router.get("/:id", animalController.getAnAnimal);
+
+router.get("/:id/enclosure", animalController.getAnimalEnclosure);
+
 router.post(
     "/",
     auth.verifyToken,
@@ -24,11 +30,6 @@ router.post(
     auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR"]),
     animalController.moveAnimal
 );
-router.get("/", animalController.getAllAnimals);
-
-router.get("/:id", animalController.getAnAnimal);
-
-router.get("/:id/enclosure", animalController.getAnimalEnclosure);
 
 router.put(
     "/:id",
