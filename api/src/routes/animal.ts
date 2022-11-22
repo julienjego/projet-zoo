@@ -4,19 +4,51 @@ import auth from "../middlewares/auth";
 
 const router = express.Router();
 
-router.post("/", animalController.createAnimal);
-router.post("/out/:id", animalController.moveAnimal);
-router.post("/in/:id", animalController.moveAnimal);
-router.get(
+router.post(
     "/",
     auth.verifyToken,
-    auth.verifyRole(["ADMIN"]),
-    animalController.getAllAnimals
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE"]),
+    animalController.createAnimal
 );
+
+router.post(
+    "/out/:id",
+    auth.verifyToken,
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR"]),
+    animalController.moveAnimal
+);
+
+router.post(
+    "/in/:id",
+    auth.verifyToken,
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR"]),
+    animalController.moveAnimal
+);
+router.get("/", animalController.getAllAnimals);
+
 router.get("/:id", animalController.getAnAnimal);
+
 router.get("/:id/enclosure", animalController.getAnimalEnclosure);
-router.put("/:id", animalController.updateAnimal);
-router.delete("/:id", animalController.deleteAnimal);
-router.post("/care/:id", animalController.careAnimal);
+
+router.put(
+    "/:id",
+    auth.verifyToken,
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE"]),
+    animalController.updateAnimal
+);
+
+router.delete(
+    "/:id",
+    auth.verifyToken,
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE"]),
+    animalController.deleteAnimal
+);
+
+router.post(
+    "/care/:id",
+    auth.verifyToken,
+    auth.verifyRole(["VETERINAIRE"]),
+    animalController.careAnimal
+);
 
 export default router;

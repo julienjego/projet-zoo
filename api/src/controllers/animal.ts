@@ -23,21 +23,38 @@ const createAnimal = (req: Request, res: Response, next: NextFunction) => {
 // Rentrer ou sortir un animal
 const moveAnimal = (req: Request, res: Response, next: NextFunction) => {
     const url = req.url;
-
+    let inOut: string;
     Animal.findById({ _id: req.params.id })
         .then((animal) => {
             if (animal) {
                 Animal.updateOne(
                     { _id: req.params.id },
                     url.includes("/out/")
-                        ? { $set: { position: "dehors" } }
-                        : { $set: { position: "dedans" } }
+                        ? ((inOut = "out"), { $set: { position: "dehors" } })
+                        : ((inOut = "in"), { $set: { position: "dedans" } })
                 )
                     .then(() => {
                         res.status(202).json(
                             url.includes("/out/")
                                 ? { message: "Animal sorti !" }
                                 : { message: "Animal rentré !" }
+                        );
+                        console.log(animal.position);
+
+                        // Log l'animal entré ou sorti
+                        Animal.findById({ _id: req.params.id }).then(
+                            (animal) => {
+                                if (animal) {
+                                    logger.logEvent(
+                                        res.locals.jwt.username,
+                                        "enclos",
+                                        animal.espece,
+                                        animal.nom,
+                                        inOut === "in" ? "entree" : "sortie",
+                                        req.body.observations
+                                    );
+                                }
+                            }
                         );
                     })
                     .catch((error) => res.status(400).json({ error }));
@@ -142,6 +159,7 @@ const careAnimal = (req: Request, res: Response, next: NextFunction) => {
             if (animal) {
                 res.status(200).json({ message: `${animal.nom} soigné` });
                 logger.logEvent(
+                    res.locals.jwt.username,
                     "enclos",
                     animal.espece,
                     animal.nom,

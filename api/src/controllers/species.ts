@@ -56,6 +56,7 @@ const moveSpecies = (req: Request, res: Response, next: NextFunction) => {
                                         position: { $eq: "dedans" },
                                     }).then((animals) => {
                                         logger.logEvent(
+                                            res.locals.jwt.username,
                                             species.enclos,
                                             species.nom,
                                             animals.map((animal) => animal.nom),
@@ -69,6 +70,7 @@ const moveSpecies = (req: Request, res: Response, next: NextFunction) => {
                                         position: { $eq: "dehors" },
                                     }).then((animals) => {
                                         logger.logEvent(
+                                            res.locals.jwt.username,
                                             species.enclos,
                                             species.nom,
                                             animals.map((animal) => animal.nom),
@@ -103,6 +105,7 @@ const feedSpecies = (req: Request, res: Response, next: NextFunction) => {
                             });
                             // Log de l'événement
                             logger.logEvent(
+                                res.locals.jwt.username,
                                 species.enclos,
                                 species.nom,
                                 animals.map((animal) => animal.nom),
@@ -136,6 +139,7 @@ const stimulateSpecies = (req: Request, res: Response, next: NextFunction) => {
                             });
                             // Log de l'événement
                             logger.logEvent(
+                                res.locals.jwt.username,
                                 species.enclos,
                                 species.nom,
                                 animals.map((animal) => animal.nom),

@@ -8,6 +8,7 @@ const verifyEnclosure = (req: Request, res: Response, next: NextFunction) => {
             if (enclos) {
                 res.status(200).json({ message: `${enclos.nom} vérifié` });
                 logger.logEvent(
+                    res.locals.jwt.username,
                     enclos.nom,
                     "",
                     "",
