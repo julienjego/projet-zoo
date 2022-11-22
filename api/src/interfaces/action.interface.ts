@@ -1,4 +1,5 @@
 export interface IAction {
+    creation: string;
     enclos: string;
     espece: string;
     animal: string;

@@ -8,7 +8,9 @@ import { NextFunction, Request, Response } from "express";
 // Créer un événément
 const createEvent = (req: Request, res: Response, next: NextFunction) => {
     const eventObject: typeof Event = req.body;
+    const emp = res.locals.jwt;
     const event = new Event({
+        creation: emp.username,
         date: new Date(),
         ...eventObject,
     });

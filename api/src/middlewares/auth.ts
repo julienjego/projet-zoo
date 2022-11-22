@@ -25,7 +25,6 @@ const verifyRole = (role: string[]) => {
         let emp = res.locals.jwt;
 
         if (role.includes(emp.role)) {
-            console.log("employee ok");
             next();
         } else {
             res.status(401).json({ message: "Non autorisé !" });

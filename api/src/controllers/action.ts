@@ -8,7 +8,9 @@ import { NextFunction, Request, Response } from "express";
 // Création d'une action
 const createAction = (req: Request, res: Response, next: NextFunction) => {
     const actionObject: typeof Action = req.body;
+    const emp = res.locals.jwt;
     const action = new Action({
+        creation: emp.username,
         date: new Date(req.body.date),
         ...actionObject,
     });
