@@ -42,7 +42,7 @@ const moveAnimal = (req: Request, res: Response, next: NextFunction) => {
                     })
                     .catch((error) => res.status(400).json({ error }));
             } else {
-                console.log("Animal inconnu");
+                res.status(404).json({ message: "Animal inconnu" });
             }
         })
         .catch((error) => res.status(404).json({ error }));

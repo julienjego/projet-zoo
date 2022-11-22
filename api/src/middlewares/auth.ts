@@ -20,23 +20,16 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-const verifyRole = (role: string[]): void => {
-    (req: Request, res: Response, next: NextFunction) => {
-        Employee.findById({ username: res.locals.username }).then(
-            (employee) => {
-                if (employee) {
-                    if (role.includes(employee.role)) {
-                        next();
-                    } else {
-                        res.status(401).json({ message: "Non autorisé" });
-                    }
+const verifyRole = (role: string[]) => {
+    return (req: Request, res: Response, next: NextFunction) => {
+        let emp = res.locals.jwt;
 
-                    next();
-                } else {
-                    res.status(401).json({ message: "Non autorisé" });
-                }
-            }
-        );
+        if (role.includes(emp.role)) {
+            console.log("employee ok");
+            next();
+        } else {
+            res.status(401).json({ message: "Non autorisé !" });
+        }
     };
 };
 

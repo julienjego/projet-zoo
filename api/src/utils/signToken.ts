@@ -12,7 +12,7 @@ const signToken = (
 
     try {
         jwt.sign(
-            { employee: employee.username },
+            { username: employee.username, role: employee.role },
             config.token.secret,
             {
                 issuer: config.token.issuer,
