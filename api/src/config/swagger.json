@@ -46,6 +46,9 @@
                     },
                     "401": {
                         "description": "Utilisateur non autorisé à effectuer cette opération."
+                    },
+                    "404": {
+                        "description": "Identifiant de la zone inconnu."
                     }
                 }
             }
@@ -75,6 +78,9 @@
                     },
                     "401": {
                         "description": "Utilisateur non autorisé à effectuer cette opération."
+                    },
+                    "404": {
+                        "description": "Identifiant de l'enclos inconnu."
                     }
                 }
             }
@@ -105,6 +111,9 @@
                     },
                     "401": {
                         "description": "Utilisateur non autorisé à effectuer cette opération."
+                    },
+                    "404": {
+                        "description": "Identifiant de l'espèce inconnu."
                     }
                 }
             }
@@ -116,7 +125,7 @@
                     "in": "path",
                     "required": true,
                     "description": "Identifiant de l'animal à rechercher",
-                    "type": "integer"
+                    "type": "string"
                 }
             ],
             "get": {
@@ -134,6 +143,9 @@
                     },
                     "401": {
                         "description": "Utilisateur non autorisé à effectuer cette opération."
+                    },
+                    "404": {
+                        "description": "Identifiant de l'animal inconnu."
                     }
                 }
             }
@@ -434,9 +446,13 @@
                         "application/json": {
                             "schema": {
                                 "type": "object",
-                                "items": {
-                                    "username": "string",
-                                    "password": "string"
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
                                 }
                             }
                         }
@@ -449,7 +465,344 @@
                         "description": "Connexion réussie."
                     },
                     "401": {
-                        "description": "Connexion refusée"
+                        "description": "Connexion refusée."
+                    }
+                }
+            }
+        },
+        "/enclosures/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'enclos soigné",
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "tags": ["Enclosures"],
+                "summary": "Vérifier un enclos",
+                "response": {
+                    "200": {
+                        "description": "Succès."
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Connexion refusée."
+                    },
+                    "404": {
+                        "description": "Enclos inconnu."
+                    }
+                }
+            }
+        },
+        "/events/zones/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de la zone à rechercher",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": ["Events"],
+                "summary": "Lister les événéments d'une zone",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Event"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé à effectuer cette opération."
+                    },
+                    "404": {
+                        "description": "Identifiant de la zone inconnu."
+                    }
+                }
+            }
+        },
+        "/events/enclosures/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'enclos à rechercher",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": ["Events"],
+                "summary": "Lister les événéments d'un enclos",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Event"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé à effectuer cette opération."
+                    },
+                    "404": {
+                        "description": "Identifiant de l'enclos inconnu."
+                    }
+                }
+            }
+        },
+        "/events/species/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'espèce à rechercher",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": ["Events"],
+                "summary": "Lister les événéments d'une espèce",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Event"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé à effectuer cette opération."
+                    },
+                    "404": {
+                        "description": "Identifiant de l'espèce inconnu."
+                    }
+                }
+            }
+        },
+        "/events/animals/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'animal à rechercher",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": ["Events"],
+                "summary": "Lister les événéments d'un animal",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Event"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé à effectuer cette opération."
+                    },
+                    "404": {
+                        "description": "Identifiant de l'animal inconnu."
+                    }
+                }
+            }
+        },
+        "/events/create": {
+            "put": {
+                "tags": ["Events"],
+                "summary": "Créer un évènement",
+                "requestBody": {
+                    "description": "Objet Event",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Event"
+                            }
+                        }
+                    }
+                },
+                "produces": ["application/json"],
+                "responses": {
+                    "201": {
+                        "description": "Evénement créée.",
+                        "schema": {
+                            "$ref": "#/definitions/Event"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé à effectuer cette opération."
+                    }
+                }
+            }
+        },
+        "/species/{id}/animals": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'espèce à rechercher",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": ["Species"],
+                "summary": "Lister les animaux d'une espèce",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Species"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé à effectuer cette opération."
+                    },
+                    "404": {
+                        "description": "Identifiant de l'espèce inconnu."
+                    }
+                }
+            }
+        },
+        "/species/in/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'espèce à faire rentrer",
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "tags": ["Species"],
+                "summary": "Faire rentrer une espèce",
+                "response": {
+                    "200": {
+                        "description": "Succès."
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Connexion refusée."
+                    },
+                    "404": {
+                        "description": "Espèce inconnue."
+                    }
+                }
+            }
+        },
+        "/species/out/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'espèce à faire sortir",
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "tags": ["Species"],
+                "summary": "Faire sortir une espèce",
+                "response": {
+                    "200": {
+                        "description": "Succès."
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Connexion refusée."
+                    },
+                    "404": {
+                        "description": "Espèce inconnue."
+                    }
+                }
+            }
+        },
+        "/species/feed/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'espèce à nourrir",
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "tags": ["Species"],
+                "summary": "Nourrir une espèce",
+                "response": {
+                    "200": {
+                        "description": "Succès."
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Connexion refusée."
+                    },
+                    "404": {
+                        "description": "Espèce inconnue."
+                    }
+                }
+            }
+        },
+        "/species/stimulare/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'espèce à stimuler",
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "tags": ["Species"],
+                "summary": "Stimuler une espèce",
+                "response": {
+                    "200": {
+                        "description": "Succès."
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Connexion refusée."
+                    },
+                    "404": {
+                        "description": "Espèce inconnue."
                     }
                 }
             }
@@ -524,6 +877,49 @@
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "Event": {
+            "type": "object",
+            "properties": {
+                "enclos": {
+                    "type": "string"
+                },
+                "espece": {
+                    "type": "string"
+                },
+                "animal": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "observations": {
+                    "type": "string"
+                }
+            }
+        },
+        "Species": {
+            "type": "object",
+            "properties": {
+                "nom": {
+                    "type": "string"
+                },
+                "nomApp": {
+                    "type": "string"
+                },
+                "sociable": {
+                    "type": "boolean"
+                },
+                "observations": {
+                    "type": "string"
+                },
+                "dangereux": {
+                    "type": "boolean"
+                },
+                "enclos": {
                     "type": "string"
                 }
             }
