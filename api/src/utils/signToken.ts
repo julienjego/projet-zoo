@@ -13,7 +13,7 @@ const signToken = (
             {
                 issuer: config.token.issuer,
                 algorithm: "HS256",
-                expiresIn: "2m",
+                expiresIn: "1800s",
             },
             (error, token) => {
                 if (error) {
