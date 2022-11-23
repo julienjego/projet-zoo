@@ -6,18 +6,14 @@ const signToken = (
     employee: IEmployee,
     callback: (error: Error | null, token: string | null) => void
 ): void => {
-    let timeSinceNow = new Date().getTime();
-    let expTime = timeSinceNow + Number(config.token.expireTime) * 100000;
-    let expTimeInSecs = Math.floor(expTime / 1000);
-
     try {
         jwt.sign(
             { username: employee.username, role: employee.role },
-            config.token.secret,
+            config.token.secret as string,
             {
                 issuer: config.token.issuer,
                 algorithm: "HS256",
-                expiresIn: expTimeInSecs,
+                expiresIn: "2m",
             },
             (error, token) => {
                 if (error) {
