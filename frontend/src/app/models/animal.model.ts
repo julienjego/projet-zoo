@@ -1,4 +1,5 @@
 export class Animal {
+  id: string;
   nom: string;
   espece: string;
   naissance: string;
@@ -6,16 +7,20 @@ export class Animal {
   sexe: string;
   observations: string;
   position: string;
+  enclos: string;
 
   constructor(
+    id: string,
     nom: string,
     espece: string,
     naissance: string,
     deces: string,
     sexe: string,
     observations: string,
-    position: string
+    position: string,
+    enclos: string
   ) {
+    this.id = id;
     this.nom = nom;
     this.espece = espece;
     this.naissance = naissance;
@@ -23,5 +28,6 @@ export class Animal {
     this.sexe = sexe;
     this.observations = observations;
     this.position = position;
+    this.enclos = enclos;
   }
 }

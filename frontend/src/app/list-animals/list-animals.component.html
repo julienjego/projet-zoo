@@ -1,15 +1,24 @@
-<h2 class="mt-4">Mes animaux</h2>
+<h2 class="mt-4 pt-5 mb-4">Mes animaux</h2>
 
 <div class="row justify-content-center">
   <div class="col-4" *ngFor="let animal of animals$ | async">
     <div class="card mb-4">
       <h5 class="card-header text-center">{{ animal.nom }}</h5>
       <div class="card-body">
-        <p class="card-text fw-bold">
+        <h6 class="card-subtitle text-muted fw-bold mb-2">
           <small>{{ animal.espece | uppercase }}</small>
+        </h6>
+        <p class="card-text">
+          <span class="{{ animal.sexe | genderColor }}">{{
+            animal.sexe | genderString
+          }}</span>
+          <br />
+          <span>Position : {{ animal.position }}</span>
+          <br />
+          <!-- <span *ngFor="let enclosure of animalsEnclosure$ | async">{{
+            enclosure.enclos
+          }}</span> -->
         </p>
-        <p class="card-text">Sexe : {{ animal.sexe }}</p>
-        <p class="card-text">Position : {{ animal.position }}</p>
       </div>
     </div>
   </div>

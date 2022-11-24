@@ -10,14 +10,27 @@ import { ApiService } from '../api.service';
 })
 export class ListAnimalsComponent implements OnInit {
   animals$!: Observable<Animal[]>;
+  animalsEnclosure!: Object;
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.getAnimals();
+    this.animals$.forEach((animals) => {
+      animals.forEach((a) => {
+        a.id;
+        console.log(a.id);
+      });
+    });
+    // let animalId: string | null =
+    // this.getAnimalsEnclosure(animalId);
   }
 
   public getAnimals() {
-    this.animals$ = this.apiService.getAnimals();
+    return (this.animals$ = this.apiService.getAnimals());
+  }
+
+  public getAnimalsEnclosure(id: string) {
+    this.animalsEnclosure = this.apiService.getAnimalsEnclosure(id);
   }
 }

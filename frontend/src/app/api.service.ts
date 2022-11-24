@@ -14,4 +14,10 @@ export class ApiService {
   public getAnimals(): Observable<Animal[]> {
     return this.http.get<Animal[]>(`${this.API_URL}/animals/`);
   }
+
+  public getAnimalsEnclosure(animalId: string): Object {
+    return this.http.get<Object>(
+      `${this.API_URL}/animals/${animalId}/enclosure`
+    );
+  }
 }
