@@ -105,6 +105,11 @@ const getAnimalEnclosure = (req: Request, res: Response) => {
                     },
                     {
                         $project: {
+                            nom: 1,
+                            espece: 1,
+                            sexe: 1,
+                            observations: 1,
+                            position: 1,
                             enclos: "$speciesResult.enclos",
                         },
                     },
@@ -123,6 +128,11 @@ const getAnimalEnclosure = (req: Request, res: Response) => {
                     },
                     {
                         $project: {
+                            nom: 1,
+                            espece: 1,
+                            sexe: 1,
+                            observations: 1,
+                            position: 1,
                             enclos: "$enclosuresResult.nomApp",
                         },
                     },

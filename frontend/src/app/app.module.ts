@@ -9,6 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { DetailsAnimalComponent } from './details-animal/details-animal.component';
 import { GenderColorPipe } from './pipes/gender-color.pipe';
 import { GenderPipe } from './pipes/gender.pipe';
+import { SpeciesFilterPipe } from './pipes/species-filter.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,8 +21,9 @@ import { GenderPipe } from './pipes/gender.pipe';
     DetailsAnimalComponent,
     GenderColorPipe,
     GenderPipe,
+    SpeciesFilterPipe,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

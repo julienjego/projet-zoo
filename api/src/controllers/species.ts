@@ -3,6 +3,14 @@ import Animal from "../models/animal";
 import logger from "../utils/log";
 import { NextFunction, Request, Response } from "express";
 
+// Récupère toutes les espèces
+
+const getSpecies = (req: Request, res: Response, next: NextFunction) => {
+    Species.find()
+        .then((species) => res.status(200).json(species))
+        .catch((error) => res.status(404).json({ error }));
+};
+
 // Récupérer tous les animaux d'une espèce
 const getAnimalsBySpecies = (
     req: Request,
@@ -161,6 +169,7 @@ const stimulateSpecies = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export default {
+    getSpecies,
     getAnimalsBySpecies,
     moveSpecies,
     feedSpecies,

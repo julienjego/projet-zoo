@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.get("/:id/animals", speciesController.getAnimalsBySpecies);
 
+router.get("/", speciesController.getSpecies);
+
 router.post(
     "/in/:id",
     auth.verifyToken,

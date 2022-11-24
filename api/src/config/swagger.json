@@ -659,6 +659,26 @@
                 }
             }
         },
+        "/species/": {
+            "get": {
+                "tags": ["Species"],
+                "summary": "Lister toutes les espèces du zoo",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Species"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Espèce inconnue."
+                    }
+                }
+            }
+        },
         "/species/{id}/animals": {
             "parameters": [
                 {

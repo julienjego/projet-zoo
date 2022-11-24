@@ -9,28 +9,21 @@ import { ApiService } from '../api.service';
   styleUrls: ['./list-animals.component.css'],
 })
 export class ListAnimalsComponent implements OnInit {
-  animals$!: Observable<Animal[]>;
-  animalsEnclosure!: Object;
+  animals$!: Observable<Animal[] | null>;
+  animalsEnclosure!: Object | undefined;
+  species!: string;
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.getAnimals();
-    this.animals$.forEach((animals) => {
-      animals.forEach((a) => {
-        a.id;
-        console.log(a.id);
-      });
-    });
-    // let animalId: string | null =
-    // this.getAnimalsEnclosure(animalId);
   }
 
   public getAnimals() {
     return (this.animals$ = this.apiService.getAnimals());
   }
 
-  public getAnimalsEnclosure(id: string) {
-    this.animalsEnclosure = this.apiService.getAnimalsEnclosure(id);
+  public getAnimalEnclosure(id: string) {
+    this.animalsEnclosure = this.apiService.getAnimalWithEnclosure(id);
   }
 }
