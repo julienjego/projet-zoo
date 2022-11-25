@@ -470,6 +470,26 @@
                 }
             }
         },
+        "/enclosures/": {
+            "get": {
+                "tags": ["Enclosures"],
+                "summary": "Lister les enclos",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Enclosure"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Enclos inconnus."
+                    }
+                }
+            }
+        },
         "/enclosures/{id}": {
             "parameters": [
                 {
@@ -898,6 +918,26 @@
                 },
                 "password": {
                     "type": "string"
+                }
+            }
+        },
+        "Enclosure": {
+            "type": "object",
+            "properties": {
+                "nom": {
+                    "type": "string"
+                },
+                "nomApp": {
+                    "type": "string"
+                },
+                "zone": {
+                    "type": "string"
+                },
+                "coordonnées": {
+                    "type": "string"
+                },
+                "superficie": {
+                    "type": "integer"
                 }
             }
         },
