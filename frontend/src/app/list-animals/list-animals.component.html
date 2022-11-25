@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
-  <div class="col-12 col-sm-8 col-lg-6">
-    <h2 class="mt-4 pt-5 mb-4">Mes animaux</h2>
+  <div class="col-12 col-lg-6 mt-4 pt-5">
+    <h2 class="mb-4">Mes animaux</h2>
 
     <select
       class="form-select mb-4"
@@ -21,6 +21,7 @@
           <th scope="col">Sexe</th>
           <th scope="col">Position</th>
           <th scope="col">Observations</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -34,6 +35,12 @@
           </td>
           <td>{{ animal.position }}</td>
           <td>{{ animal.observations }}</td>
+          <a
+            class="btn btn-outline-primary"
+            (click)="goToDetailsAnimal(animal)"
+            role="button"
+            >Détails</a
+          >
         </tr>
       </tbody>
     </table>

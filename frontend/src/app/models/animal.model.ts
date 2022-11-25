@@ -1,5 +1,5 @@
 export class Animal {
-  id: string;
+  _id: string;
   nom: string;
   espece: string;
   naissance: string;
@@ -20,7 +20,7 @@ export class Animal {
     position: string,
     enclos: string
   ) {
-    this.id = id;
+    this._id = id;
     this.nom = nom;
     this.espece = espece;
     this.naissance = naissance;
