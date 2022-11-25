@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from '../models/animal.model';
 import { ApiService } from '../api.service';
+import { Species } from '../models/species.model';
 
 @Component({
   selector: 'app-list-animals',
@@ -9,21 +10,22 @@ import { ApiService } from '../api.service';
   styleUrls: ['./list-animals.component.css'],
 })
 export class ListAnimalsComponent implements OnInit {
-  animals$!: Observable<Animal[] | null>;
-  animalsEnclosure!: Object | undefined;
+  animals$: Observable<Animal[] | null> | undefined;
+  species$: Observable<Species[] | null> | undefined;
   species!: string;
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.getAnimals();
+    this.getSpecies();
   }
 
   public getAnimals() {
-    return (this.animals$ = this.apiService.getAnimals());
+    this.animals$ = this.apiService.getAnimals();
   }
 
-  public getAnimalEnclosure(id: string) {
-    this.animalsEnclosure = this.apiService.getAnimalWithEnclosure(id);
+  public getSpecies() {
+    this.species$ = this.apiService.getSpecies();
   }
 }

@@ -5,14 +5,15 @@
     <select
       class="form-select mb-4"
       [(ngModel)]="species"
-      aria-label="Default select example"
+      aria-label="Sélection d'une espèce"
     >
-      <option value="kangourou">One</option>
-      <option value="koala">Two</option>
-      <option value="suricate">Three</option>
+      <option value="" selected>Tous les animaux</option>
+      <option *ngFor="let specie of species$ | async" [value]="specie.nom">
+        {{ specie.nomApp }}
+      </option>
     </select>
 
-    <table class="table">
+    <table class="table" aria-describedby="Tableau des animaux">
       <thead>
         <tr class="table-light">
           <th scope="col">Nom</th>
