@@ -16,6 +16,12 @@ const getEnclosures = (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
+const getAnEnclosure = (req: Request, res: Response, next: NextFunction) => {
+    Enclosure.findById({ _id: req.params.id })
+        .then((enclosure) => res.status(200).json(enclosure))
+        .catch((error) => res.status(404).json({ error }));
+};
+
 const verifyEnclosure = (req: Request, res: Response, next: NextFunction) => {
     Enclosure.findById({ _id: req.params.id })
         .then((enclos) => {
@@ -38,4 +44,4 @@ const verifyEnclosure = (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
-export default { getEnclosures, verifyEnclosure };
+export default { getEnclosures, getAnEnclosure, verifyEnclosure };

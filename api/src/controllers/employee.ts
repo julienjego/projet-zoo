@@ -84,4 +84,18 @@ const login = (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
-export default { register, login };
+// Récupérer un employé par son Id
+const getAnEmployee = (req: Request, res: Response, next: NextFunction) => {
+    Employee.findById({ _id: req.params.id })
+        .then((employee) => res.status(200).json(employee))
+        .catch((error) => res.status(404).json({ error }));
+};
+
+// Récupérer tous les employés
+const getAllEmployees = (req: Request, res: Response, next: NextFunction) => {
+    Employee.find()
+        .then((employees) => res.status(200).json(employees))
+        .catch((error) => res.status(404).json({ error }));
+};
+
+export default { register, login, getAnEmployee, getAllEmployees };

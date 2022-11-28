@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.get("/", enclosureController.getEnclosures);
 
+router.get("/:id", enclosureController.getAnEnclosure);
+
 router.post(
     "/verify/:id",
     auth.verifyToken,

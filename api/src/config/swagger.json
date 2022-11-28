@@ -410,7 +410,56 @@
                 }
             }
         },
-        "/employee/register": {
+        "/employees/": {
+            "get": {
+                "tags": ["Employees"],
+                "summary": "Lister les employés",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Employee"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Employé inconnu."
+                    }
+                }
+            }
+        },
+        "/employees/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'employé à rechercher",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": ["Employees"],
+                "summary": "Lister les infos d'un employé",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Employee"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Employé inconnu."
+                    }
+                }
+            }
+        },
+        "/employees/register": {
             "post": {
                 "requestBody": {
                     "description": "Objet Employee",
@@ -438,7 +487,7 @@
                 }
             }
         },
-        "/employee/login": {
+        "/employees/login": {
             "post": {
                 "requestBody": {
                     "required": true,
@@ -496,10 +545,28 @@
                     "name": "id",
                     "in": "path",
                     "required": true,
-                    "description": "Identifiant de l'enclos soigné",
+                    "description": "Identifiant de l'enclos",
                     "type": "integer"
                 }
             ],
+            "get": {
+                "tags": ["Enclosures"],
+                "summary": "Lister les infos d'un enclos",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Enclosure"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Enclos inconnu."
+                    }
+                }
+            },
             "post": {
                 "tags": ["Enclosures"],
                 "summary": "Vérifier un enclos",
