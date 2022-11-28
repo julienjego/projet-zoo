@@ -9,6 +9,15 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
     "servers": [{ "url": "/api/" }],
     "tags": [
         { "name": "Actions", "description": "Gestion des actions" },
@@ -34,6 +43,9 @@
             "get": {
                 "tags": ["Actions"],
                 "summary": "Lister les actions d'une zone",
+                "security": {
+                    "BearerAuth": []
+                },
                 "responses": {
                     "200": {
                         "description": "Succès.",
