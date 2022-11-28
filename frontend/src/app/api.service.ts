@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Animal } from './models/animal.model';
 import { Species } from './models/species.model';
+import { Enclosure } from './models/enclosure.model';
 
 @Injectable({
   providedIn: 'root',
@@ -22,5 +23,9 @@ export class ApiService {
 
   public getSpecies(): Observable<Species[]> {
     return this.http.get<Species[]>(`${this.API_URL}/species/`);
+  }
+
+  public getEnclosures(): Observable<Enclosure[]> {
+    return this.http.get<Enclosure[]>(`${this.API_URL}/enclosures/`);
   }
 }

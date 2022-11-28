@@ -1,1 +1,23 @@
-<div class="container"></div>
+<div class="container">
+  <div class="row">
+    <div
+      class="col-6 col-sm-4 col-lg-3 mt-4"
+      *ngFor="let enclosure of enclosures$ | async"
+    >
+      <div class="card">
+        <div class="card-header fw-bold">{{ enclosure.nomApp }}</div>
+        <div class="card-body">
+          <p>Zone : {{ enclosure.zone }}</p>
+          <p>Superficie : {{ enclosure.superficie }}m²</p>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="goToDetailsEnclosure(enclosure)"
+          >
+            Voir cet enclos
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

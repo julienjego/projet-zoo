@@ -12,6 +12,7 @@ import { GenderPipe } from './pipes/gender.pipe';
 import { SpeciesFilterPipe } from './pipes/species-filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DetailsEnclosureComponent } from './details-enclosure/details-enclosure.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     GenderPipe,
     SpeciesFilterPipe,
     DashboardComponent,
+    DetailsEnclosureComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
