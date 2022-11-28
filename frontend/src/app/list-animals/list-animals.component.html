@@ -1,48 +1,51 @@
-<div class="row justify-content-center">
-  <div class="col-12 col-lg-6 mt-4 pt-5">
-    <h2 class="mb-4">Mes animaux</h2>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-6 mt-4">
+      <h2 class="mb-4">Mes animaux</h2>
 
-    <select
-      class="form-select mb-4"
-      [(ngModel)]="species"
-      aria-label="Sélection d'une espèce"
-    >
-      <option value="" selected>Tous les animaux</option>
-      <option *ngFor="let specie of species$ | async" [value]="specie.nom">
-        {{ specie.nomApp }}
-      </option>
-    </select>
+      <p class="fw-bold">Filtrer les animaux par espèce :</p>
+      <select
+        class="form-select mb-4"
+        [(ngModel)]="species"
+        aria-label="Sélection d'une espèce"
+      >
+        <option value="" selected>Tous les animaux</option>
+        <option *ngFor="let specie of species$ | async" [value]="specie.nom">
+          {{ specie.nomApp }}
+        </option>
+      </select>
 
-    <table class="table" aria-describedby="Tableau des animaux">
-      <thead>
-        <tr class="table-light">
-          <th scope="col">Nom</th>
-          <th scope="col">Espèce</th>
-          <th scope="col">Sexe</th>
-          <th scope="col">Position</th>
-          <th scope="col">Observations</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let animal of animals$ | async | speciesFilter: species">
-          <td class="fw-bold">{{ animal.nom }}</td>
-          <td class="text-muted fw-light">{{ animal.espece | uppercase }}</td>
-          <td>
-            <span class="{{ animal.sexe | genderColor }}">{{
-              animal.sexe | genderString
-            }}</span>
-          </td>
-          <td>{{ animal.position }}</td>
-          <td>{{ animal.observations }}</td>
-          <a
-            class="btn btn-outline-primary"
-            (click)="goToDetailsAnimal(animal)"
-            role="button"
-            >Détails</a
-          >
-        </tr>
-      </tbody>
-    </table>
+      <table class="table" aria-describedby="Tableau des animaux">
+        <thead>
+          <tr class="table-light">
+            <th scope="col">Nom</th>
+            <th scope="col">Espèce</th>
+            <th scope="col">Sexe</th>
+            <th scope="col">Position</th>
+            <th scope="col">Observations</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let animal of animals$ | async | speciesFilter: species">
+            <td class="fw-bold">{{ animal.nom }}</td>
+            <td class="text-muted fw-light">{{ animal.espece | uppercase }}</td>
+            <td>
+              <span class="{{ animal.sexe | genderColor }}">{{
+                animal.sexe | genderString
+              }}</span>
+            </td>
+            <td>{{ animal.position }}</td>
+            <td>{{ animal.observations }}</td>
+            <a
+              class="btn btn-outline-primary btn-sm"
+              (click)="goToDetailsAnimal(animal)"
+              role="button"
+              >Détails</a
+            >
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

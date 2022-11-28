@@ -1,18 +1,20 @@
-<div *ngIf="animal" class="row justify-content-center">
-  <div class="col-12 col-sm-10 col-lg-10 mt-5 pt-5">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{ animal.nom }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">
-          {{ animal.espece | uppercase }}
-        </h6>
-        <p class="{{ animal.sexe | genderColor }}">
-          {{ animal.sexe | genderString }}
-        </p>
-        <p>Naissance : {{ animal.naissance }}</p>
-        <p>Décès : {{ animal.deces }}</p>
-        <p>Observations : {{ animal.observations }}</p>
-        <p>Position : {{ animal.position }}</p>
+<div class="container">
+  <div *ngIf="animal" class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-lg-10 mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ animal.nom }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ animal.espece | uppercase }}
+          </h6>
+          <p class="{{ animal.sexe | genderColor }}">
+            {{ animal.sexe | genderString }}
+          </p>
+          <p>Naissance : {{ animal.naissance }}</p>
+          <p>Décès : {{ animal.deces }}</p>
+          <p>Observations : {{ animal.observations }}</p>
+          <p>Position : {{ animal.position }}</p>
+        </div>
       </div>
     </div>
   </div>
