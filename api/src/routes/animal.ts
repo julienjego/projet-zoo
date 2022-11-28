@@ -10,6 +10,8 @@ router.get("/:id", animalController.getAnAnimal);
 
 router.get("/:id/enclosure", animalController.getAnimalEnclosure);
 
+router.get("/enclosures/:id", animalController.getAllAnimalsByEnclosure);
+
 router.post(
     "/",
     auth.verifyToken,

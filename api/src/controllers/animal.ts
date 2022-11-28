@@ -1,4 +1,6 @@
 import Animal from "../models/animal";
+import Enclosure from "../models/enclosure";
+import Species from "../models/species";
 import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import logger from "../utils/log";
@@ -76,6 +78,35 @@ const getAnAnimal = (req: Request, res: Response, next: NextFunction) => {
 const getAllAnimals = (req: Request, res: Response, next: NextFunction) => {
     Animal.find()
         .then((animals) => res.status(200).json(animals))
+        .catch((error) => res.status(404).json({ error }));
+};
+
+// Récupérer tous les animaux d'un enclos
+const getAllAnimalsByEnclosure = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    Enclosure.findById({ _id: req.params.id })
+        .then((enclosure) => {
+            if (enclosure) {
+                let speciesNames: Object[] = [];
+                Species.find({ enclos: enclosure.nom })
+                    .then((species) => {
+                        species.forEach((s) => {
+                            speciesNames.push({ espece: s.nom });
+                        });
+                        Animal.find({ $or: speciesNames })
+                            .then((animals) => {
+                                res.status(200).json(animals);
+                            })
+                            .catch((error) => res.status(400).json({ error }));
+                    })
+                    .catch((error) => res.status(400).json({ error }));
+            } else {
+                res.status(404).json({ message: "Enclos inconnu" });
+            }
+        })
         .catch((error) => res.status(404).json({ error }));
 };
 
@@ -213,6 +244,7 @@ export default {
     createAnimal,
     getAllAnimals,
     getAnAnimal,
+    getAllAnimalsByEnclosure,
     updateAnimal,
     deleteAnimal,
     moveAnimal,
