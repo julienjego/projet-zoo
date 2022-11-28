@@ -14,6 +14,16 @@
           <p>Décès : {{ animal.deces }}</p>
           <p>Observations : {{ animal.observations }}</p>
           <p>Position : {{ animal.position }}</p>
+
+          <p class="fw-bold">Suivi de l'animal</p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let event of events$ | async">
+              <em class="text-muted"
+                >{{ event.date | date: "dd/MM/yyyy - HH:mm" }} :</em
+              >
+              {{ event.type }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>

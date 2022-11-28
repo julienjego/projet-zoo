@@ -4,7 +4,7 @@ export class Enclosure {
   nomApp: string;
   zone: string;
   coordonnees: string;
-  superficie: string;
+  superficie: number;
 
   constructor(
     id: string,
@@ -12,7 +12,7 @@ export class Enclosure {
     nomApp: string,
     zone: string,
     coordonnees: string,
-    superficie: string
+    superficie: number
   ) {
     this._id = id;
     this.nom = nom;

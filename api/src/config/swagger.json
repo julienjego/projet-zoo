@@ -332,7 +332,7 @@
                 }
             }
         },
-        "/animals/enclosure/{id}": {
+        "/animals/enclosures/{id}": {
             "parameters": [
                 {
                     "name": "id",

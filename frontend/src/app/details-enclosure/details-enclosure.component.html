@@ -1,1 +1,50 @@
-<p>details-enclosure works!</p>
+<div class="container">
+  <div *ngIf="enclosure" class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-lg-10 mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ enclosure.nomApp }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ enclosure.zone | uppercase }}
+          </h6>
+          <p class="fw-bold">Les animaux présents dans cet enclos :</p>
+          <div class="table-responsive">
+            <table class="table" aria-describedby="Tableau des animaux">
+              <thead>
+                <tr class="table-light">
+                  <th scope="col">Nom</th>
+                  <th scope="col">Espèce</th>
+                  <th scope="col">Sexe</th>
+                  <th scope="col">Position</th>
+                  <th scope="col">Observations</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let animal of animals$ | async">
+                  <td class="fw-bold">{{ animal.nom }}</td>
+                  <td class="text-muted fw-light">
+                    {{ animal.espece | uppercase }}
+                  </td>
+                  <td>
+                    <span class="{{ animal.sexe | genderColor }}">{{
+                      animal.sexe | genderString
+                    }}</span>
+                  </td>
+                  <td>{{ animal.position }}</td>
+                  <td>{{ animal.observations }}</td>
+                  <a
+                    class="btn btn-outline-primary btn-sm"
+                    (click)="goToDetailsAnimal(animal)"
+                    role="button"
+                    >Détails</a
+                  >
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -25,12 +25,7 @@ router.get(
     eventController.getEventsBySpecies
 );
 
-router.get(
-    "/animals/:id",
-    auth.verifyToken,
-    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE"]),
-    eventController.getEventsByAnimal
-);
+router.get("/animals/:id", eventController.getEventsByAnimal);
 
 router.get(
     "/zones/:id",

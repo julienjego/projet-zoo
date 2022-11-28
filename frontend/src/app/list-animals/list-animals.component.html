@@ -14,38 +14,43 @@
           {{ specie.nomApp }}
         </option>
       </select>
-
-      <table class="table" aria-describedby="Tableau des animaux">
-        <thead>
-          <tr class="table-light">
-            <th scope="col">Nom</th>
-            <th scope="col">Espèce</th>
-            <th scope="col">Sexe</th>
-            <th scope="col">Position</th>
-            <th scope="col">Observations</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let animal of animals$ | async | speciesFilter: species">
-            <td class="fw-bold">{{ animal.nom }}</td>
-            <td class="text-muted fw-light">{{ animal.espece | uppercase }}</td>
-            <td>
-              <span class="{{ animal.sexe | genderColor }}">{{
-                animal.sexe | genderString
-              }}</span>
-            </td>
-            <td>{{ animal.position }}</td>
-            <td>{{ animal.observations }}</td>
-            <a
-              class="btn btn-outline-primary btn-sm"
-              (click)="goToDetailsAnimal(animal)"
-              role="button"
-              >Détails</a
+      <div class="table-responsive">
+        <table class="table" aria-describedby="Tableau des animaux">
+          <thead>
+            <tr class="table-light">
+              <th scope="col">Nom</th>
+              <th scope="col">Espèce</th>
+              <th scope="col">Sexe</th>
+              <th scope="col">Position</th>
+              <th scope="col">Observations</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let animal of animals$ | async | speciesFilter: species"
             >
-          </tr>
-        </tbody>
-      </table>
+              <td class="fw-bold">{{ animal.nom }}</td>
+              <td class="text-muted fw-light">
+                {{ animal.espece | uppercase }}
+              </td>
+              <td>
+                <span class="{{ animal.sexe | genderColor }}">{{
+                  animal.sexe | genderString
+                }}</span>
+              </td>
+              <td>{{ animal.position }}</td>
+              <td>{{ animal.observations }}</td>
+              <a
+                class="btn btn-outline-primary btn-sm"
+                (click)="goToDetailsAnimal(animal)"
+                role="button"
+                >Détails</a
+              >
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
