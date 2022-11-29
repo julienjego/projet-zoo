@@ -71,19 +71,6 @@ const startServer = () => {
     api.use("/api/employees", employeeRoutes);
 
     // Ping pour voir si tout est en place
-    /**
-     * @swagger
-     * /ping:
-     *  get:
-     *      description: Call a ping
-     *      responses:
-     *          "200":
-     *            description: Get a pong
-     *          "500":
-     *            description: Server error
-     *
-     *
-     */
     api.get("/ping", (req: Request, res: Response, next: NextFunction) =>
         res.status(200).json({ message: "pong" })
     );

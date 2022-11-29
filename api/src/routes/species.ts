@@ -11,28 +11,28 @@ router.get("/", speciesController.getSpecies);
 router.post(
     "/in/:id",
     auth.verifyToken,
-    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR"]),
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR", "ADMIN"]),
     speciesController.moveSpecies
 );
 
 router.post(
     "/out/:id",
     auth.verifyToken,
-    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR"]),
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR", "ADMIN"]),
     speciesController.moveSpecies
 );
 
 router.post(
     "/feed/:id",
     auth.verifyToken,
-    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR"]),
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR", "ADMIN"]),
     speciesController.feedSpecies
 );
 
 router.post(
     "/stimulate/:id",
     auth.verifyToken,
-    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR"]),
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR", "ADMIN"]),
     speciesController.stimulateSpecies
 );
 

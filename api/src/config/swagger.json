@@ -18,6 +18,9 @@
             }
         }
     },
+    "security": {
+        "BearerAuth": []
+    },
     "servers": [{ "url": "/api/" }],
     "tags": [
         { "name": "Actions", "description": "Gestion des actions" },
@@ -43,9 +46,11 @@
             "get": {
                 "tags": ["Actions"],
                 "summary": "Lister les actions d'une zone",
-                "security": {
-                    "BearerAuth": []
-                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Succès.",
@@ -78,6 +83,11 @@
             "get": {
                 "tags": ["Actions"],
                 "summary": "Lister les actions d'un enclos",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Succès.",
@@ -111,6 +121,11 @@
             "get": {
                 "tags": ["Actions"],
                 "summary": "Lister les actions qui concernent une espèce",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Succès.",
@@ -143,6 +158,11 @@
             "get": {
                 "tags": ["Actions"],
                 "summary": "Lister les actions qui concernent un animal",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Succès.",
@@ -178,6 +198,11 @@
                     }
                 },
                 "produces": ["application/json"],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "201": {
                         "description": "Action créée.",
@@ -228,6 +253,11 @@
                     }
                 },
                 "produces": ["application/json"],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "201": {
                         "description": "Animal entré dans la base.",
@@ -284,6 +314,11 @@
                     }
                 },
                 "produces": ["application/json"],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "202": {
                         "description": "Animal mis à jour.",
@@ -302,6 +337,11 @@
             "delete": {
                 "tags": ["Animals"],
                 "summary": "Supprimer un animal de la base",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "410": {
                         "description": "Animal supprimé.",
@@ -383,6 +423,11 @@
             "get": {
                 "tags": ["Animals"],
                 "summary": "Faire sortir un animal",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Succès."
@@ -409,6 +454,11 @@
             "get": {
                 "tags": ["Animals"],
                 "summary": "Faire rentrer un animal",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Succès."
@@ -435,6 +485,11 @@
             "post": {
                 "tags": ["Animals"],
                 "summary": "Soigner un animal",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Succès."
@@ -452,6 +507,11 @@
             "get": {
                 "tags": ["Employees"],
                 "summary": "Lister les employés",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Succès.",
@@ -481,6 +541,11 @@
             "get": {
                 "tags": ["Employees"],
                 "summary": "Lister les infos d'un employé",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Succès.",
@@ -512,7 +577,7 @@
                 },
                 "tags": ["Employees"],
                 "summary": "Enregistrer un nouvel employé",
-                "response": {
+                "responses": {
                     "201": {
                         "description": "Utilisateur créé."
                     },
@@ -547,7 +612,7 @@
                 },
                 "tags": ["Employees"],
                 "summary": "Se connecter comme employé",
-                "response": {
+                "responses": {
                     "200": {
                         "description": "Connexion réussie."
                     },
@@ -608,7 +673,12 @@
             "post": {
                 "tags": ["Enclosures"],
                 "summary": "Vérifier un enclos",
-                "response": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "responses": {
                     "200": {
                         "description": "Succès."
                     },
@@ -637,6 +707,11 @@
             "get": {
                 "tags": ["Events"],
                 "summary": "Lister les événéments d'une zone",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Succès.",
@@ -669,6 +744,11 @@
             "get": {
                 "tags": ["Events"],
                 "summary": "Lister les événéments d'un enclos",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Succès.",
@@ -701,6 +781,11 @@
             "get": {
                 "tags": ["Events"],
                 "summary": "Lister les événéments d'une espèce",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Succès.",
@@ -733,6 +818,11 @@
             "get": {
                 "tags": ["Events"],
                 "summary": "Lister les événéments d'un animal",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Succès.",
@@ -768,6 +858,11 @@
                     }
                 },
                 "produces": ["application/json"],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "responses": {
                     "201": {
                         "description": "Evénement créée.",
@@ -849,7 +944,12 @@
             "post": {
                 "tags": ["Species"],
                 "summary": "Faire rentrer une espèce",
-                "response": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "responses": {
                     "200": {
                         "description": "Succès."
                     },
@@ -878,7 +978,12 @@
             "post": {
                 "tags": ["Species"],
                 "summary": "Faire sortir une espèce",
-                "response": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "responses": {
                     "200": {
                         "description": "Succès."
                     },
@@ -907,7 +1012,12 @@
             "post": {
                 "tags": ["Species"],
                 "summary": "Nourrir une espèce",
-                "response": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "responses": {
                     "200": {
                         "description": "Succès."
                     },
@@ -936,7 +1046,12 @@
             "post": {
                 "tags": ["Species"],
                 "summary": "Stimuler une espèce",
-                "response": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "responses": {
                     "200": {
                         "description": "Succès."
                     },

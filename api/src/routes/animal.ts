@@ -15,42 +15,42 @@ router.get("/enclosures/:id", animalController.getAllAnimalsByEnclosure);
 router.post(
     "/",
     auth.verifyToken,
-    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE"]),
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "ADMIN"]),
     animalController.createAnimal
 );
 
 router.post(
     "/out/:id",
     auth.verifyToken,
-    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR"]),
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR", "ADMIN"]),
     animalController.moveAnimal
 );
 
 router.post(
     "/in/:id",
     auth.verifyToken,
-    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR"]),
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR", "ADMIN"]),
     animalController.moveAnimal
 );
 
 router.put(
     "/:id",
     auth.verifyToken,
-    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE"]),
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "ADMIN"]),
     animalController.updateAnimal
 );
 
 router.delete(
     "/:id",
     auth.verifyToken,
-    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE"]),
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "ADMIN"]),
     animalController.deleteAnimal
 );
 
 router.post(
     "/care/:id",
     auth.verifyToken,
-    auth.verifyRole(["VETERINAIRE"]),
+    auth.verifyRole(["VETERINAIRE", "ADMIN"]),
     animalController.careAnimal
 );
 

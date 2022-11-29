@@ -11,7 +11,7 @@ router.get("/:id", enclosureController.getAnEnclosure);
 router.post(
     "/verify/:id",
     auth.verifyToken,
-    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE"]),
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "ADMIN"]),
     enclosureController.verifyEnclosure
 );
 
