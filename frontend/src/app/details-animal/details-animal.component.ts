@@ -1,4 +1,4 @@
-import { ApiService } from './../api.service';
+import { ApiService } from '../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { Animal } from '../models/animal.model';
 import { Event } from '../models/event.model';

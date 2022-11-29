@@ -2,16 +2,20 @@
   <div class="row justify-content-center mt-4 pt-5">
     <div class="col-12 col-md-8 col-lg-6">
       <h2>Connectez-vous</h2>
-      <form>
+      <form (submit)="onLogin(loginForm)" #loginForm="ngForm">
         <div class="mb-3">
           <label for="usernameInput" class="form-label"
             >Nom d'utilisateur</label
           >
           <input
+            name="username"
+            ngModel
             type="text"
             class="form-control"
             id="usernameInput"
             aria-describedby="usernameHelp"
+            #usernameInput="ngModel"
+            required
           />
           <div id="usernameHelp" class="form-text">
             Prénom suivi du nom, sans accent, sans espace. Ex : severinemartin
@@ -19,7 +23,17 @@
         </div>
         <div class="mb-3">
           <label for="passwordInput" class="form-label">Mot de passe</label>
-          <input type="password" class="form-control" id="passwordInput" />
+          <input
+            name="password"
+            ngModel
+            type="password"
+            class="form-control"
+            id="passwordInput"
+            required
+          />
+        </div>
+        <div *ngIf="!authSuccess" class="alert alert-danger" role="alert">
+          Nom d'utilisateur et/ou mot de passe incorrects !
         </div>
         <button type="submit" class="btn btn-primary">Connexion</button>
       </form>

@@ -51,27 +51,37 @@ const login = (req: Request, res: Response, next: NextFunction) => {
         .exec()
         .then((employees) => {
             if (employees.length !== 1) {
-                res.status(401).json({ message: "Non autorisé" });
+                res.status(401).json({
+                    message: "Mauvais nom d'utilisateur ou mot de passe",
+                });
+                return;
             }
 
             bcryptjs.compare(
                 password,
                 employees[0].password,
                 (error, result) => {
-                    if (error) {
-                        res.status(401).json({ message: "Non autorisé" });
+                    if (error || !result) {
+                        return res.status(401).json({
+                            message:
+                                "Mauvais nom d'utilisateur ou mot de passe",
+                        });
                     } else if (result) {
                         signToken(employees[0], (_error, token) => {
                             if (_error) {
                                 res.status(401).json({
-                                    message: "Non autorisé",
-                                    erreur: error,
+                                    message: "Non autorisé !",
+                                    erreur: _error,
                                 });
                             } else if (token) {
                                 res.status(200).json({
                                     message: "Authentification réussie !",
                                     token,
-                                    employee: employees[0],
+                                    employee: {
+                                        nom: employees[0].nom,
+                                        prenom: employees[0].prenom,
+                                        role: employees[0].role,
+                                    },
                                 });
                             }
                         });

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
@@ -13,6 +13,7 @@ import { SpeciesFilterPipe } from './pipes/species-filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DetailsEnclosureComponent } from './details-enclosure/details-enclosure.component';
+import { AuthInterceptor } from './utils/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { DetailsEnclosureComponent } from './details-enclosure/details-enclosure
     DetailsEnclosureComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
