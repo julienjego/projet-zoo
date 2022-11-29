@@ -1,8 +1,9 @@
 import express, { Express, Request, Response, NextFunction } from "express";
+import path from "path";
 import mongoose from "mongoose";
 import config from "./config/config";
 import swaggerUi from "swagger-ui-express";
-import * as swaggerDocument from "./config/swagger.json";
+import * as swaggerDocument from "./public/swagger.json";
 import animalRoutes from "./routes/animal";
 import speciesRoutes from "./routes/species";
 import eventRoutes from "./routes/event";
@@ -42,6 +43,7 @@ const startServer = () => {
     api.use(express.urlencoded({ extended: true }));
     api.use(express.json());
     api.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    api.use("/static", express.static(path.join(__dirname, "/public")));
 
     // On envoie les headers pour éviter les erreurs CORS
     api.use((req: Request, res: Response, next: NextFunction) => {
