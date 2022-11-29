@@ -27,6 +27,7 @@ export class AuthService {
       .subscribe((response) => {
         if (response) {
           const token = response.token;
+          localStorage.setItem('token', token);
           this.token = token;
           this.router.navigate(['/dashboard']);
           return (this.authSuccess = true);
