@@ -9,32 +9,36 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
   API_URL = 'http://localhost:8888/api';
   private token!: string;
-  public authSuccess: boolean | null = null;
+  public authFailed: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getToken(): string {
-    return this.token;
-  }
-
-  loginUser(username: string, password: string): boolean | null {
+  loginUser(username: string, password: string) {
+    console.log(this.token);
     const authData: AuthData = { username: username, password: password };
     this.http
       .post<{ token: string; expiresIn: number }>(
         `${this.API_URL}/employees/login`,
         authData
       )
-      .subscribe((response) => {
-        if (response) {
-          const token = response.token;
-          localStorage.setItem('token', token);
-          this.token = token;
-          this.router.navigate(['/dashboard']);
-          return (this.authSuccess = true);
-        } else {
-          return (this.authSuccess = false);
-        }
+      .subscribe({
+        next: (response) => {
+          if (response) {
+            const token = response.token;
+            localStorage.setItem('token', token);
+            this.token = token;
+            this.router.navigate(['/dashboard']);
+            this.authFailed = false;
+          }
+        },
+        error: (error) => {
+          this.authFailed = true;
+          console.log(this.authFailed);
+        },
       });
-    return null;
+  }
+
+  getAuthStatus(): boolean {
+    return localStorage.getItem('token') != undefined;
   }
 }

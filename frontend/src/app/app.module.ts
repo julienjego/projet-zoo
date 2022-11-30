@@ -1,3 +1,4 @@
+import { AuthGuard } from './services/auth.guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -31,6 +32,7 @@ import { AuthInterceptor } from './utils/auth-interceptor';
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthGuard,
   ],
   bootstrap: [AppComponent],
 })

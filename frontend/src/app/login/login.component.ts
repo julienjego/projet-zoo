@@ -8,19 +8,17 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  public authSuccess: boolean | null = true;
+  authFailed: boolean = false;
+
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
 
   onLogin(loginForm: NgForm) {
-    if (loginForm.invalid) {
-      this.authSuccess = false;
-      return;
-    }
-    this.authSuccess = this.authService.loginUser(
+    this.authService.loginUser(
       loginForm.value.username,
       loginForm.value.password
     );
+    this.authFailed = this.authService.authFailed;
   }
 }
