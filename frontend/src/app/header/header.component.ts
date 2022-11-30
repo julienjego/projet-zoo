@@ -20,6 +20,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/animals']);
   }
 
+  goToSpecies(): void {
+    this.router.navigate(['/species']);
+  }
+
   logout(): void {
     this.authService.logout();
   }

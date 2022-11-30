@@ -16,7 +16,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DetailsEnclosureComponent } from './details-enclosure/details-enclosure.component';
 import { AuthInterceptor } from './utils/auth-interceptor';
 import { ListEnclosuresComponent } from './list-enclosures/list-enclosures.component';
-
+import { ListSpeciesComponent } from './list-species/list-species.component';
+import { SpeciesSociablePipe } from './pipes/species-sociable.pipe';
+import { SpeciesSociableStringPipe } from './pipes/species-sociable-string.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +32,9 @@ import { ListEnclosuresComponent } from './list-enclosures/list-enclosures.compo
     DashboardComponent,
     DetailsEnclosureComponent,
     ListEnclosuresComponent,
+    ListSpeciesComponent,
+    SpeciesSociablePipe,
+    SpeciesSociableStringPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [

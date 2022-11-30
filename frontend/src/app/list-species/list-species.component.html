@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8 mt-4">
+      <h2 class="mb-4">Liste des espèces</h2>
+      <div class="table-responsive">
+        <table class="table" aria-describedby="Tableau des espèces">
+          <thead>
+            <tr class="table-light">
+              <th scope="col">Nom</th>
+              <th scope="col">Enclos</th>
+              <th scope="col">Sociable</th>
+              <th scope="col">Dangereux</th>
+              <th scope="col">Observations</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let specie of species$ | async">
+              <td class="fw-bold">{{ specie.nomApp }}</td>
+              <td class="text-muted fw-light">
+                {{ specie.enclos | uppercase }}
+              </td>
+              <td>
+                <span class="{{ specie.sociable | speciesSociable }}">{{
+                  specie.sociable | speciesSociableString
+                }}</span>
+              </td>
+              <td>
+                <span class="{{ specie.dangereux | speciesSociable }}">{{
+                  specie.dangereux | speciesSociableString
+                }}</span>
+              </td>
+              <td>{{ specie.observations }}</td>
+              <a class="btn btn-outline-primary btn-sm" role="button"
+                >Voir les animaux</a
+              >
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { DetailsAnimalComponent } from './details-animal/details-animal.componen
 import { DetailsEnclosureComponent } from './details-enclosure/details-enclosure.component';
 import { AuthGuard } from './services/auth/auth.guard';
 import { ListEnclosuresComponent } from './list-enclosures/list-enclosures.component';
+import { ListSpeciesComponent } from './list-species/list-species.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,8 +22,18 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'enclosures',
+    component: ListEnclosuresComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'enclosures/details/:id',
     component: DetailsEnclosureComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'species',
+    component: ListSpeciesComponent,
     canActivate: [AuthGuard],
   },
   {
@@ -30,11 +41,7 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard],
   },
-  {
-    path: 'enclosures',
-    component: ListEnclosuresComponent,
-    canActivate: [AuthGuard],
-  },
+
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
