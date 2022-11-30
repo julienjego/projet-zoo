@@ -12,8 +12,12 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  goToDashboard(): void {
-    this.router.navigate(['/dashboard']);
+  goToEnclosures(): void {
+    this.router.navigate(['/enclosures']);
+  }
+
+  goToAnimals(): void {
+    this.router.navigate(['/animals']);
   }
 
   logout(): void {

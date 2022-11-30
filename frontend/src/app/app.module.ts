@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DetailsEnclosureComponent } from './details-enclosure/details-enclosure.component';
 import { AuthInterceptor } from './utils/auth-interceptor';
+import { ListEnclosuresComponent } from './list-enclosures/list-enclosures.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AuthInterceptor } from './utils/auth-interceptor';
     SpeciesFilterPipe,
     DashboardComponent,
     DetailsEnclosureComponent,
+    ListEnclosuresComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [
