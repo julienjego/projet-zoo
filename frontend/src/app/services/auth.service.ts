@@ -8,13 +8,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
   API_URL = 'http://localhost:8888/api';
-  private token!: string;
+  private token!: string | null;
   public authFailed: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   loginUser(username: string, password: string) {
-    console.log(this.token);
     const authData: AuthData = { username: username, password: password };
     this.http
       .post<{ token: string; expiresIn: number }>(
@@ -39,6 +38,14 @@ export class AuthService {
   }
 
   getAuthStatus(): boolean {
-    return localStorage.getItem('token') != undefined;
+    return (
+      localStorage.getItem('token') != undefined &&
+      localStorage.getItem('token')!.length > 0
+    );
+  }
+
+  logout() {
+    localStorage.setItem('token', '');
+    this.router.navigate(['/login']);
   }
 }
