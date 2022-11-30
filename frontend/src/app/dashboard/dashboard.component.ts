@@ -1,4 +1,4 @@
-import { ApiService } from '../services/api.service';
+import { EnclosureService } from './../services/enclosure/enclosure.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Enclosure } from '../models/enclosure.model';
@@ -12,14 +12,17 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
   enclosures$: Observable<Enclosure[] | null> | undefined;
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(
+    private enclosureService: EnclosureService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getEnclosures();
   }
 
   public getEnclosures() {
-    this.enclosures$ = this.apiService.getEnclosures();
+    this.enclosures$ = this.enclosureService.getEnclosures();
   }
 
   public goToDetailsEnclosure(enclosure: Enclosure) {

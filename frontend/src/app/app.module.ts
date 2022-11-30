@@ -1,4 +1,4 @@
-import { AuthGuard } from './services/auth.guard';
+import { AuthGuard } from './services/auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';

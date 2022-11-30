@@ -1,9 +1,10 @@
+import { EnclosureService } from './../services/enclosure/enclosure.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ApiService } from '../services/api.service';
 import { Animal } from '../models/animal.model';
 import { Enclosure } from '../models/enclosure.model';
+import { AnimalService } from '../services/animal/animal.service';
 
 @Component({
   selector: 'app-details-enclosure',
@@ -16,7 +17,8 @@ export class DetailsEnclosureComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private apiService: ApiService,
+    private animalService: AnimalService,
+    private enclosureService: EnclosureService,
     private router: Router
   ) {}
 
@@ -24,7 +26,7 @@ export class DetailsEnclosureComponent implements OnInit {
     const enclosureId: string | null = this.route.snapshot.paramMap.get('id');
 
     if (enclosureId) {
-      this.apiService
+      this.enclosureService
         .getAnEnclosure(+enclosureId)
         .subscribe((enclosure) => (this.enclosure = enclosure));
 
@@ -33,7 +35,7 @@ export class DetailsEnclosureComponent implements OnInit {
   }
 
   public getAnimalsByEnclosure(id: number) {
-    this.animals$ = this.apiService.getAnimalsByEnclosure(id);
+    this.animals$ = this.animalService.getAnimalsByEnclosure(id);
   }
 
   public goToDetailsAnimal(animal: Animal) {

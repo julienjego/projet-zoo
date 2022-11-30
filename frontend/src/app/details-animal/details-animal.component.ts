@@ -1,4 +1,4 @@
-import { ApiService } from '../services/api.service';
+import { AnimalService } from '../services/animal/animal.service';
 import { Component, OnInit } from '@angular/core';
 import { Animal } from '../models/animal.model';
 import { Event } from '../models/event.model';
@@ -14,13 +14,16 @@ export class DetailsAnimalComponent implements OnInit {
   animal: Animal | undefined;
   events$: Observable<Event[] | null> | undefined;
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private animalService: AnimalService
+  ) {}
 
   ngOnInit(): void {
     const animalId: string | null = this.route.snapshot.paramMap.get('id');
 
     if (animalId) {
-      this.apiService
+      this.animalService
         .getAnAnimal(animalId)
         .subscribe((animal) => (this.animal = animal));
 
@@ -29,6 +32,6 @@ export class DetailsAnimalComponent implements OnInit {
   }
 
   public getEventsByAnimal(id: string) {
-    this.events$ = this.apiService.getEventsByAnimal(id);
+    this.events$ = this.animalService.getEventsByAnimal(id);
   }
 }

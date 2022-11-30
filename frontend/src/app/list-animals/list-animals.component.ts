@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from '../models/animal.model';
-import { ApiService } from '../services/api.service';
+import { AnimalService } from '../services/animal/animal.service';
+import { SpeciesService } from '../services/species/species.service';
 import { Species } from '../models/species.model';
 import { Router } from '@angular/router';
 
@@ -15,7 +16,11 @@ export class ListAnimalsComponent implements OnInit {
   species$: Observable<Species[] | null> | undefined;
   species!: string;
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(
+    private animalService: AnimalService,
+    private speciesService: SpeciesService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getAnimals();
@@ -23,11 +28,11 @@ export class ListAnimalsComponent implements OnInit {
   }
 
   public getAnimals() {
-    this.animals$ = this.apiService.getAnimals();
+    this.animals$ = this.animalService.getAnimals();
   }
 
   public getSpecies() {
-    this.species$ = this.apiService.getSpecies();
+    this.species$ = this.speciesService.getSpecies();
   }
 
   public goToDetailsAnimal(animal: Animal) {

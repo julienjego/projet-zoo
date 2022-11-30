@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { AuthData } from '../models/auth-data.model';
+import { AuthData } from 'src/app/models/auth-data.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
