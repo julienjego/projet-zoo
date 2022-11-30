@@ -10,6 +10,7 @@ export class AuthService {
   API_URL = 'http://localhost:8888/api';
   private token!: string | null;
   public authFailed: boolean = false;
+  private tokenTimer: any;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -24,15 +25,23 @@ export class AuthService {
         next: (response) => {
           if (response) {
             const token = response.token;
+            const expiresInDuration = response.expiresIn;
             localStorage.setItem('token', token);
             this.token = token;
             this.router.navigate(['/dashboard']);
-            this.authFailed = false;
+            if (token) {
+              setTimeout(() => {
+                this.logout();
+              }, expiresInDuration * 1000);
+            }
+            // return (this.authFailed = false);
+          } else {
+            // return (this.authFailed = true);
           }
         },
         error: (error) => {
-          this.authFailed = true;
           console.log(this.authFailed);
+          // return (this.authFailed = true);
         },
       });
   }
@@ -46,6 +55,7 @@ export class AuthService {
 
   logout() {
     localStorage.setItem('token', '');
+    clearTimeout(this.tokenTimer);
     this.router.navigate(['/login']);
   }
 }

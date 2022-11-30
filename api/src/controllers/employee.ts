@@ -82,6 +82,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
                                         prenom: employees[0].prenom,
                                         role: employees[0].role,
                                     },
+                                    expiresIn: 3600,
                                 });
                             }
                         });
