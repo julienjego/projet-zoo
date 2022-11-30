@@ -16,6 +16,11 @@
           <p>Position : {{ animal.position }}</p>
 
           <p class="fw-bold">Suivi de l'animal</p>
+          <p>
+            <em *ngIf="$any(events$ | async).length == 0" class="text-muted">
+              Aucun événement à afficher</em
+            >
+          </p>
           <ul class="list-group list-group-flush">
             <li class="list-group-item" *ngFor="let event of events$ | async">
               <em class="text-muted"
