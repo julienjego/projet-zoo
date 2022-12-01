@@ -43,6 +43,56 @@
               </tbody>
             </table>
           </div>
+          <button type="button" class="btn btn-primary" (click)="feedAnimals()">
+            Nourrir les animaux
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary ms-2"
+            (click)="stimulateAnimals()"
+          >
+            Stimuler les animaux
+          </button>
+          <div
+            class="alert alert-success mt-4 d-none"
+            role="alert"
+            id="success-feed"
+          >
+            Animaux nourris ! 👍
+          </div>
+          <div
+            class="alert alert-success mt-4 d-none"
+            role="alert"
+            id="success-stimulate"
+          >
+            Animaux stimulés ! 👍
+          </div>
+          <div
+            class="alert alert-danger mt-4 d-none"
+            role="alert"
+            id="fail-alert"
+          >
+            Un problème est survenu. Êtes-vous bien connecté ?
+          </div>
+          <p class="fw-bold mt-4">Les derniers événements de cette espèce :</p>
+          <p>
+            <em
+              *ngIf="
+                (events$ | async)?.length === 0 || (events$ | async) === null
+              "
+              class="text-muted"
+            >
+              Aucun événement à afficher</em
+            >
+          </p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let event of events$ | async">
+              <em class="text-muted"
+                >{{ event.date | date: "dd/MM/yyyy - HH:mm" }} :</em
+              >
+              {{ event.type }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>

@@ -24,7 +24,6 @@ export class ListSpeciesComponent implements OnInit {
   }
 
   public goToDetailsSpecies(specie: Species) {
-    console.log(specie);
     this.router.navigate(['/species/details', specie._id]);
   }
 }

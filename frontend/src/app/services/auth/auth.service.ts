@@ -32,9 +32,6 @@ export class AuthService {
             this.router.navigate(['/dashboard']);
             if (token) {
               setTimeout(() => {
-                alert(
-                  'SESSION EXPIREE\nVotre session a expiré, vous allez être déconnecté.'
-                );
                 this.logout();
               }, expiresInDuration * 1000);
             }
