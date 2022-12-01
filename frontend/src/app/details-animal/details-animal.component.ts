@@ -34,4 +34,9 @@ export class DetailsAnimalComponent implements OnInit {
   public getEventsByAnimal(id: string) {
     this.events$ = this.animalService.getEventsByAnimal(id);
   }
+
+  //TODO implement functions
+  public careAnimal() {}
+
+  public moveAnimal() {}
 }

@@ -39,4 +39,25 @@ export class AnimalService {
       })
     );
   }
+
+  //TODO create success care alert elements
+  public careAnimal(id: string) {
+    return this.http
+      .post(`${this.API_URL}/animals/care/${id}`, null)
+      .subscribe({
+        next: (response) => {
+          document.querySelector('#success-care')?.classList.remove('d-none');
+          setTimeout(() => {
+            document.querySelector('#success-care')?.classList.add('d-none');
+          }, 2000);
+          console.log(response);
+          return response;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+  }
+
+  public moveAnimal() {}
 }

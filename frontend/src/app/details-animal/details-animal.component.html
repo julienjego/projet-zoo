@@ -14,8 +14,18 @@
           <p>Décès : {{ animal.deces }}</p>
           <p>Observations : {{ animal.observations }}</p>
           <p>Position : {{ animal.position }}</p>
+          <button type="button" class="btn btn-primary" (click)="careAnimal()">
+            Soigner l'animal
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary ms-2"
+            (click)="moveAnimal()"
+          >
+            Déplacer l'animal
+          </button>
 
-          <p class="fw-bold">Suivi de l'animal</p>
+          <p class="fw-bold mt-4">Suivi de l'animal</p>
           <p>
             <em
               *ngIf="
