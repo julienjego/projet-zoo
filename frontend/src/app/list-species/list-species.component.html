@@ -31,7 +31,10 @@
                 }}</span>
               </td>
               <td>{{ specie.observations }}</td>
-              <a class="btn btn-outline-primary btn-sm" role="button"
+              <a
+                class="btn btn-outline-primary btn-sm"
+                role="button"
+                (click)="goToDetailsSpecies(specie)"
                 >Voir les animaux</a
               >
             </tr>

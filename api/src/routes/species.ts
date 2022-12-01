@@ -8,6 +8,8 @@ router.get("/:id/animals", speciesController.getAnimalsBySpecies);
 
 router.get("/", speciesController.getSpecies);
 
+router.get("/:id", speciesController.getASpecies);
+
 router.post(
     "/in/:id",
     auth.verifyToken,

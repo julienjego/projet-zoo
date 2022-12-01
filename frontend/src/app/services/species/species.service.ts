@@ -15,4 +15,8 @@ export class SpeciesService {
   public getSpecies(): Observable<Species[]> {
     return this.http.get<Species[]>(`${this.API_URL}/species/`);
   }
+
+  public getASpecies(id: number): Observable<Species> {
+    return this.http.get<Species>(`${this.API_URL}/species/${id}`);
+  }
 }

@@ -19,6 +19,7 @@ import { ListEnclosuresComponent } from './list-enclosures/list-enclosures.compo
 import { ListSpeciesComponent } from './list-species/list-species.component';
 import { SpeciesSociablePipe } from './pipes/species-sociable.pipe';
 import { SpeciesSociableStringPipe } from './pipes/species-sociable-string.pipe';
+import { DetailsSpeciesComponent } from './details-species/details-species.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,7 @@ import { SpeciesSociableStringPipe } from './pipes/species-sociable-string.pipe'
     ListSpeciesComponent,
     SpeciesSociablePipe,
     SpeciesSociableStringPipe,
+    DetailsSpeciesComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [

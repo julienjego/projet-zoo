@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { AuthData } from 'src/app/models/auth-data.model';
@@ -7,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AuthService {
-  API_URL = 'http://localhost:8888/api';
+  API_URL = environment.API_URL;
   private token!: string | null;
   public authFailed: boolean = false;
   private tokenTimer: any;
@@ -31,17 +32,16 @@ export class AuthService {
             this.router.navigate(['/dashboard']);
             if (token) {
               setTimeout(() => {
+                alert(
+                  'SESSION EXPIREE\nVotre session a expiré, vous allez être déconnecté.'
+                );
                 this.logout();
               }, expiresInDuration * 1000);
             }
-            // return (this.authFailed = false);
-          } else {
-            // return (this.authFailed = true);
           }
         },
         error: (error) => {
           console.log(this.authFailed);
-          // return (this.authFailed = true);
         },
       });
   }

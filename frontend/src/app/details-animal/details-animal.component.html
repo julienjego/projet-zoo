@@ -17,7 +17,12 @@
 
           <p class="fw-bold">Suivi de l'animal</p>
           <p>
-            <em *ngIf="(events$ | async)?.length === 0" class="text-muted">
+            <em
+              *ngIf="
+                (events$ | async)?.length === 0 || (events$ | async) === null
+              "
+              class="text-muted"
+            >
               Aucun événement à afficher</em
             >
           </p>

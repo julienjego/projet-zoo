@@ -25,6 +25,10 @@ export class AnimalService {
     return this.http.get<Animal[]>(`${this.API_URL}/animals/enclosures/${id}`);
   }
 
+  public getAnimalsBySpecies(id: number): Observable<Animal[]> {
+    return this.http.get<Animal[]>(`${this.API_URL}/species/${id}/animals`);
+  }
+
   public getEventsByAnimal(id: string): Observable<Event[]> {
     return this.http.get<Event[]>(`${this.API_URL}/events/animals/${id}`).pipe(
       tap((results) => {

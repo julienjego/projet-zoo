@@ -897,6 +897,35 @@
                 }
             }
         },
+        "/species/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": "number",
+                    "description": "Identifiant de l'espèce à rechercher",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": ["Species"],
+                "summary": "Lister les infos d'une espèce du zoo",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Species"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Espèce inconnue."
+                    }
+                }
+            }
+        },
         "/species/{id}/animals": {
             "parameters": [
                 {

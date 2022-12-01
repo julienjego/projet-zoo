@@ -11,6 +11,12 @@ const getSpecies = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(404).json({ error }));
 };
 
+const getASpecies = (req: Request, res: Response, next: NextFunction) => {
+    Species.findById(req.params.id)
+        .then((specie) => res.status(200).json(specie))
+        .catch((error) => res.status(404).json({ error }));
+};
+
 // Récupérer tous les animaux d'une espèce
 const getAnimalsBySpecies = (
     req: Request,
@@ -170,6 +176,7 @@ const stimulateSpecies = (req: Request, res: Response, next: NextFunction) => {
 
 export default {
     getSpecies,
+    getASpecies,
     getAnimalsBySpecies,
     moveSpecies,
     feedSpecies,

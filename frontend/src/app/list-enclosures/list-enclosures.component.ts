@@ -26,6 +26,7 @@ export class ListEnclosuresComponent implements OnInit {
   }
 
   public goToDetailsEnclosure(enclosure: Enclosure) {
+    console.log(enclosure._id);
     this.router.navigate(['/enclosures/details', enclosure._id]);
   }
 }

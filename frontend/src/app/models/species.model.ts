@@ -1,5 +1,5 @@
 export class Species {
-  id: string;
+  _id: string;
   nom: string;
   nomApp: string;
   sociable: boolean;
@@ -16,7 +16,7 @@ export class Species {
     dangereux: boolean,
     enclos: string
   ) {
-    this.id = id;
+    this._id = id;
     this.nom = nom;
     this.nomApp = nomApp;
     this.sociable = sociable;
