@@ -1,9 +1,9 @@
+import { ShowAlerts } from './../../utils/showAlerts';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Animal } from 'src/app/models/animal.model';
 import { environment } from 'src/environments/environment';
-import { Event } from 'src/app/models/event.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ import { Event } from 'src/app/models/event.model';
 export class AnimalService {
   API_URL = environment.API_URL;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private alerts: ShowAlerts) {}
 
   public getAnimals(): Observable<Animal[]> {
     return this.http.get<Animal[]>(`${this.API_URL}/animals/`);
@@ -29,17 +29,12 @@ export class AnimalService {
     return this.http.get<Animal[]>(`${this.API_URL}/species/${id}/animals`);
   }
 
-  //TODO create success care alert elements
   public careAnimal(id: string) {
     return this.http
       .post(`${this.API_URL}/animals/care/${id}`, null)
       .subscribe({
         next: (response) => {
-          document.querySelector('#success-care')?.classList.remove('d-none');
-          setTimeout(() => {
-            document.querySelector('#success-care')?.classList.add('d-none');
-          }, 2000);
-          console.log(response);
+          this.alerts.showAlert('success-care');
           return response;
         },
         error: (error) => {
@@ -48,5 +43,31 @@ export class AnimalService {
       });
   }
 
-  public moveAnimal() {}
+  public moveAnimal(id: string, position: string) {
+    if (position === 'dehors') {
+      return this.http
+        .post(`${this.API_URL}/animals/in/${id}`, null)
+        .subscribe({
+          next: (response) => {
+            this.alerts.showAlert('#success-move');
+            return response;
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        });
+    } else {
+      return this.http
+        .post(`${this.API_URL}/animals/out/${id}`, null)
+        .subscribe({
+          next: (response) => {
+            this.alerts.showAlert('#success-move');
+            return response;
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        });
+    }
+  }
 }

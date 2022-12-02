@@ -1,3 +1,4 @@
+import { ShowAlerts } from './utils/showAlerts';
 import { AuthGuard } from './services/auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -42,6 +43,7 @@ import { DetailsSpeciesComponent } from './details-species/details-species.compo
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     AuthGuard,
+    ShowAlerts,
   ],
   bootstrap: [AppComponent],
 })

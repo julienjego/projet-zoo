@@ -44,6 +44,9 @@ export class DetailsAnimalComponent implements OnInit {
       this.events$ = this.eventService.getEvents(animalId, 'events/animals');
     }
   }
-  //TODO implement function
-  public moveAnimal() {}
+
+  // TODO Update view when animal is moved
+  public moveAnimal(id: string, position: string) {
+    this.animalService.moveAnimal(id, position);
+  }
 }
