@@ -1,6 +1,7 @@
 import { AuthService } from './../services/auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Employee } from '../models/employee.model';
 
 @Component({
   selector: 'app-login',
@@ -8,6 +9,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  @Input() employee!: Employee;
   authFailed: boolean = false;
 
   constructor(private authService: AuthService) {}
