@@ -43,16 +43,19 @@
               </tbody>
             </table>
           </div>
+          <hr />
+          <p class="fw-bold">Tâches effectuées :</p>
           <button type="button" class="btn btn-primary" (click)="feedAnimals()">
-            Nourrir les animaux
+            Nourrissage
           </button>
           <button
             type="button"
             class="btn btn-primary ms-2"
             (click)="stimulateAnimals()"
           >
-            Stimuler les animaux
+            Stimulation
           </button>
+          <button type="button" class="btn btn-primary ms-2">Transfert</button>
           <div
             class="alert alert-success mt-4 d-none"
             role="alert"
@@ -74,6 +77,7 @@
           >
             Un problème est survenu. Êtes-vous bien connecté ?
           </div>
+          <hr />
           <p class="fw-bold mt-4">Les derniers événements de cette espèce :</p>
           <p>
             <em
@@ -88,7 +92,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item" *ngFor="let event of events$ | async">
               <em class="text-muted"
-                >{{ event.date | date : "dd/MM/yyyy - HH:mm" }} :</em
+                >{{ event.date | date: "dd/MM/yyyy - HH:mm" }} :</em
               >
               {{ event.type }} - {{ event.animal }}
               <small class="text-muted">({{ event.creation }})</small>

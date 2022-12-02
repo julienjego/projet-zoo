@@ -14,15 +14,17 @@
           <p>Décès : {{ animal.deces }}</p>
           <p>Observations : {{ animal.observations }}</p>
           <p>Position : {{ animal.position }}</p>
+          <hr />
+          <p class="fw-bold">Tâches effectués :</p>
           <button type="button" class="btn btn-primary" (click)="careAnimal()">
-            Soigner l'animal
+            Soin
           </button>
           <button
             type="button"
             class="btn btn-primary ms-2"
             (click)="moveAnimal(animal._id, animal.position)"
           >
-            Déplacer l'animal
+            Transfert
           </button>
 
           <div
@@ -40,7 +42,14 @@
           >
             Animal déplacé ! 👍
           </div>
-
+          <div
+            class="alert alert-danger mt-4 d-none"
+            role="alert"
+            id="fail-alert"
+          >
+            Un problème est survenu. Êtes-vous bien connecté ?
+          </div>
+          <hr />
           <p class="fw-bold mt-4">Suivi de l'animal</p>
           <p>
             <em
@@ -55,7 +64,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item" *ngFor="let event of events$ | async">
               <em class="text-muted"
-                >{{ event.date | date : "dd/MM/yyyy - HH:mm" }} :</em
+                >{{ event.date | date: "dd/MM/yyyy - HH:mm" }} :</em
               >
               {{ event.type }}
               <small class="text-muted">({{ event.creation }})</small>

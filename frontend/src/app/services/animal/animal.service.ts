@@ -37,8 +37,8 @@ export class AnimalService {
           this.alerts.showAlert('success-care');
           return response;
         },
-        error: (error) => {
-          console.log(error);
+        error: () => {
+          this.alerts.showAlert('fail-alert');
         },
       });
   }
@@ -52,8 +52,8 @@ export class AnimalService {
             this.alerts.showAlert('#success-move');
             return response;
           },
-          error: (error) => {
-            console.log(error);
+          error: () => {
+            this.alerts.showAlert('fail-alert');
           },
         });
     } else {
@@ -64,8 +64,8 @@ export class AnimalService {
             this.alerts.showAlert('#success-move');
             return response;
           },
-          error: (error) => {
-            console.log(error);
+          error: () => {
+            this.alerts.showAlert('fail-alert');
           },
         });
     }

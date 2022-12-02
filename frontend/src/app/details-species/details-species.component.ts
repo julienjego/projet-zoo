@@ -51,7 +51,7 @@ export class DetailsSpeciesComponent implements OnInit {
     const speciesId: string | null = this.route.snapshot.paramMap.get('id');
     if (speciesId) {
       this.speciesService.feedAnimals(+speciesId);
-      this.events$ = this.eventService.getEvents(speciesId, 'events/animals');
+      this.events$ = this.eventService.getEvents(speciesId, 'events/species');
     }
   }
 
@@ -59,7 +59,7 @@ export class DetailsSpeciesComponent implements OnInit {
     const speciesId: string | null = this.route.snapshot.paramMap.get('id');
     if (speciesId) {
       this.speciesService.stimulateAnimals(+speciesId);
-      this.events$ = this.eventService.getEvents(speciesId, 'events/animals');
+      this.events$ = this.eventService.getEvents(speciesId, 'events/species');
     }
   }
 
