@@ -67,15 +67,4 @@ export class SpeciesService {
       document.querySelector('#fail-alert')?.classList.add('d-none');
     }, 2000);
   }
-
-  public getEventsBySpecies(id: number): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.API_URL}/events/species/${id}`).pipe(
-      tap((results) => {
-        results.sort(
-          (a: Event, b: Event) =>
-            new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
-      })
-    );
-  }
 }

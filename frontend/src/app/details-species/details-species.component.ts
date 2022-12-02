@@ -1,3 +1,4 @@
+import { EventService } from './../services/event/event.service';
 import { SpeciesService } from './../services/species/species.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Species } from './../models/species.model';
@@ -21,6 +22,7 @@ export class DetailsSpeciesComponent implements OnInit {
     private route: ActivatedRoute,
     private speciesService: SpeciesService,
     private animalService: AnimalService,
+    private eventService: EventService,
     private router: Router
   ) {}
 
@@ -49,6 +51,7 @@ export class DetailsSpeciesComponent implements OnInit {
     const speciesId: string | null = this.route.snapshot.paramMap.get('id');
     if (speciesId) {
       this.speciesService.feedAnimals(+speciesId);
+      this.events$ = this.eventService.getEvents(speciesId, 'events/animals');
     }
   }
 
@@ -56,10 +59,11 @@ export class DetailsSpeciesComponent implements OnInit {
     const speciesId: string | null = this.route.snapshot.paramMap.get('id');
     if (speciesId) {
       this.speciesService.stimulateAnimals(+speciesId);
+      this.events$ = this.eventService.getEvents(speciesId, 'events/animals');
     }
   }
 
   public getEventsBySpecies(id: number) {
-    this.events$ = this.speciesService.getEventsBySpecies(id);
+    this.events$ = this.eventService.getEvents(id, 'events/species');
   }
 }

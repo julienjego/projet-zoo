@@ -29,17 +29,6 @@ export class AnimalService {
     return this.http.get<Animal[]>(`${this.API_URL}/species/${id}/animals`);
   }
 
-  public getEventsByAnimal(id: string): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.API_URL}/events/animals/${id}`).pipe(
-      tap((results) => {
-        results.sort(
-          (a: Event, b: Event) =>
-            new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
-      })
-    );
-  }
-
   //TODO create success care alert elements
   public careAnimal(id: string) {
     return this.http

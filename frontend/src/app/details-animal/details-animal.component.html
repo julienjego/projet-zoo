@@ -25,6 +25,22 @@
             Déplacer l'animal
           </button>
 
+          <div
+            class="alert alert-success mt-4 d-none"
+            role="alert"
+            id="success-care"
+          >
+            Animal soigné ! 👍
+          </div>
+
+          <div
+            class="alert alert-success mt-4 d-none"
+            role="alert"
+            id="success-move"
+          >
+            Animal déplacé ! 👍
+          </div>
+
           <p class="fw-bold mt-4">Suivi de l'animal</p>
           <p>
             <em
@@ -39,9 +55,10 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item" *ngFor="let event of events$ | async">
               <em class="text-muted"
-                >{{ event.date | date: "dd/MM/yyyy - HH:mm" }} :</em
+                >{{ event.date | date : "dd/MM/yyyy - HH:mm" }} :</em
               >
               {{ event.type }}
+              <small class="text-muted">({{ event.creation }})</small>
             </li>
           </ul>
         </div>

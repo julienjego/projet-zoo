@@ -88,9 +88,10 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item" *ngFor="let event of events$ | async">
               <em class="text-muted"
-                >{{ event.date | date: "dd/MM/yyyy - HH:mm" }} :</em
+                >{{ event.date | date : "dd/MM/yyyy - HH:mm" }} :</em
               >
-              {{ event.type }}
+              {{ event.type }} - {{ event.animal }}
+              <small class="text-muted">({{ event.creation }})</small>
             </li>
           </ul>
         </div>

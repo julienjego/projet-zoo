@@ -1,3 +1,4 @@
+import { EventService } from './../services/event/event.service';
 import { AnimalService } from '../services/animal/animal.service';
 import { Component, OnInit } from '@angular/core';
 import { Animal } from '../models/animal.model';
@@ -16,7 +17,8 @@ export class DetailsAnimalComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private animalService: AnimalService
+    private animalService: AnimalService,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -32,11 +34,16 @@ export class DetailsAnimalComponent implements OnInit {
   }
 
   public getEventsByAnimal(id: string) {
-    this.events$ = this.animalService.getEventsByAnimal(id);
+    this.events$ = this.eventService.getEvents(id, 'events/animals');
   }
 
-  //TODO implement functions
-  public careAnimal() {}
-
+  public careAnimal() {
+    const animalId: string | null = this.route.snapshot.paramMap.get('id');
+    if (animalId) {
+      this.animalService.careAnimal(animalId);
+      this.events$ = this.eventService.getEvents(animalId, 'events/animals');
+    }
+  }
+  //TODO implement function
   public moveAnimal() {}
 }
