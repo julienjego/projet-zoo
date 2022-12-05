@@ -46,7 +46,7 @@ export class AnimalService {
           return response;
         },
         error: () => {
-          this.alerts.showAlert('fail-alert');
+          this.alerts.showAlert('#fail-alert');
         },
       });
   }
@@ -61,7 +61,7 @@ export class AnimalService {
             return response;
           },
           error: () => {
-            this.alerts.showAlert('fail-alert');
+            this.alerts.showAlert('#fail-alert');
           },
         });
     } else {
@@ -73,7 +73,7 @@ export class AnimalService {
             return response;
           },
           error: () => {
-            this.alerts.showAlert('fail-alert');
+            this.alerts.showAlert('#fail-alert');
           },
         });
     }

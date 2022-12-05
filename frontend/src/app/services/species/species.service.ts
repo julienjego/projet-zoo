@@ -30,7 +30,7 @@ export class SpeciesService {
           return response;
         },
         error: () => {
-          this.alerts.showAlert('fail-alert');
+          this.alerts.showAlert('#fail-alert');
         },
       });
   }
@@ -44,7 +44,7 @@ export class SpeciesService {
           return response;
         },
         error: () => {
-          this.alerts.showAlert('fail-alert');
+          this.alerts.showAlert('#fail-alert');
         },
       });
   }

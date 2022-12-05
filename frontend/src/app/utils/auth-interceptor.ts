@@ -22,6 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
         'Content-Type': 'application/json',
       },
     });
+    console.log('tok ' + authToken);
     return next.handle(authRequest);
   }
 }

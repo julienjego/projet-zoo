@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { AuthData } from 'src/app/models/auth-data.model';
 import { HttpClient } from '@angular/common/http';
+import { delay, of, Subject, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +12,14 @@ export class AuthService {
   API_URL = environment.API_URL;
   private token!: string | null;
   public authFailed: boolean = false;
-  private tokenTimer: any;
+  private tokenSubscription = new Subscription();
+  private authStatusListener = new Subject<boolean>();
 
   constructor(private http: HttpClient, private router: Router) {}
+
+  getAuthStatusListener() {
+    return this.authStatusListener.asObservable();
+  }
 
   loginUser(username: string, password: string) {
     const authData: AuthData = { username: username, password: password };
@@ -30,16 +36,27 @@ export class AuthService {
             localStorage.setItem('token', token);
             this.token = token;
             this.router.navigate(['/dashboard']);
+            this.authStatusListener.next(true);
             if (token) {
-              setTimeout(() => {
-                this.logout();
-              }, expiresInDuration * 1000);
+              this.tokenSubscription = of(null)
+                .pipe(delay(expiresInDuration * 1000))
+                .subscribe((expired) => {
+                  console.log('t ' + expiresInDuration * 1000);
+                  console.log('exp ' + expired);
+                  alert('Votre session a expiré. Vous allez être déconnecté !');
+                  this.logout();
+                  console.log(
+                    'EXPIRED!! at ' +
+                      new Date().getHours() +
+                      ':' +
+                      new Date().getMinutes()
+                  );
+                  console.log('exp tok ' + this.token);
+                });
             }
           }
         },
-        error: (error) => {
-          console.log(this.authFailed);
-        },
+        error: (error) => {},
       });
   }
 
@@ -51,8 +68,9 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.setItem('token', '');
-    clearTimeout(this.tokenTimer);
+    this.tokenSubscription.unsubscribe();
+    this.token = null;
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 }
