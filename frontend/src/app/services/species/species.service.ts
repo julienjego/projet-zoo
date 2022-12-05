@@ -26,7 +26,7 @@ export class SpeciesService {
       .post(`${this.API_URL}/species/feed/${id}`, null)
       .subscribe({
         next: (response) => {
-          this.alerts.showAlert('success-feed');
+          this.alerts.showAlert('#success-feed');
           return response;
         },
         error: () => {
@@ -40,7 +40,7 @@ export class SpeciesService {
       .post(`${this.API_URL}/species/stimulate/${id}`, null)
       .subscribe({
         next: (response) => {
-          this.alerts.showAlert('success-stimulate');
+          this.alerts.showAlert('#success-stimulate');
           return response;
         },
         error: () => {

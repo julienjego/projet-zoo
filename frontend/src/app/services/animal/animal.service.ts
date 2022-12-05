@@ -42,7 +42,7 @@ export class AnimalService {
       .post(`${this.API_URL}/animals/care/${id}`, null)
       .subscribe({
         next: (response) => {
-          this.alerts.showAlert('success-care');
+          this.alerts.showAlert('#success-care');
           return response;
         },
         error: () => {

@@ -58,7 +58,10 @@ export class DetailsAnimalComponent implements OnInit {
 
   // TODO Update view when animal is moved
   public moveAnimal(id: string, position: string) {
-    this.animalService.moveAnimal(id, position);
-    this.events$ = this.eventService.getEvents(id, 'events/animals');
+    const animalId: string | null = this.route.snapshot.paramMap.get('id');
+    if (animalId) {
+      this.animalService.moveAnimal(id, position);
+      this.events$ = this.eventService.getEvents(animalId, 'events/animals');
+    }
   }
 }
