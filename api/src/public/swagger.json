@@ -356,6 +356,32 @@
                 }
             }
         },
+        "/animals/{id}/species": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'animal à rechercher",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": ["Animals"],
+                "summary": "Obtenir l'espèce d'un animal",
+                "responses": {
+                    "200": {
+                        "description": "Succès."
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Animal inconnu."
+                    }
+                }
+            }
+        },
         "/animals/{id}/enclosure": {
             "parameters": [
                 {

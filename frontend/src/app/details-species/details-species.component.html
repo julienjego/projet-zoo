@@ -1,105 +1,136 @@
-<div class="container">
+<div class="container mb-4">
   <div *ngIf="species" class="row justify-content-center">
-    <div class="col-12 col-sm-10 col-lg-10 mt-4">
+    <div class="col-12 col-lg-10 mt-4 mb-4">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{ species.nomApp }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">
-            ZONE {{ species.enclos | uppercase }}
-          </h6>
-          <p class="fw-bold">Les animaux de cette espèce :</p>
-          <div class="table-responsive">
-            <table class="table" aria-describedby="Tableau des animaux">
-              <thead>
-                <tr class="table-light">
-                  <th scope="col">Nom</th>
-                  <th scope="col">Espèce</th>
-                  <th scope="col">Sexe</th>
-                  <th scope="col">Position</th>
-                  <th scope="col">Observations</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let animal of animals$ | async">
-                  <td class="fw-bold">{{ animal.nom }}</td>
-                  <td class="text-muted fw-light">
-                    {{ animal.espece | uppercase }}
-                  </td>
-                  <td>
-                    <span class="{{ animal.sexe | genderColor }}">{{
-                      animal.sexe | genderString
-                    }}</span>
-                  </td>
-                  <td>{{ animal.position }}</td>
-                  <td>{{ animal.observations }}</td>
-                  <a
-                    class="btn btn-outline-primary btn-sm"
-                    (click)="goToDetailsAnimal(animal)"
-                    role="button"
-                    >Détails</a
-                  >
-                </tr>
-              </tbody>
-            </table>
+          <div class="row">
+            <div class="col-12">
+              <h5 class="card-title">{{ species.nomApp }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                ZONE {{ species.enclos | uppercase }}
+              </h6>
+              <p class="fw-bold">Les animaux de cette espèce :</p>
+              <div class="table-responsive">
+                <table class="table" aria-describedby="Tableau des animaux">
+                  <thead>
+                    <tr class="table-light">
+                      <th scope="col">Nom</th>
+                      <th scope="col">Espèce</th>
+                      <th scope="col">Sexe</th>
+                      <th scope="col">Position</th>
+                      <th scope="col">Observations</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let animal of animals$ | async">
+                      <td class="fw-bold">{{ animal.nom }}</td>
+                      <td class="text-muted fw-light">
+                        {{ animal.espece | uppercase }}
+                      </td>
+                      <td>
+                        <span class="{{ animal.sexe | genderColor }}">{{
+                          animal.sexe | genderString
+                        }}</span>
+                      </td>
+                      <td>{{ animal.position }}</td>
+                      <td>{{ animal.observations }}</td>
+                      <a
+                        class="btn btn-outline-primary btn-sm"
+                        (click)="goToDetailsAnimal(animal)"
+                        role="button"
+                        >Détails</a
+                      >
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-          <hr />
-          <p class="fw-bold">Tâches effectuées :</p>
-          <button type="button" class="btn btn-primary" (click)="feedAnimals()">
-            Nourrissage
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary ms-2"
-            (click)="stimulateAnimals()"
-          >
-            Stimulation
-          </button>
-          <button type="button" class="btn btn-primary ms-2">Transfert</button>
-          <div
-            class="alert alert-success mt-4 d-none"
-            role="alert"
-            id="success-feed"
-          >
-            Animaux nourris ! 👍
-          </div>
-          <div
-            class="alert alert-success mt-4 d-none"
-            role="alert"
-            id="success-stimulate"
-          >
-            Animaux stimulés ! 👍
-          </div>
-          <div
-            class="alert alert-danger mt-4 d-none"
-            role="alert"
-            id="fail-alert"
-          >
-            Un problème est survenu. Êtes-vous bien connecté ?
-          </div>
-          <hr />
-          <p class="fw-bold mt-4">Les derniers événements de cette espèce :</p>
-          <p>
-            <em
-              *ngIf="
-                (events$ | async)?.length === 0 || (events$ | async) === null
-              "
-              class="text-muted"
-            >
-              Aucun événement à afficher</em
-            >
-          </p>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let event of events$ | async">
-              <em class="text-muted"
-                >{{ event.date | date: "dd/MM/yyyy - HH:mm" }} :</em
+          <div class="row">
+            <div class="col-12">
+              <hr />
+              <p class="fw-bold">Tâches effectuées :</p>
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="feedAnimals()"
               >
-              {{ event.type }} - {{ event.animal }}
-              <small class="text-muted">({{ event.creation }})</small>
-            </li>
-          </ul>
+                Nourrissage
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary ms-2"
+                (click)="stimulateAnimals()"
+              >
+                Stimulation
+              </button>
+              <button type="button" class="btn btn-primary ms-2">
+                Déplacement
+              </button>
+              <div
+                class="alert alert-success mt-4 d-none"
+                role="alert"
+                id="success-feed"
+              >
+                Animaux nourris ! 👍
+              </div>
+              <div
+                class="alert alert-success mt-4 d-none"
+                role="alert"
+                id="success-stimulate"
+              >
+                Animaux stimulés ! 👍
+              </div>
+              <div
+                class="alert alert-danger mt-4 d-none"
+                role="alert"
+                id="fail-alert"
+              >
+                Un problème est survenu. Êtes-vous bien connecté ?
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <hr />
+              <p class="fw-bold mt-4">
+                Les derniers événements de cette espèce :
+              </p>
+              <p>
+                <em
+                  *ngIf="
+                    (events$ | async)?.length === 0 ||
+                    (events$ | async) === null
+                  "
+                  class="text-muted"
+                >
+                  Aucun événement à afficher</em
+                >
+              </p>
+              <ul class="list-group list-group-flush">
+                <li
+                  class="list-group-item"
+                  *ngFor="let event of events$ | async"
+                >
+                  <em class="text-muted"
+                    >{{ event.date | date : "dd/MM/yyyy - HH:mm" }} :</em
+                  >
+                  {{ event.type }} - {{ event.animal }}
+                  <small class="text-muted">({{ event.creation }})</small>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <button
+    type="button"
+    class="btn btn-outline-primary"
+    (click)="goToListSpecies()"
+  >
+    < Retour à la liste des espèces
+  </button>
 </div>

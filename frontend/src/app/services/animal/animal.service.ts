@@ -29,6 +29,14 @@ export class AnimalService {
     return this.http.get<Animal[]>(`${this.API_URL}/species/${id}/animals`);
   }
 
+  public getSpeciesOfAnimal(
+    id: string
+  ): Observable<{ _id: string; espece: string; especeId: number }> {
+    return this.http.get<{ _id: string; espece: string; especeId: number }>(
+      `${this.API_URL}/animals/${id}/species`
+    );
+  }
+
   public careAnimal(id: string) {
     return this.http
       .post(`${this.API_URL}/animals/care/${id}`, null)

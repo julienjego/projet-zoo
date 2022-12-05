@@ -47,6 +47,10 @@ export class DetailsSpeciesComponent implements OnInit {
     this.router.navigate(['/animals/details', animal._id]);
   }
 
+  public goToListSpecies() {
+    this.router.navigate(['/species']);
+  }
+
   public feedAnimals() {
     const speciesId: string | null = this.route.snapshot.paramMap.get('id');
     if (speciesId) {

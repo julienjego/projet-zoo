@@ -3,7 +3,8 @@ import { AnimalService } from '../services/animal/animal.service';
 import { Component, OnInit } from '@angular/core';
 import { Animal } from '../models/animal.model';
 import { Event } from '../models/event.model';
-import { ActivatedRoute } from '@angular/router';
+import { Species } from '../models/species.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,7 +19,8 @@ export class DetailsAnimalComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private animalService: AnimalService,
-    private eventService: EventService
+    private eventService: EventService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +37,15 @@ export class DetailsAnimalComponent implements OnInit {
 
   public getEventsByAnimal(id: string) {
     this.events$ = this.eventService.getEvents(id, 'events/animals');
+  }
+
+  public goToSpecies(animal: Animal) {
+    this.animalService
+      .getSpeciesOfAnimal(animal._id)
+      .subscribe((specie: { [index: number]: any }) => {
+        const speciesId: number = specie[0].especeId;
+        this.router.navigate([`species/details/${speciesId}`]);
+      });
   }
 
   public careAnimal() {

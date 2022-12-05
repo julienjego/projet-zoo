@@ -179,6 +179,52 @@ const getAnimalEnclosure = (req: Request, res: Response) => {
         });
 };
 
+// Connaître l'id de l'espèce d'un animal
+const getSpeciesOfAnimal = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    Animal.findById({ _id: req.params.id })
+        .then((animal) => {
+            if (animal) {
+                Animal.aggregate([
+                    {
+                        $match: {
+                            _id: new mongoose.Types.ObjectId(req.params.id),
+                        },
+                    },
+                    {
+                        $lookup: {
+                            from: "species",
+                            localField: "espece",
+                            foreignField: "nom",
+                            as: "results",
+                        },
+                    },
+                    {
+                        $unwind: {
+                            path: "$results",
+                        },
+                    },
+                    {
+                        $project: {
+                            espece: 1,
+                            especeId: "$results._id",
+                        },
+                    },
+                ]).exec((err, result) => {
+                    res.status(200).json(result);
+                });
+            } else {
+                res.status(404).json({ message: "Animal non trouvé" });
+            }
+        })
+        .catch(() => {
+            res.status(400).json({ erreur: "Syntaxe de la requête erronée" });
+        });
+};
+
 // Soigner un animal
 const careAnimal = (req: Request, res: Response, next: NextFunction) => {
     Animal.findById({ _id: req.params.id })
@@ -245,6 +291,7 @@ export default {
     getAllAnimals,
     getAnAnimal,
     getAllAnimalsByEnclosure,
+    getSpeciesOfAnimal,
     updateAnimal,
     deleteAnimal,
     moveAnimal,
