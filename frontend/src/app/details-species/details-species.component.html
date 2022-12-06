@@ -19,6 +19,7 @@
                       <th scope="col">Sexe</th>
                       <th scope="col">Position</th>
                       <th scope="col">Observations</th>
+                      <th scope="col">Déplacer ?</th>
                       <th scope="col"></th>
                     </tr>
                   </thead>
@@ -35,12 +36,15 @@
                       </td>
                       <td>{{ animal.position }}</td>
                       <td>{{ animal.observations }}</td>
-                      <a
-                        class="btn btn-outline-primary btn-sm"
-                        (click)="goToDetailsAnimal(animal)"
-                        role="button"
-                        >Détails</a
-                      >
+                      <td>{{ animal.observations }}</td>
+                      <td>
+                        <a
+                          class="btn btn-outline-primary btn-sm"
+                          (click)="goToDetailsAnimal(animal)"
+                          role="button"
+                          >Détails</a
+                        >
+                      </td>
                     </tr>
                   </tbody>
                 </table>
