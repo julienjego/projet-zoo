@@ -13,7 +13,7 @@
               <div class="table-responsive">
                 <table class="table" aria-describedby="Tableau des animaux">
                   <thead>
-                    <tr class="table-light">
+                    <tr class="table-light text-center">
                       <th scope="col">Nom</th>
                       <th scope="col">Espèce</th>
                       <th scope="col">Sexe</th>
@@ -26,18 +26,25 @@
                   <tbody>
                     <tr *ngFor="let animal of animals$ | async">
                       <td class="fw-bold">{{ animal.nom }}</td>
-                      <td class="text-muted fw-light">
+                      <td class="text-muted fw-light text-center">
                         {{ animal.espece | uppercase }}
                       </td>
-                      <td>
+                      <td class="text-center">
                         <span class="{{ animal.sexe | genderColor }}">{{
                           animal.sexe | genderString
                         }}</span>
                       </td>
-                      <td>{{ animal.position }}</td>
+                      <td class="text-center">{{ animal.position }}</td>
                       <td>{{ animal.observations }}</td>
-                      <td>{{ animal.observations }}</td>
-                      <td>
+                      <td class="text-center">
+                        <input
+                          title="moving-checkbox"
+                          type="checkbox"
+                          class="form-check-input"
+                          value=""
+                        />
+                      </td>
+                      <td class="text-center">
                         <a
                           class="btn btn-outline-primary btn-sm"
                           (click)="goToDetailsAnimal(animal)"

@@ -5,7 +5,7 @@
       <div class="table-responsive">
         <table class="table" aria-describedby="Tableau des espèces">
           <thead>
-            <tr class="table-light">
+            <tr class="table-light text-center">
               <th scope="col">Nom</th>
               <th scope="col">Enclos</th>
               <th scope="col">Sociable</th>
@@ -20,18 +20,18 @@
               <td class="text-muted fw-light">
                 {{ specie.enclos | uppercase }}
               </td>
-              <td>
+              <td class="text-center">
                 <span class="{{ specie.sociable | speciesSociable }}">{{
                   specie.sociable | speciesSociableString
                 }}</span>
               </td>
-              <td>
+              <td class="text-center">
                 <span class="{{ specie.dangereux | speciesSociable }}">{{
                   specie.dangereux | speciesSociableString
                 }}</span>
               </td>
               <td>{{ specie.observations }}</td>
-              <td>
+              <td class="text-center">
                 <a
                   class="btn btn-outline-primary btn-sm"
                   role="button"
