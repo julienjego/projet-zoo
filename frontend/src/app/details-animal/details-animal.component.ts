@@ -3,7 +3,6 @@ import { AnimalService } from '../services/animal/animal.service';
 import { Component, OnInit } from '@angular/core';
 import { Animal } from '../models/animal.model';
 import { Event } from '../models/event.model';
-import { Species } from '../models/species.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -15,6 +14,7 @@ import { Observable } from 'rxjs';
 export class DetailsAnimalComponent implements OnInit {
   animal: Animal | undefined;
   events$: Observable<Event[] | null> | undefined;
+  animalId: string | null = this.route.snapshot.paramMap.get('id');
 
   constructor(
     private route: ActivatedRoute,
@@ -24,14 +24,12 @@ export class DetailsAnimalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const animalId: string | null = this.route.snapshot.paramMap.get('id');
-
-    if (animalId) {
+    if (this.animalId) {
       this.animalService
-        .getAnAnimal(animalId)
+        .getAnAnimal(this.animalId)
         .subscribe((animal) => (this.animal = animal));
 
-      this.getEventsByAnimal(animalId);
+      this.getEventsByAnimal(this.animalId);
     }
   }
 
@@ -49,19 +47,23 @@ export class DetailsAnimalComponent implements OnInit {
   }
 
   public careAnimal() {
-    const animalId: string | null = this.route.snapshot.paramMap.get('id');
-    if (animalId) {
-      this.animalService.careAnimal(animalId);
-      this.events$ = this.eventService.getEvents(animalId, 'events/animals');
+    if (this.animalId) {
+      this.animalService.careAnimal(this.animalId);
+      this.events$ = this.eventService.getEvents(
+        this.animalId,
+        'events/animals'
+      );
     }
   }
 
   // TODO Update view when animal is moved
   public moveAnimal(id: string, position: string) {
-    const animalId: string | null = this.route.snapshot.paramMap.get('id');
-    if (animalId) {
+    if (this.animalId) {
       this.animalService.moveAnimal(id, position);
-      this.events$ = this.eventService.getEvents(animalId, 'events/animals');
+      this.events$ = this.eventService.getEvents(
+        this.animalId,
+        'events/animals'
+      );
     }
   }
 }
