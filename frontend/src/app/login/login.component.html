@@ -32,7 +32,7 @@
             required
           />
         </div>
-        <div *ngIf="authFailed" class="alert alert-danger" role="alert">
+        <div class="alert alert-danger d-none" role="alert" id="fail-login">
           Nom d'utilisateur et/ou mot de passe incorrects !
         </div>
         <button

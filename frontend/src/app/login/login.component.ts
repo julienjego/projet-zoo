@@ -10,7 +10,6 @@ import { Employee } from '../models/employee.model';
 })
 export class LoginComponent implements OnInit {
   @Input() employee!: Employee;
-  authFailed: boolean = false;
 
   constructor(private authService: AuthService) {}
 
@@ -21,6 +20,5 @@ export class LoginComponent implements OnInit {
       loginForm.value.username,
       loginForm.value.password
     );
-    this.authFailed = this.authService.authFailed;
   }
 }

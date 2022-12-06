@@ -1,3 +1,4 @@
+import { ShowAlerts } from './../../utils/showAlerts';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -11,11 +12,14 @@ import { delay, of, Subject, Subscription } from 'rxjs';
 export class AuthService {
   API_URL = environment.API_URL;
   private token!: string | null;
-  public authFailed: boolean = false;
   private tokenSubscription = new Subscription();
   private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private alerts: ShowAlerts
+  ) {}
 
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
@@ -56,7 +60,9 @@ export class AuthService {
             }
           }
         },
-        error: (error) => {},
+        error: (error) => {
+          this.alerts.showAlert('#fail-login');
+        },
       });
   }
 
