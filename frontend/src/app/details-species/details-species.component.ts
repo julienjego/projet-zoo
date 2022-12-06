@@ -88,6 +88,7 @@ export class DetailsSpeciesComponent implements OnInit {
         'events/species'
       );
       this.animals$ = this.animalService.getAnimalsBySpecies(+this.speciesId);
+      this.chksOk = false;
     }
   }
 
