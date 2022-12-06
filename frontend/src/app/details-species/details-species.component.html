@@ -38,10 +38,16 @@
                       <td>{{ animal.observations }}</td>
                       <td class="text-center">
                         <input
-                          title="moving-checkbox"
+                          (change)="cbxChange($event)"
+                          name="moving-checkbox"
+                          aria-label="Moving checkbox"
                           type="checkbox"
-                          class="form-check-input"
-                          value=""
+                          class="form-check-input input-moving"
+                          value="{&quot;animal&quot;: {&quot;id&quot;: &quot;{{
+                            animal._id
+                          }}&quot;, &quot;position&quot;: &quot;{{
+                            animal.position
+                          }}&quot;}}"
                         />
                       </td>
                       <td class="text-center">
@@ -76,7 +82,12 @@
               >
                 Stimulation
               </button>
-              <button type="button" class="btn btn-primary ms-2">
+              <button
+                type="button"
+                class="btn btn-primary ms-2"
+                [disabled]="!chksOk"
+                (click)="moveAnimals()"
+              >
                 Déplacement
               </button>
               <div
@@ -92,6 +103,13 @@
                 id="success-stimulate"
               >
                 Animaux stimulés ! 👍
+              </div>
+              <div
+                class="alert alert-success mt-4 d-none"
+                role="alert"
+                id="success-move"
+              >
+                Animaux déplacés ! 👍
               </div>
               <div
                 class="alert alert-danger mt-4 d-none"
