@@ -14,6 +14,7 @@ import { AnimalService } from '../services/animal/animal.service';
 export class DetailsEnclosureComponent implements OnInit {
   animals$: Observable<Animal[] | null> | undefined;
   enclosure: Enclosure | undefined;
+  enclosureId: string | null = this.route.snapshot.paramMap.get('id');
 
   constructor(
     private route: ActivatedRoute,
@@ -23,14 +24,12 @@ export class DetailsEnclosureComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const enclosureId: string | null = this.route.snapshot.paramMap.get('id');
-
-    if (enclosureId) {
+    if (this.enclosureId) {
       this.enclosureService
-        .getAnEnclosure(+enclosureId)
+        .getAnEnclosure(+this.enclosureId)
         .subscribe((enclosure) => (this.enclosure = enclosure));
 
-      this.getAnimalsByEnclosure(+enclosureId);
+      this.getAnimalsByEnclosure(+this.enclosureId);
     }
   }
 
@@ -40,5 +39,11 @@ export class DetailsEnclosureComponent implements OnInit {
 
   public goToDetailsAnimal(animal: Animal) {
     this.router.navigate(['/animals/details', animal._id]);
+  }
+
+  public verifyEnclosure(id: number) {
+    if (this.enclosureId) {
+      this.enclosureService.verifyEnclosure(id);
+    }
   }
 }

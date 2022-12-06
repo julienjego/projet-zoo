@@ -43,6 +43,26 @@
               </tbody>
             </table>
           </div>
+          <div class="row">
+            <div class="col-12">
+              <hr />
+              <p class="fw-bold">Tâches effectuées :</p>
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="verifyEnclosure(+enclosure._id)"
+              >
+                Vérification
+              </button>
+              <div
+                class="alert alert-success mt-4 d-none"
+                role="alert"
+                id="success-verify"
+              >
+                Enclos vérifié ! 👍
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
