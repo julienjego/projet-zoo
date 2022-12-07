@@ -22,6 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
         'Content-Type': 'application/json',
       },
     });
+    console.log(authToken! + ' ' + Date.now());
     return next.handle(authRequest);
   }
 }

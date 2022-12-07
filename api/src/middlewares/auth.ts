@@ -8,7 +8,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     if (token) {
         jwt.verify(token, config.token.secret as string, (error, decoded) => {
             if (error) {
-                res.status(404).json(error);
+                res.status(401).json(error);
             } else {
                 res.locals.jwt = decoded;
                 next();

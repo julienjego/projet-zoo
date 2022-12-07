@@ -1,3 +1,4 @@
+import { Action } from './../models/action.model';
 import { EventService } from './../services/event/event.service';
 import { AnimalService } from '../services/animal/animal.service';
 import { Component, OnInit } from '@angular/core';
@@ -5,6 +6,7 @@ import { Animal } from '../models/animal.model';
 import { Event } from '../models/event.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ActionService } from '../services/action/action.service';
 
 @Component({
   selector: 'app-details-animal',
@@ -14,12 +16,14 @@ import { Observable } from 'rxjs';
 export class DetailsAnimalComponent implements OnInit {
   animal: Animal | undefined;
   events$: Observable<Event[] | null> | undefined;
+  actions$: Observable<Action[] | null> | undefined;
   animalId: string | null = this.route.snapshot.paramMap.get('id');
 
   constructor(
     private route: ActivatedRoute,
     private animalService: AnimalService,
     private eventService: EventService,
+    private actionService: ActionService,
     private router: Router
   ) {}
 
@@ -35,6 +39,10 @@ export class DetailsAnimalComponent implements OnInit {
 
   public getEventsByAnimal(id: string) {
     this.events$ = this.eventService.getEvents(id, 'events/animals');
+  }
+
+  public getActionsByAnimal(id: string) {
+    this.actions$ = this.actionService.getActions(id, 'actions/animals');
   }
 
   public goToSpecies(animal: Animal) {

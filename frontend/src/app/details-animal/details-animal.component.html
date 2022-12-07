@@ -1,10 +1,11 @@
 <div *ngIf="animal" class="container mb-4">
   <div class="row justify-content-center">
     <div class="col-12 col-lg-10 mt-4 mb-4">
+      <p class="text-muted fw-bold">Enclos > Espèce > Animal</p>
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <div class="col-12">
+            <div class="col-6">
               <h5 class="card-title">{{ animal.nom }}</h5>
               <h6 class="card-subtitle mb-2 text-muted">
                 {{ animal.espece | uppercase }}
@@ -16,6 +17,13 @@
               <p>Décès : {{ animal.deces }}</p>
               <p>Observations : {{ animal.observations }}</p>
               <p>Position : {{ animal.position }}</p>
+            </div>
+            <div class="col-6">
+              <img
+                src="../assets/images/{{ animal.espece }}.jpg"
+                alt="{{ animal.nom }}"
+                class="rounded img-fluid"
+              />
             </div>
           </div>
           <div class="row">
@@ -60,9 +68,9 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12">
+            <div class="col-6">
               <hr />
-              <p class="fw-bold mt-4">Suivi de l'animal</p>
+              <p class="fw-bold mt-4">Suivi de l'animal :</p>
               <p>
                 <em
                   *ngIf="
@@ -86,6 +94,36 @@
                   <small class="text-muted">({{ event.creation }})</small>
                 </li>
               </ul>
+            </div>
+            <div class="col-6">
+              <hr />
+              <p class="fw-bold mt-4">Actions à faire :</p>
+              <p>
+                <em
+                  *ngIf="
+                    (actions$ | async)?.length === 0 ||
+                    (actions$ | async) === null
+                  "
+                  class="text-muted"
+                >
+                  Aucune action à traiter</em
+                >
+              </p>
+              <ul class="list-group list-group-flush">
+                <li
+                  class="list-group-item"
+                  *ngFor="let action of actions$ | async"
+                >
+                  <em class="text-muted"
+                    >{{ action.date | date : "dd/MM/yyyy - HH:mm" }} :</em
+                  >
+                  {{ action.observations }}
+                  <small class="text-muted">({{ action.creation }})</small>
+                </li>
+              </ul>
+              <button type="button" class="btn btn-primary">
+                Créer une action
+              </button>
             </div>
           </div>
         </div>

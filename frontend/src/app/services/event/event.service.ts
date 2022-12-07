@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
@@ -9,15 +10,23 @@ import { Event } from 'src/app/models/event.model';
 })
 export class EventService {
   API_URL = environment.API_URL;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   public getEvents(id: string | number, endpoint: string): Observable<Event[]> {
     return this.http.get<Event[]>(`${this.API_URL}/${endpoint}/${id}`).pipe(
-      tap((results) => {
-        results.sort(
-          (a: Event, b: Event) =>
-            new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
+      tap({
+        next: (results) => {
+          results.sort(
+            (a: Event, b: Event) =>
+              new Date(b.date).getTime() - new Date(a.date).getTime()
+          );
+        },
+        error: (error) => {
+          if (error.status === 401) {
+            console.log("401");
+
+          }
+        },
       })
     );
   }

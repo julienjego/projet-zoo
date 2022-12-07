@@ -1,3 +1,4 @@
+import { Event } from './../models/event.model';
 import { EnclosureService } from './../services/enclosure/enclosure.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -5,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Animal } from '../models/animal.model';
 import { Enclosure } from '../models/enclosure.model';
 import { AnimalService } from '../services/animal/animal.service';
+import { EventService } from '../services/event/event.service';
 
 @Component({
   selector: 'app-details-enclosure',
@@ -13,6 +15,7 @@ import { AnimalService } from '../services/animal/animal.service';
 })
 export class DetailsEnclosureComponent implements OnInit {
   animals$: Observable<Animal[] | null> | undefined;
+  events$: Observable<Event[] | null> | undefined;
   enclosure: Enclosure | undefined;
   enclosureId: string | null = this.route.snapshot.paramMap.get('id');
 
@@ -20,7 +23,8 @@ export class DetailsEnclosureComponent implements OnInit {
     private route: ActivatedRoute,
     private animalService: AnimalService,
     private enclosureService: EnclosureService,
-    private router: Router
+    private router: Router,
+    private eventService: EventService
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +34,12 @@ export class DetailsEnclosureComponent implements OnInit {
         .subscribe((enclosure) => (this.enclosure = enclosure));
 
       this.getAnimalsByEnclosure(+this.enclosureId);
+      this.getEventsByEnclosure(+this.enclosureId);
     }
+  }
+
+  getEventsByEnclosure(id: number) {
+    this.events$ = this.eventService.getEvents(id, 'events/enclosures');
   }
 
   public getAnimalsByEnclosure(id: number) {
@@ -44,6 +53,7 @@ export class DetailsEnclosureComponent implements OnInit {
   public verifyEnclosure(id: number) {
     if (this.enclosureId) {
       this.enclosureService.verifyEnclosure(id);
+      this.events$ = this.eventService.getEvents(id, 'events/enclosures');
     }
   }
 }

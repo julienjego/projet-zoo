@@ -45,6 +45,7 @@ export class AuthService {
               this.tokenSubscription = of(null)
                 .pipe(delay(expiresInDuration * 1000))
                 .subscribe((expired) => {
+                  localStorage.setItem('token', '');
                   console.log('t ' + expiresInDuration * 1000);
                   console.log('exp ' + expired);
                   alert('Votre session a expiré. Vous allez être déconnecté !');

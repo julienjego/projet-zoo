@@ -1,6 +1,7 @@
 <div class="container">
   <div *ngIf="enclosure" class="row justify-content-center">
     <div class="col-12 col-sm-10 col-lg-10 mt-4">
+      <p class="text-muted fw-bold">Enclos</p>
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{ enclosure.nomApp }}</h5>
@@ -61,6 +62,37 @@
               >
                 Enclos vérifié ! 👍
               </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <hr />
+              <p class="fw-bold mt-4">
+                Les derniers événements de cet enclos :
+              </p>
+              <p>
+                <em
+                  *ngIf="
+                    (events$ | async)?.length === 0 ||
+                    (events$ | async) === null
+                  "
+                  class="text-muted"
+                >
+                  Aucun événement à afficher</em
+                >
+              </p>
+              <ul class="list-group list-group-flush">
+                <li
+                  class="list-group-item"
+                  *ngFor="let event of events$ | async"
+                >
+                  <em class="text-muted"
+                    >{{ event.date | date : "dd/MM/yyyy - HH:mm" }} :</em
+                  >
+                  {{ event.type }} - {{ event.animal }}
+                  <small class="text-muted">({{ event.creation }})</small>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

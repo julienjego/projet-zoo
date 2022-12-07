@@ -101,7 +101,7 @@ const getEventsByAnimal = (req: Request, res: Response, next: NextFunction) => {
                     .then((events) => res.status(200).json(events))
                     .catch((error) => res.status(404).json({ error }));
             } else {
-                res.status(404).json({ message: "Aucun animal trouvé" });
+                res.status(401).json({ message: "Aucun animal trouvé" });
             }
         })
         .catch(() => {

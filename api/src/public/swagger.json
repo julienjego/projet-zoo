@@ -693,7 +693,18 @@
                         "description": "Enclos inconnu."
                     }
                 }
-            },
+            }
+        },
+        "/enclosures/verify/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'enclos",
+                    "type": "integer"
+                }
+            ],
             "post": {
                 "tags": ["Enclosures"],
                 "summary": "Vérifier un enclos",
