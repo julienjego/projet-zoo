@@ -1,3 +1,4 @@
+import { IActionData } from './../../models/action-data.model';
 import { HttpClient } from '@angular/common/http';
 import { Action } from './../../models/action.model';
 import { Injectable } from '@angular/core';
@@ -24,5 +25,11 @@ export class ActionService {
         );
       })
     );
+  }
+
+  //TODO continuer création action
+  public createAction(obs: string, date: Date) {
+    const actionData: IActionData = { observations: obs, date: date };
+    this.http.put(`${this.API_URL}/actions/create`, actionData);
   }
 }

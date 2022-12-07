@@ -2,7 +2,7 @@ import { ShowAlerts } from './../../utils/showAlerts';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { AuthData } from 'src/app/models/auth-data.model';
+import { IAuthData } from 'src/app/models/auth-data.model';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Subscription } from 'rxjs';
 
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   loginUser(username: string, password: string) {
-    const authData: AuthData = { username: username, password: password };
+    const authData: IAuthData = { username: username, password: password };
     this.http
       .post<{ token: string; expiresIn: number }>(
         `${this.API_URL}/employees/login`,
@@ -41,10 +41,7 @@ export class AuthService {
               const expiresInDuration = response.expiresIn;
               this.setAuthTimer(expiresInDuration);
               setTimeout(() => {
-                alert('Votre session a expiré. Vous allez être déconnecté !');
-                setTimeout(() => {
-                  this.logout(), 5000;
-                });
+                this.logout();
               }, expiresInDuration * 1000);
               localStorage.setItem('token', token);
               this.authStatusListener.next(true);

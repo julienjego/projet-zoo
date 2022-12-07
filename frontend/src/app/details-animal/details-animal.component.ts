@@ -7,6 +7,7 @@ import { Event } from '../models/event.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ActionService } from '../services/action/action.service';
+import { Enclosure } from '../models/enclosure.model';
 
 @Component({
   selector: 'app-details-animal',
@@ -17,6 +18,7 @@ export class DetailsAnimalComponent implements OnInit {
   animal: Animal | undefined;
   events$: Observable<Event[] | null> | undefined;
   actions$: Observable<Action[] | null> | undefined;
+  enclosure: Enclosure | undefined;
   animalId: string | null = this.route.snapshot.paramMap.get('id');
 
   constructor(
@@ -73,5 +75,23 @@ export class DetailsAnimalComponent implements OnInit {
         'events/animals'
       );
     }
+  }
+
+  //TODO continuer création action
+  public getNewAction(animal: Animal) {
+    let enclos: string;
+
+    this.animalService
+      .getEnclosureofAnimal(animal._id)
+      .subscribe((enclosure) => {
+        enclos = enclosure[0].enclos;
+      });
+
+    console.log(animal);
+    console.log(
+      document.querySelector<HTMLInputElement>('#actionInput')?.value
+    );
+
+    console.log(document.querySelector<HTMLInputElement>('#actionDate')?.value);
   }
 }

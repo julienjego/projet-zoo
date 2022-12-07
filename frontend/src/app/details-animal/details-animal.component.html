@@ -121,7 +121,13 @@
                   <small class="text-muted">({{ action.creation }})</small>
                 </li>
               </ul>
-              <button type="button" class="btn btn-primary">
+              <!-- Button trigger modal -->
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#actionModal"
+              >
                 Créer une action
               </button>
             </div>
@@ -137,4 +143,58 @@
   >
     < Retour à l'espèce
   </button>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="actionModal"
+    tabindex="-1"
+    aria-labelledby="actionModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="actionModalLabel">
+            Création d'une action
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>Action à effectuer sur {{ animal.nom }} :</p>
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control mb-3"
+              id="actionInput"
+              placeholder="Ex. : vérifier pattes"
+            />
+            <p>le :</p>
+            <input id="actionDate" class="form-control" type="date" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Annuler
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            (click)="getNewAction(animal)"
+          >
+            Créer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

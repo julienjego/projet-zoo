@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from 'src/app/models/animal.model';
 import { environment } from 'src/environments/environment';
+import { Enclosure } from 'src/app/models/enclosure.model';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,14 @@ export class AnimalService {
   ): Observable<{ _id: string; espece: string; especeId: number }> {
     return this.http.get<{ _id: string; espece: string; especeId: number }>(
       `${this.API_URL}/animals/${id}/species`
+    );
+  }
+
+  public getEnclosureofAnimal(
+    id: string
+  ): Observable<{ espece: string; enclos: string }[]> {
+    return this.http.get<{ espece: string; enclos: string }[]>(
+      `${this.API_URL}/animals/${id}/enclosure`
     );
   }
 
