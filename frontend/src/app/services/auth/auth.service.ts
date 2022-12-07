@@ -13,7 +13,6 @@ export class AuthService {
   API_URL = environment.API_URL;
   private token!: string | null;
   private tokenTimer: any;
-  private tokenSubscription = new Subscription();
   private authStatusListener = new Subject<boolean>();
 
   constructor(
@@ -72,11 +71,9 @@ export class AuthService {
   }
 
   logout() {
-    this.tokenSubscription.unsubscribe();
     this.token = null;
     localStorage.clear();
     this.router.navigate(['/login']);
-    //begin
     this.clearAuthData();
     clearTimeout(this.tokenTimer);
   }
