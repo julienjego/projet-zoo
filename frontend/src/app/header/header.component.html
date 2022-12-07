@@ -31,7 +31,10 @@
 
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link text-info" *ngIf="!userIsAuthenticated"
+            <a
+              class="nav-link text-info"
+              *ngIf="!userIsAuthenticated"
+              routerLink="/login"
               >Se connecter</a
             >
           </li>

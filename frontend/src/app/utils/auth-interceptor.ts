@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth/auth.service';
 import { Observable } from 'rxjs';
 import {
   HttpEvent,
@@ -22,7 +23,6 @@ export class AuthInterceptor implements HttpInterceptor {
         'Content-Type': 'application/json',
       },
     });
-    console.log(authToken! + ' ' + Date.now());
     return next.handle(authRequest);
   }
 }
