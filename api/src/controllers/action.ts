@@ -25,6 +25,22 @@ const createAction = (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
+const deleteAction = (req: Request, res: Response, next: NextFunction) => {
+    Action.findById({ _id: req.params.id }).then((action) => {
+        if (action) {
+            Action.deleteOne({ _id: req.params.id })
+                .then(() => {
+                    res.status(410).json({
+                        message: "Action supprimé !",
+                    });
+                })
+                .catch((error) => res.status(400).json({ error }));
+        } else {
+            res.status(404).json({ message: "Action not found" });
+        }
+    });
+};
+
 //Récupère toutes les actions d'une zone
 const getActionsByZone = (req: Request, res: Response, next: NextFunction) => {
     Zone.findById(req.params.id)
@@ -116,6 +132,7 @@ const getActionsByAnimal = (
 
 export default {
     createAction,
+    deleteAction,
     getActionsByZone,
     getActionsByEnclosure,
     getActionsBySpecies,

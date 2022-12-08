@@ -51,7 +51,7 @@ export class DetailsAnimalComponent implements OnInit {
     this.events$ = this.eventService.getEvents(id, 'events/animals');
   }
 
-  public getActionsByAnimal(id: string) {
+  public getActionsByAnimal(id: string | null) {
     this.actions$ = this.actionService.getActions(id, 'actions/animals');
   }
 
@@ -102,5 +102,11 @@ export class DetailsAnimalComponent implements OnInit {
       obs,
       date
     );
+    this.getActionsByAnimal(this.animalId);
+  }
+
+  public deleteAction(action: Action) {
+    this.actionService.deleteAction(action._id);
+    this.getActionsByAnimal(this.animalId);
   }
 }

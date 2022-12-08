@@ -11,6 +11,13 @@ router.put(
     actionController.createAction
 );
 
+router.delete(
+    "/delete/:id",
+    auth.verifyToken,
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "ADMIN"]),
+    actionController.deleteAction
+);
+
 router.get(
     "/zones/:id",
     auth.verifyToken,

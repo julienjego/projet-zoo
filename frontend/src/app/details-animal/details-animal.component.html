@@ -99,7 +99,7 @@
                 </li>
               </ul>
             </div>
-            <div class="col-6 bg-light border rounded">
+            <div class="col-6 bg-light border rounded position-relative">
               <hr />
               <p class="fw-bold mt-4">Actions à faire :</p>
               <p>
@@ -115,7 +115,7 @@
               </p>
               <ul class="list-group list-group-flush">
                 <li
-                  class="list-group-item bg-light"
+                  class="list-group-item bg-light text-danger"
                   *ngFor="let action of actions$ | async"
                 >
                   <em class="text-muted"
@@ -123,12 +123,26 @@
                   >
                   {{ action.observations }}
                   <small class="text-muted">({{ action.creation }})</small>
+                  <button
+                    type="button"
+                    class="btn btn-secondary btn-sm ms-2"
+                    (click)="deleteAction(action)"
+                  >
+                    OK
+                  </button>
                 </li>
               </ul>
+              <div
+                class="alert alert-success mt-4 d-none"
+                role="alert"
+                id="success-action-delete"
+              >
+                Action OK ! 👍
+              </div>
               <!-- Button trigger modal -->
               <button
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-primary position-absolute bottom-0 end-0 me-2 mb-2"
                 data-bs-toggle="modal"
                 data-bs-target="#actionModal"
               >

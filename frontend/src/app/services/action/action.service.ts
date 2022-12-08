@@ -15,15 +15,22 @@ export class ActionService {
   constructor(private http: HttpClient, private alerts: ShowAlerts) {}
 
   public getActions(
-    id: string | number,
+    id: string | number | null,
     endpoint: string
   ): Observable<Action[]> {
     return this.http.get<Action[]>(`${this.API_URL}/${endpoint}/${id}`).pipe(
-      tap((results) => {
-        results.sort(
-          (a: Action, b: Action) =>
-            new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
+      tap({
+        next: (results) => {
+          results.sort(
+            (a: Action, b: Action) =>
+              new Date(a.date).getTime() - new Date(b.date).getTime()
+          );
+        },
+        error: (error) => {
+          if (error.status === 401) {
+            console.log('401');
+          }
+        },
       })
     );
   }
@@ -49,6 +56,18 @@ export class ActionService {
       },
       error: () => {
         this.alerts.showAlert('#fail-action');
+      },
+    });
+  }
+
+  public deleteAction(id: string) {
+    return this.http.delete(`${this.API_URL}/actions/delete/${id}`).subscribe({
+      next: (response) => {
+        this.alerts.showAlert('#success-action-delete');
+        return response;
+      },
+      error: () => {
+        this.alerts.showAlert('#success-action-delete');
       },
     });
   }

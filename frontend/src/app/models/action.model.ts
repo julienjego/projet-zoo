@@ -1,4 +1,5 @@
 export class Action {
+  _id: string;
   creation: string;
   enclos: string;
   espece: string;
@@ -7,6 +8,7 @@ export class Action {
   observations: string;
 
   constructor(
+    id: string,
     creation: string,
     enclos: string,
     espece: string,
@@ -14,6 +16,7 @@ export class Action {
     date: Date,
     observations: string
   ) {
+    this._id = id;
     this.creation = creation;
     this.enclos = enclos;
     this.espece = espece;
