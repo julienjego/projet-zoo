@@ -1,3 +1,4 @@
+import Enclosure from "../models/enclosure";
 import { Request, Response, NextFunction } from "express";
 import Zone from "../models/zone";
 
@@ -23,4 +24,24 @@ const getAZone = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(404).json({ error }));
 };
 
-export default { getZones, getAZone };
+const getEnclosuresByZone = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    Zone.findById({ _id: req.params.id })
+        .then((zone) => {
+            if (zone) {
+                Enclosure.find({ zone: zone.nom })
+                    .then((enclosures) => res.status(200).json(enclosures))
+                    .catch((error) => res.status(404).json({ error }));
+            } else {
+                res.status(404).json({ message: "Enclos introuvables" });
+            }
+        })
+        .catch(() => {
+            res.status(400).json({ erreur: "Syntaxe de la requête erronée" });
+        });
+};
+
+export default { getZones, getAZone, getEnclosuresByZone };

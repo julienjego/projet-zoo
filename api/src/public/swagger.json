@@ -1180,6 +1180,35 @@
                     }
                 }
             }
+        },
+        "/zones/{id}/enclosures": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": "number",
+                    "description": "Identifiant de la zone à rechercher",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": ["Zones"],
+                "summary": "Lister les enclos d'une zone du zoo",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Enclosure"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Zone inconnue."
+                    }
+                }
+            }
         }
     },
     "definitions": {

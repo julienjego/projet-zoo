@@ -7,4 +7,6 @@ router.get("/", zoneController.getZones);
 
 router.get("/:id", zoneController.getAZone);
 
+router.get("/:id/enclosures", zoneController.getEnclosuresByZone);
+
 export default router;

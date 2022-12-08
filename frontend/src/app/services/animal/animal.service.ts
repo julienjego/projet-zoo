@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from 'src/app/models/animal.model';
 import { environment } from 'src/environments/environment';
-import { Enclosure } from 'src/app/models/enclosure.model';
 
 @Injectable({
   providedIn: 'root',

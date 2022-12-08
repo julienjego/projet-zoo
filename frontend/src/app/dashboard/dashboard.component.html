@@ -1,21 +1,22 @@
 <div class="container">
-  <h2>Liste des enclos</h2>
+  <h2>Sélectionnez votre zone de travail :</h2>
   <div class="row">
-    <div
-      class="col-6 col-sm-4 col-lg-3 mt-4"
-      *ngFor="let enclosure of enclosures$ | async"
-    >
+    <div class="col-6 col-lg-3 mt-4" *ngFor="let zone of zones$ | async">
       <div class="card">
-        <div class="card-header fw-bold">{{ enclosure.nomApp }}</div>
+        <img
+          src="../assets/images/{{ zone.nom }}.jpg"
+          class="card-img-top"
+          alt="{{ zone.nom }}"
+        />
+
         <div class="card-body">
-          <p>Zone : {{ enclosure.zone | titlecase }}</p>
-          <p>Superficie : {{ enclosure.superficie }}m²</p>
+          <h5 class="card-title">{{ zone.nomApp }}</h5>
           <button
             type="button"
             class="btn btn-secondary"
-            (click)="goToDetailsEnclosure(enclosure)"
+            (click)="goToDetailsZone(zone)"
           >
-            Voir cet enclos
+            Voir cette zone
           </button>
         </div>
       </div>
