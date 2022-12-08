@@ -18,6 +18,7 @@ export class DetailsAnimalComponent implements OnInit {
   events$: Observable<Event[] | null> | undefined;
   actions$: Observable<Action[] | null> | undefined;
   enclosure!: string;
+  enclosureId!: number;
   animalId: string | null = this.route.snapshot.paramMap.get('id');
 
   constructor(
@@ -41,6 +42,7 @@ export class DetailsAnimalComponent implements OnInit {
         .getEnclosureofAnimal(this.animalId)
         .subscribe((enclosure) => {
           this.enclosure = enclosure[0].enclos;
+          this.enclosureId = enclosure[0].enclosId;
         });
     }
   }
@@ -60,6 +62,10 @@ export class DetailsAnimalComponent implements OnInit {
         const speciesId: number = specie[0].especeId;
         this.router.navigate([`species/details/${speciesId}`]);
       });
+  }
+
+  public goToEnclosure() {
+    this.router.navigate([`enclosures/details/${this.enclosureId}`]);
   }
 
   public careAnimal() {
