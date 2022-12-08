@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
       <div class="row mt-4">
         <div class="col-12 text-center">
           <img src="../assets/images/dodo.jpg" class="img-fluid mb-4" />
-          <h1>Hey, cette page n'existe pas !</h1>
+          <h1>Hey, cette page n'existe pas (ou plus) !</h1>
           <a routerLink="/dashboard" class="waves-effect waves-teal btn-flat">
             Retourner à l' accueil
           </a>
