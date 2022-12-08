@@ -53,6 +53,8 @@ export class DetailsSpeciesComponent implements OnInit {
     this.router.navigate(['/species']);
   }
 
+  goToEnclosure() {}
+
   feedAnimals() {
     if (this.speciesId) {
       this.speciesService.feedAnimals(+this.speciesId);
