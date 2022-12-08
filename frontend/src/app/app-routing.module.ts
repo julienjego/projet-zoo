@@ -10,6 +10,7 @@ import { AuthGuard } from './services/auth/auth.guard';
 import { ListEnclosuresComponent } from './list-enclosures/list-enclosures.component';
 import { ListSpeciesComponent } from './list-species/list-species.component';
 import { DetailsSpeciesComponent } from './details-species/details-species.component';
+import { DetailsZoneComponent } from './details-zone/details-zone.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -41,6 +42,11 @@ const routes: Routes = [
   {
     path: 'species/details/:id',
     component: DetailsSpeciesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'zones/details/:id',
+    component: DetailsZoneComponent,
     canActivate: [AuthGuard],
   },
   {

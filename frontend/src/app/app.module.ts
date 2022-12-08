@@ -22,6 +22,7 @@ import { SpeciesSociablePipe } from './pipes/species-sociable.pipe';
 import { SpeciesSociableStringPipe } from './pipes/species-sociable-string.pipe';
 import { DetailsSpeciesComponent } from './details-species/details-species.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { DetailsZoneComponent } from './details-zone/details-zone.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     SpeciesSociableStringPipe,
     DetailsSpeciesComponent,
     PageNotFoundComponent,
+    DetailsZoneComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [
