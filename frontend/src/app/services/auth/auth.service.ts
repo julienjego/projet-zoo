@@ -70,9 +70,10 @@ export class AuthService {
   logout() {
     this.token = null;
     localStorage.clear();
-    this.router.navigate(['/login']);
+    this.authStatusListener.next(false);
     this.clearAuthData();
     clearTimeout(this.tokenTimer);
+    this.router.navigate(['/login']);
   }
 
   private saveAuthData(token: string, expirationDate: Date) {
