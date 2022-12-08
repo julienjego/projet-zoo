@@ -26,7 +26,8 @@
         { "name": "Employees", "description": "Gestion des employés" },
         { "name": "Enclosures", "description": "Gestion des enclos" },
         { "name": "Events", "description": "Gestion des événements" },
-        { "name": "Species", "description": "Gestion des espèces" }
+        { "name": "Species", "description": "Gestion des espèces" },
+        { "name": "Zones", "description": "Gestion des zones" }
     ],
     "consumes": ["application/json"],
     "produces": ["application/json"],
@@ -1130,6 +1131,55 @@
                     }
                 }
             }
+        },
+        "/zones/": {
+            "get": {
+                "tags": ["Zones"],
+                "summary": "Lister toutes les zones du zoo",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Zones"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Zone inconnue."
+                    }
+                }
+            }
+        },
+        "/zones/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": "number",
+                    "description": "Identifiant de la zone à rechercher",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": ["Zones"],
+                "summary": "Lister les infos d'une zone du zoo",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Zones"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "404": {
+                        "description": "Zone inconnue."
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -1264,6 +1314,17 @@
                     "type": "boolean"
                 },
                 "enclos": {
+                    "type": "string"
+                }
+            }
+        },
+        "Zones": {
+            "type": "object",
+            "properties": {
+                "nom": {
+                    "type": "string"
+                },
+                "nomApp": {
                     "type": "string"
                 }
             }

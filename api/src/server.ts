@@ -10,6 +10,7 @@ import eventRoutes from "./routes/event";
 import enclosureRoutes from "./routes/enclosure";
 import actionRoutes from "./routes/action";
 import employeeRoutes from "./routes/employee";
+import zoneRoutes from "./routes/zone";
 
 const api: Express = express();
 
@@ -71,6 +72,7 @@ const startServer = () => {
     api.use("/api/enclosures", enclosureRoutes);
     api.use("/api/actions", actionRoutes);
     api.use("/api/employees", employeeRoutes);
+    api.use("/api/zones", zoneRoutes);
 
     // Ping pour voir si tout est en place
     api.get("/ping", (req: Request, res: Response, next: NextFunction) =>
