@@ -1,3 +1,4 @@
+import { ShowAlerts } from './../../utils/showAlerts';
 import { IActionData } from './../../models/action-data.model';
 import { HttpClient } from '@angular/common/http';
 import { Action } from './../../models/action.model';
@@ -11,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class ActionService {
   API_URL = environment.API_URL;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private alerts: ShowAlerts) {}
 
   public getActions(
     id: string | number,
@@ -27,9 +28,28 @@ export class ActionService {
     );
   }
 
-  //TODO continuer création action
-  public createAction(obs: string, date: Date) {
-    const actionData: IActionData = { observations: obs, date: date };
-    this.http.put(`${this.API_URL}/actions/create`, actionData);
+  public createAction(
+    enclos: string,
+    espece: string,
+    animal: string,
+    obs: string,
+    date: string
+  ) {
+    const actionData: IActionData = {
+      enclos: enclos,
+      espece: espece,
+      animal: animal,
+      observations: obs,
+      date: date,
+    };
+    this.http.put(`${this.API_URL}/actions/create`, actionData).subscribe({
+      next: (response) => {
+        this.alerts.showAlert('#success-action');
+        return response;
+      },
+      error: () => {
+        this.alerts.showAlert('#fail-action');
+      },
+    });
   }
 }

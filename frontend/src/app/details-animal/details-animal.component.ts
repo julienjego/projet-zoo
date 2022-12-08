@@ -7,7 +7,6 @@ import { Event } from '../models/event.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ActionService } from '../services/action/action.service';
-import { Enclosure } from '../models/enclosure.model';
 
 @Component({
   selector: 'app-details-animal',
@@ -18,7 +17,7 @@ export class DetailsAnimalComponent implements OnInit {
   animal: Animal | undefined;
   events$: Observable<Event[] | null> | undefined;
   actions$: Observable<Action[] | null> | undefined;
-  enclosure: Enclosure | undefined;
+  enclosure!: string;
   animalId: string | null = this.route.snapshot.paramMap.get('id');
 
   constructor(
@@ -36,6 +35,13 @@ export class DetailsAnimalComponent implements OnInit {
         .subscribe((animal) => (this.animal = animal));
 
       this.getEventsByAnimal(this.animalId);
+      this.getActionsByAnimal(this.animalId);
+
+      this.animalService
+        .getEnclosureofAnimal(this.animalId)
+        .subscribe((enclosure) => {
+          this.enclosure = enclosure[0].enclos;
+        });
     }
   }
 
@@ -77,21 +83,18 @@ export class DetailsAnimalComponent implements OnInit {
     }
   }
 
-  //TODO continuer création action
-  public getNewAction(animal: Animal) {
-    let enclos: string;
+  public createAction(animal: Animal) {
+    const obs: string =
+      document.querySelector<HTMLInputElement>('#actionInput')!.value;
+    const date: string =
+      document.querySelector<HTMLInputElement>('#actionDate')!.value;
 
-    this.animalService
-      .getEnclosureofAnimal(animal._id)
-      .subscribe((enclosure) => {
-        enclos = enclosure[0].enclos;
-      });
-
-    console.log(animal);
-    console.log(
-      document.querySelector<HTMLInputElement>('#actionInput')?.value
+    this.actionService.createAction(
+      this.enclosure,
+      animal.espece,
+      animal.nom,
+      obs,
+      date
     );
-
-    console.log(document.querySelector<HTMLInputElement>('#actionDate')?.value);
   }
 }

@@ -95,7 +95,7 @@
                 </li>
               </ul>
             </div>
-            <div class="col-6">
+            <div class="col-6 bg-light border rounded">
               <hr />
               <p class="fw-bold mt-4">Actions à faire :</p>
               <p>
@@ -111,11 +111,11 @@
               </p>
               <ul class="list-group list-group-flush">
                 <li
-                  class="list-group-item"
+                  class="list-group-item bg-light"
                   *ngFor="let action of actions$ | async"
                 >
                   <em class="text-muted"
-                    >{{ action.date | date : "dd/MM/yyyy - HH:mm" }} :</em
+                    >{{ action.date | date : "dd/MM/yyyy" }} :</em
                   >
                   {{ action.observations }}
                   <small class="text-muted">({{ action.creation }})</small>
@@ -130,6 +130,20 @@
               >
                 Créer une action
               </button>
+              <div
+                class="alert alert-success mt-4 d-none"
+                role="alert"
+                id="success-action"
+              >
+                Action créée ! 👍
+              </div>
+              <div
+                class="alert alert-danger mt-4 d-none"
+                role="alert"
+                id="fail-action"
+              >
+                Un problème est survenu. Êtes-vous bien connecté ?
+              </div>
             </div>
           </div>
         </div>
@@ -189,7 +203,7 @@
             type="button"
             class="btn btn-primary"
             data-bs-dismiss="modal"
-            (click)="getNewAction(animal)"
+            (click)="createAction(animal)"
           >
             Créer
           </button>
