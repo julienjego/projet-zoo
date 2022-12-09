@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Zone } from '../models/zone.model';
 import { ZoneService } from '../services/zone/zone.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,11 @@ import { ZoneService } from '../services/zone/zone.service';
 export class DashboardComponent implements OnInit {
   zones$: Observable<Zone[] | null> | undefined;
 
-  constructor(private zoneService: ZoneService, private router: Router) {}
+  constructor(
+    public authService: AuthService,
+    private zoneService: ZoneService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getEnclosures();

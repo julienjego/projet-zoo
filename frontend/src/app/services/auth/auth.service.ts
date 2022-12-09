@@ -11,6 +11,8 @@ import { Subject, Subscription } from 'rxjs';
 })
 export class AuthService {
   API_URL = environment.API_URL;
+
+  public currentUser!: { nom: string; prenom: string; role: string } | null;
   private token!: string | null;
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
@@ -28,13 +30,15 @@ export class AuthService {
   loginUser(username: string, password: string) {
     const authData: IAuthData = { username: username, password: password };
     this.http
-      .post<{ token: string; expiresIn: number }>(
-        `${this.API_URL}/employees/login`,
-        authData
-      )
+      .post<{
+        token: string;
+        expiresIn: number;
+        employee: { nom: string; prenom: string; role: string };
+      }>(`${this.API_URL}/employees/login`, authData)
       .subscribe({
         next: (response) => {
           if (response) {
+            this.currentUser = response.employee;
             const token = response.token;
             this.token = token;
             if (token) {

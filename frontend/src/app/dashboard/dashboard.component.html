@@ -1,5 +1,8 @@
-<div class="container">
-  <h2>Sélectionnez votre zone de travail :</h2>
+<div class="container" *ngIf="authService.currentUser">
+  <h2>
+    Bonjour {{ authService.currentUser.prenom }} ! Sélectionnez votre zone de
+    travail :
+  </h2>
   <div class="row">
     <div class="col-6 col-lg-3 mt-4" *ngFor="let zone of zones$ | async">
       <div class="card">

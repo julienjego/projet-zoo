@@ -7,6 +7,7 @@ import { Event } from '../models/event.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ActionService } from '../services/action/action.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-details-animal',
@@ -23,6 +24,7 @@ export class DetailsAnimalComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    public authService: AuthService,
     private animalService: AnimalService,
     private eventService: EventService,
     private actionService: ActionService,
