@@ -48,6 +48,7 @@ export class AuthService {
                 this.logout();
               }, expiresInDuration * 1000);
               localStorage.setItem('token', token);
+              localStorage.setItem('role', response.employee.role);
               this.authStatusListener.next(true);
               const now = new Date();
               const expirationDate = new Date(

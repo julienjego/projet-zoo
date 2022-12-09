@@ -21,6 +21,7 @@ export class DetailsAnimalComponent implements OnInit {
   enclosure!: string;
   enclosureId!: number;
   animalId: string | null = this.route.snapshot.paramMap.get('id');
+  role: string | null = localStorage.getItem('role');
 
   constructor(
     private route: ActivatedRoute,

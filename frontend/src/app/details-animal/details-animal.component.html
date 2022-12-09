@@ -30,7 +30,7 @@
               />
             </div>
           </div>
-          <div class="row" *ngIf="authService.currentUser">
+          <div class="row">
             <div class="col-12">
               <hr />
               <p class="fw-bold">Tâches effectuées :</p>
@@ -38,10 +38,7 @@
                 type="button"
                 class="btn btn-primary"
                 (click)="careAnimal()"
-                *ngIf="
-                  authService.currentUser.role == 'VETERINAIRE' ||
-                  authService.currentUser.role == 'ADMIN'
-                "
+                *ngIf="role == 'VETERINAIRE' || role == 'ADMIN'"
               >
                 Soin
               </button>
