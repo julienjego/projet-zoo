@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-12 col-lg-6 mt-4">
+    <div class="col-12 col-xl-6 mt-4">
       <h2 class="mb-4">Mes animaux</h2>
 
       <p class="fw-bold">Filtrer les animaux par espèce :</p>
@@ -28,7 +28,7 @@
           </thead>
           <tbody>
             <tr
-              *ngFor="let animal of animals$ | async | speciesFilter: species"
+              *ngFor="let animal of animals$ | async | speciesFilter : species"
             >
               <td class="fw-bold">{{ animal.nom }}</td>
               <td class="text-muted fw-light">
