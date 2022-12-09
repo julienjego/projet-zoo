@@ -1,3 +1,4 @@
+import Enclosure from "../models/enclosure";
 import Species from "../models/species";
 import Animal from "../models/animal";
 import logger from "../utils/log";
@@ -31,6 +32,26 @@ const getAnimalsBySpecies = (
                     .catch((error) => res.status(404).json({ error }));
             } else {
                 res.status(404).json({ message: "Animaux introuvables" });
+            }
+        })
+        .catch(() => {
+            res.status(400).json({ erreur: "Syntaxe de la requête erronée" });
+        });
+};
+
+const getEnclosureOfSpecies = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    Species.findById(req.params.id)
+        .then((species) => {
+            if (species) {
+                Enclosure.find({ nom: species.enclos })
+                    .then((enclosure) => res.status(200).json(enclosure))
+                    .catch((error) => res.status(404).json({ error }));
+            } else {
+                res.status(404).json({ message: "Enclos introuvable" });
             }
         })
         .catch(() => {
@@ -178,6 +199,7 @@ export default {
     getSpecies,
     getASpecies,
     getAnimalsBySpecies,
+    getEnclosureOfSpecies,
     moveSpecies,
     feedSpecies,
     stimulateSpecies,
