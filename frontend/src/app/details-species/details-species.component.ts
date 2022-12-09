@@ -53,7 +53,14 @@ export class DetailsSpeciesComponent implements OnInit {
     this.router.navigate(['/species']);
   }
 
-  goToEnclosure() {}
+  goToEnclosure(id: string) {
+    this.speciesService
+      .getEnclosure(+id)
+      .subscribe((enclosure: { [index: number]: any }) => {
+        const enclosureId: number = +enclosure[0]._id;
+        this.router.navigate([`enclosures/details/${enclosureId}`]);
+      });
+  }
 
   feedAnimals() {
     if (this.speciesId) {
@@ -113,14 +120,14 @@ export class DetailsSpeciesComponent implements OnInit {
 
   //Fonction pour compter le nombre de checkboxes sélectionné et afficher ou non le bouton "Déplacement"
   validateChks() {
-    var checked = 0;
+    let checked = 0;
 
-    var chks: HTMLInputElement[] = document.querySelectorAll(
+    let chks: HTMLInputElement[] = document.querySelectorAll(
       '.input-moving'
     ) as unknown as HTMLInputElement[];
 
-    for (var i = 0; i < chks.length; i++) {
-      if (chks[i].checked) {
+    for (const el of chks) {
+      if (el.checked) {
         checked++;
       }
     }

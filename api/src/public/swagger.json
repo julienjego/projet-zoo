@@ -996,6 +996,38 @@
                 }
             }
         },
+        "/species/{id}/enclosure": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de l'espèce à rechercher",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": ["Species"],
+                "summary": "Liste l'enclos d'une espèce",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Enclosure"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé à effectuer cette opération."
+                    },
+                    "404": {
+                        "description": "Identifiant de l'espèce inconnu."
+                    }
+                }
+            }
+        },
         "/species/in/{id}": {
             "parameters": [
                 {

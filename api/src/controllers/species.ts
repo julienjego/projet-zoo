@@ -39,6 +39,7 @@ const getAnimalsBySpecies = (
         });
 };
 
+// Récupère l'enclos d'une espèce
 const getEnclosureOfSpecies = (
     req: Request,
     res: Response,
