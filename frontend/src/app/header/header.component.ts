@@ -28,6 +28,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authListenerSubs.unsubscribe();
   }
 
+  goToDashboard(): void {
+    this.router.navigate(['/dashboard']);
+  }
+
   goToEnclosures(): void {
     this.router.navigate(['/enclosures']);
   }

@@ -8,11 +8,12 @@
       <div class="card">
         <div class="card-header fw-bold">{{ enclosure.nomApp }}</div>
         <div class="card-body">
+          <p id="enclosure-animals"></p>
           <p>Superficie : {{ enclosure.superficie }}m²</p>
           <button
             type="button"
             class="btn btn-secondary"
-            (click)="getAnimalsByEnclosure()"
+            (click)="goToEnclosure(enclosure._id)"
           >
             Voir cet enclos
           </button>

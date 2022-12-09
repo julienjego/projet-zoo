@@ -1,5 +1,5 @@
 import { AnimalService } from './../services/animal/animal.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ZoneService } from '../services/zone/zone.service';
 import { Enclosure } from '../models/enclosure.model';
@@ -17,7 +17,7 @@ export class DetailsZoneComponent implements OnInit {
   constructor(
     private zoneService: ZoneService,
     private route: ActivatedRoute,
-    private animalService: AnimalService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -28,26 +28,7 @@ export class DetailsZoneComponent implements OnInit {
     this.enclosures$ = this.zoneService.getEnclosuresByZone(+this.zoneId!);
   }
 
-  public getAnimalsByEnclosure() {
-    this.enclosures$
-      ?.pipe(
-        map((item) => {
-          return item;
-        })
-      )
-      .subscribe((item) => {
-        item?.forEach((i) => {
-          console.log(i._id);
-          console.log(
-            this.animalService.getAnimalsByEnclosure(+i._id).subscribe((a) => {
-              a.forEach((n) => {
-                console.log(n.nom);
-              });
-            })
-          );
-        });
-      });
-    // this.enclosures$?.forEach((enclosure)=> {this.animalService.getAnimalsByEnclosure(enclosure._id);
-    // })
+  public goToEnclosure(id: string) {
+    this.router.navigate([`/enclosures/details/${+id}`]);
   }
 }
