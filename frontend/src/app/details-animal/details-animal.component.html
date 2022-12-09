@@ -204,11 +204,17 @@
           <p>Action à effectuer sur {{ animal.nom }} :</p>
           <div class="mb-3">
             <input
-              type="text"
-              class="form-control mb-3"
+              class="form-control"
+              list="datalistOptions"
               id="actionInput"
               placeholder="Ex. : vérifier pattes"
             />
+            <datalist id="datalistOptions">
+              <option value="Soigner"></option>
+              <option value="Nourrir"></option>
+              <option value="Déplacer"></option>
+            </datalist>
+
             <p>le :</p>
             <input id="actionDate" class="form-control" type="date" />
           </div>
