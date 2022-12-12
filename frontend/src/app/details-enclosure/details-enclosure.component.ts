@@ -18,6 +18,7 @@ export class DetailsEnclosureComponent implements OnInit {
   events$: Observable<Event[] | null> | undefined;
   enclosure: Enclosure | undefined;
   enclosureId: string | null = this.route.snapshot.paramMap.get('id');
+  role: string | null = localStorage.getItem('role');
 
   constructor(
     private route: ActivatedRoute,

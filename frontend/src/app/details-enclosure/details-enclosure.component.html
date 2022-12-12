@@ -54,6 +54,11 @@
                 type="button"
                 class="btn btn-primary"
                 (click)="verifyEnclosure(+enclosure._id)"
+                *ngIf="
+                  role == 'VETERINAIRE' ||
+                  role == 'RESPONSABLE-ZONE' ||
+                  role == 'ADMIN'
+                "
               >
                 Vérification
               </button>
