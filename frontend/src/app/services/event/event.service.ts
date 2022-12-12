@@ -1,4 +1,3 @@
-import { AuthService } from './../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
@@ -10,7 +9,7 @@ import { Event } from 'src/app/models/event.model';
 })
 export class EventService {
   API_URL = environment.API_URL;
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient) {}
 
   public getEvents(id: string | number, endpoint: string): Observable<Event[]> {
     return this.http.get<Event[]>(`${this.API_URL}/${endpoint}/${id}`).pipe(
@@ -23,8 +22,7 @@ export class EventService {
         },
         error: (error) => {
           if (error.status === 401) {
-            console.log("401");
-
+            console.log(error);
           }
         },
       })

@@ -7,14 +7,14 @@ const router = express.Router();
 router.put(
     "/create",
     auth.verifyToken,
-    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "ADMIN"]),
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR", "ADMIN"]),
     actionController.createAction
 );
 
 router.delete(
     "/delete/:id",
     auth.verifyToken,
-    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "ADMIN"]),
+    auth.verifyRole(["RESPONSABLE-ZONE", "VETERINAIRE", "SOIGNEUR", "ADMIN"]),
     actionController.deleteAction
 );
 
