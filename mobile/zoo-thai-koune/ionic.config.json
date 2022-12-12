@@ -1,0 +1,7 @@
+{
+  "name": "Zoo Thaï Koune",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
