@@ -1,8 +1,6 @@
-import { ShowAlerts } from './../../utils/showAlerts';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { IAuthData } from 'src/app/models/auth-data.model';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
@@ -17,18 +15,14 @@ export class AuthService {
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private alerts: ShowAlerts
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
   }
 
   loginUser(username: string, password: string) {
-    const authData: IAuthData = { username: username, password: password };
+    const authData = { username: username, password: password };
     this.http
       .post<{
         token: string;
@@ -59,8 +53,8 @@ export class AuthService {
             }
           }
         },
-        error: () => {
-          this.alerts.showAlert('#fail-login');
+        error: (error) => {
+          console.log(error);
         },
       });
   }
