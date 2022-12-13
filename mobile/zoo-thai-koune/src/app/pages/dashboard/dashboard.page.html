@@ -1,9 +1,17 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>dashboard</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding">
+  <ion-text color="tertiary">
+    <h1 class="title">Sélectionnez votre zone de travail :</h1>
+  </ion-text>
+  <ion-card *ngFor="let zone of zones$ | async" (click)="goToZone(zone._id)">
+    <img alt="{{zone.nomApp}}" src="../../assets/zones/{{zone.nom}}.jpg" />
+    <ion-card-header>
+      <ion-card-title>{{zone.nomApp}}</ion-card-title>
+    </ion-card-header>
 
-<ion-content>
-
+    <ion-card-content>
+      <ion-button expand="block" color="tertiary"
+        >Aller sur cette zone</ion-button
+      >
+    </ion-card-content>
+  </ion-card>
 </ion-content>

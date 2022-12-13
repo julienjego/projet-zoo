@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,11 @@ export class AuthService {
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private alertController: AlertController
+  ) {}
 
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
@@ -55,8 +60,19 @@ export class AuthService {
         },
         error: (error) => {
           console.log(error);
+          this.presentAlert();
         },
       });
+  }
+
+  // Message d'alerte mauvais login
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Erreur',
+      message: "Mauvais nom d'utilisateur ou mot de passe !",
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 
   getAuthStatus(): boolean {
