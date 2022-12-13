@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ZoneService } from 'src/app/services/zone/zone.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +11,7 @@ import { Zone } from 'src/app/models/zone.model';
 })
 export class DashboardPage implements OnInit {
   zones$: Observable<Zone[] | null> | undefined;
-  constructor(private zoneService: ZoneService) {}
+  constructor(private zoneService: ZoneService, private router: Router) {}
 
   ngOnInit() {
     this.getZones();
@@ -21,6 +22,6 @@ export class DashboardPage implements OnInit {
   }
 
   goToZone(id: number) {
-    console.log(id);
+    this.router.navigate(['/zones/' + id]);
   }
 }
