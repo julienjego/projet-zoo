@@ -44,7 +44,7 @@ export class DetailsAnimalComponent implements OnInit {
       this.animalService
         .getEnclosureofAnimal(this.animalId)
         .subscribe((enclosure) => {
-          this.enclosure = enclosure[0].enclos;
+          this.enclosure = enclosure[0].enclosApp;
           this.enclosureId = enclosure[0].enclosId;
         });
     }

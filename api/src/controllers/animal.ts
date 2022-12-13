@@ -165,6 +165,7 @@ const getAnimalEnclosure = (req: Request, res: Response) => {
                             observations: 1,
                             position: 1,
                             enclos: "$enclosuresResult.nomApp",
+                            enclosApp: "$enclosuresResult.nom",
                             enclosId: "$enclosuresResult._id",
                         },
                     },

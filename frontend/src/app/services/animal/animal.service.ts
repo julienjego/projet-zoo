@@ -39,9 +39,9 @@ export class AnimalService {
 
   public getEnclosureofAnimal(
     id: string
-  ): Observable<{ enclosId: number; espece: string; enclos: string }[]> {
+  ): Observable<{ enclosId: number; espece: string; enclosApp: string }[]> {
     return this.http.get<
-      { enclosId: number; espece: string; enclos: string }[]
+      { enclosId: number; espece: string; enclosApp: string }[]
     >(`${this.API_URL}/animals/${id}/enclosure`);
   }
 

@@ -1,3 +1,4 @@
+import { ActionsPage } from './tabs/actions/actions.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,8 +14,9 @@ import { DetailsZonePage } from './details-zone.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    DetailsZonePageRoutingModule
+    DetailsZonePageRoutingModule,
   ],
-  declarations: [DetailsZonePage]
+  declarations: [DetailsZonePage],
+  providers: [ActionsPage],
 })
 export class DetailsZonePageModule {}

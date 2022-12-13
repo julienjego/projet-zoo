@@ -1,9 +1,25 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>actions</ion-title>
+    <ion-title>Actions à effectuer sur la zone</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item *ngFor="let action of actions$ |  async">
+      <ion-label class="ion-text-wrap">
+        <h2 class="title">
+          <ion-icon name="flash-outline" color="tertiary"></ion-icon>
+          {{action.animal}}
+        </h2>
+        <p>
+          {{action.observations}} -
+          <ion-text color="danger"
+            >{{action.date | date:"dd/MM/YYYY"}}</ion-text
+          >
+        </p></ion-label
+      >
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
 </ion-content>
