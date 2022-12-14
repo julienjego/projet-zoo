@@ -8,6 +8,13 @@
 </ion-header>
 
 <ion-content>
+  <ion-chip
+    color="tertiary"
+    *ngIf="(events$ |async)?.length === 0"
+    class="ion-margin-top"
+  >
+    <ion-label color="tertiary">Aucun événement enregistré !</ion-label>
+  </ion-chip>
   <ion-list>
     <ion-item *ngFor="let event of events$ |  async">
       <ion-label class="ion-text-wrap">

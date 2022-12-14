@@ -12,7 +12,6 @@ import { DetailsZonePage } from '../../details-zone.page';
 })
 export class ActionsPage implements OnInit {
   actions$: Observable<Action[] | null> | undefined;
-  actionsLength: number | undefined;
   zoneId: string | null = this.detailsZonePage.getId();
 
   constructor(
