@@ -28,8 +28,5 @@ export class ActionsPage implements OnInit {
 
   getActionsByZone(id: number, endpoint: string) {
     this.actions$ = this.actionService.getActions(id, endpoint);
-    this.actions$.subscribe((results) => {
-      this.actionsLength = results?.length;
-    });
   }
 }

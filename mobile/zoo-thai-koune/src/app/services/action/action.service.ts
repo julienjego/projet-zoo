@@ -34,24 +34,6 @@ export class ActionService {
     );
   }
 
-  // public getActionsByZone(id: number): Observable<Action[]> {
-  //   return this.http.get<Action[]>(`${this.API_URL}/actions/zones/${id}`).pipe(
-  //     tap({
-  //       next: (results) => {
-  //         results.sort(
-  //           (a: Action, b: Action) =>
-  //             new Date(a.date).getTime() - new Date(b.date).getTime()
-  //         );
-  //       },
-  //       error: (error) => {
-  //         if (error.status === 401) {
-  //           console.log('401');
-  //         }
-  //       },
-  //     })
-  //   );
-  // }
-
   public createAction(
     enclos: string,
     espece: string,

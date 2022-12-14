@@ -1,9 +1,46 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>events</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Évenements sur la zone</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item *ngFor="let event of events$ |  async">
+      <ion-label class="ion-text-wrap">
+        <h2 class="title">
+          <ion-icon
+            name="information-circle-outline"
+            color="tertiary"
+            class="info-icon"
+          ></ion-icon>
+          {{event.type | titlecase}}
 
+          <div
+            *ngIf="event.type==='verification';then trueBlock;else falseBlock"
+          ></div>
+          <ion-text color="medium"
+            ><ng-template #trueBlock
+              ><small class="smaller"
+                >(Enclos {{event.enclos}})</small
+              ></ng-template
+            >
+            <ng-template #falseBlock
+              ><small class="smaller">({{event.espece}})</small></ng-template
+            ></ion-text
+          >
+        </h2>
+
+        <p>
+          {{event.animal}} -
+          <ion-text color="medium"
+            >{{event.date | date:"dd/MM/yyyy HH:mm":'UTC +1'}}</ion-text
+          >
+        </p></ion-label
+      >
+    </ion-item>
+  </ion-list>
 </ion-content>
