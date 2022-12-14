@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from 'src/app/models/animal.model';
@@ -15,7 +16,8 @@ export class AnimalsPage implements OnInit {
 
   constructor(
     private animalService: AnimalService,
-    private detailsZonePage: DetailsZonePage
+    private detailsZonePage: DetailsZonePage,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -26,5 +28,9 @@ export class AnimalsPage implements OnInit {
     if (this.zoneId) {
       this.animals$ = this.animalService.getAnimalsByZone(+this.zoneId);
     }
+  }
+
+  goToAnimal(id: string) {
+    this.router.navigate(['/animals/' + id]);
   }
 }

@@ -12,6 +12,10 @@ export class AnimalService {
 
   constructor(private http: HttpClient) {}
 
+  public getAnAnimal(id: string): Observable<Animal> {
+    return this.http.get<Animal>(`${this.API_URL}/animals/${id}`);
+  }
+
   public getAnimalsByZone(id: number): Observable<Animal[]> {
     return this.http.get<Animal[]>(`${this.API_URL}/animals/zones/${id}`);
   }

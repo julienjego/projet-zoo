@@ -32,8 +32,11 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'details-animal',
-    loadChildren: () => import('./pages/details-animal/details-animal.module').then( m => m.DetailsAnimalPageModule)
+    path: 'animals/:id',
+    loadChildren: () =>
+      import('./pages/details-animal/details-animal.module').then(
+        (m) => m.DetailsAnimalPageModule
+      ),
   },
 ];
 

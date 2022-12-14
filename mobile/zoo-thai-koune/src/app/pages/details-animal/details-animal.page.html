@@ -1,9 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>details-animal</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Détails de l'animal</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content *ngIf="animal">
+  <p>{{animal.nom}}</p>
 </ion-content>

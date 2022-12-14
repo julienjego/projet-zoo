@@ -21,7 +21,11 @@
         </p></ion-label
       >
 
-      <ion-icon name="enter-outline" class="go"></ion-icon>
+      <ion-icon
+        name="enter-outline"
+        class="go"
+        (click)="goToAnimal(animal._id)"
+      ></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>
