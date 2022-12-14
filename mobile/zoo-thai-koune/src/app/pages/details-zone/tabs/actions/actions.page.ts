@@ -31,8 +31,8 @@ export class ActionsPage implements OnInit {
     this.actions$ = this.actionService.getActions(id, endpoint);
   }
 
-  deleteAction(id: string) {
-    this.actionService.deleteAction(id);
+  deleteAction(action: Action) {
+    this.actionService.deleteAction(action._id);
     this.presentToast();
     this.getActionsByZone(+this.zoneId!, 'actions/zones');
   }
