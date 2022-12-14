@@ -12,6 +12,8 @@ router.get("/:id/enclosure", animalController.getAnimalEnclosure);
 
 router.get("/enclosures/:id", animalController.getAllAnimalsByEnclosure);
 
+router.get("/zones/:id", animalController.getAllAnimalsByZone);
+
 router.get("/:id/species", animalController.getSpeciesOfAnimal);
 
 router.post(

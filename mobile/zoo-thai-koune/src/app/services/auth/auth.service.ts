@@ -44,6 +44,7 @@ export class AuthService {
               const expiresInDuration = response.expiresIn;
               this.setAuthTimer(expiresInDuration);
               setTimeout(() => {
+                console.log('timeout');
                 this.logout();
               }, expiresInDuration * 1000);
               localStorage.setItem('token', token);

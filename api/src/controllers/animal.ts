@@ -1,3 +1,4 @@
+import Zone from "../models/zone";
 import Animal from "../models/animal";
 import Enclosure from "../models/enclosure";
 import Species from "../models/species";
@@ -105,6 +106,45 @@ const getAllAnimalsByEnclosure = (
                     .catch((error) => res.status(400).json({ error }));
             } else {
                 res.status(404).json({ message: "Enclos inconnu" });
+            }
+        })
+        .catch((error) => res.status(404).json({ error }));
+};
+
+// Récupérer tous les animaux d'une zone
+const getAllAnimalsByZone = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    Zone.findById({ _id: req.params.id })
+        .then((zone) => {
+            if (zone) {
+                let enclosuresNames: Object[] = [];
+                let speciesNames: Object[] = [];
+                Enclosure.find({ zone: zone.nom })
+                    .then((enclosures) => {
+                        enclosures.forEach((e) => {
+                            enclosuresNames.push({ enclos: e.nom });
+                        });
+                        Species.find({ $or: enclosuresNames })
+                            .then((species) => {
+                                species.forEach((s) => {
+                                    speciesNames.push({ espece: s.nom });
+                                });
+                                Animal.find({ $or: speciesNames })
+                                    .then((animals) => {
+                                        res.status(200).json(animals);
+                                    })
+                                    .catch((error) =>
+                                        res.status(400).json({ error })
+                                    );
+                            })
+                            .catch((error) => res.status(400).json({ error }));
+                    })
+                    .catch((error) => res.status(400).json({ error }));
+            } else {
+                res.status(404).json({ message: "Zone inconnue" });
             }
         })
         .catch((error) => res.status(404).json({ error }));
@@ -293,6 +333,7 @@ export default {
     getAllAnimals,
     getAnAnimal,
     getAllAnimalsByEnclosure,
+    getAllAnimalsByZone,
     getSpeciesOfAnimal,
     updateAnimal,
     deleteAnimal,
