@@ -31,6 +31,10 @@ const routes: Routes = [
         (m) => m.DetailsZonePageModule
       ),
   },
+  {
+    path: 'details-animal',
+    loadChildren: () => import('./pages/details-animal/details-animal.module').then( m => m.DetailsAnimalPageModule)
+  },
 ];
 
 @NgModule({
