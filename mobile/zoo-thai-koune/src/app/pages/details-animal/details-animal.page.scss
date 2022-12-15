@@ -27,3 +27,20 @@ img {
     vertical-align: middle;
   }
 }
+
+ion-card {
+  ion-icon {
+    display: inline-block;
+    font-size: 1.8em;
+    vertical-align: middle;
+  }
+  ion-text {
+    font-size: 1.1em;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.done {
+  float: right;
+}

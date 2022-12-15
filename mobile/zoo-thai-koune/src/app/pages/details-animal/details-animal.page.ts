@@ -4,6 +4,7 @@ import { AnimalService } from 'src/app/services/animal/animal.service';
 import { Animal } from 'src/app/models/animal.model';
 import { Action } from 'src/app/models/action.model';
 import { Observable } from 'rxjs';
+import { ActionService } from 'src/app/services/action/action.service';
 
 @Component({
   selector: 'app-details-animal',
@@ -17,7 +18,8 @@ export class DetailsAnimalPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private animalService: AnimalService
+    private animalService: AnimalService,
+    private actionService: ActionService
   ) {}
 
   ngOnInit() {
@@ -31,7 +33,11 @@ export class DetailsAnimalPage implements OnInit {
   }
 
   getActions(id: string) {
-    this.actions$ = this.animalService.getActionsOfAnAnimal(id);
+    this.actions$ = this.actionService.getActions(id, 'actions/animals');
+  }
+
+  deleteAction(id: string) {
+    this.actionService.deleteAction(id);
   }
 
   goBack() {

@@ -84,11 +84,31 @@
       <ion-row>
         <ion-col>
           <ion-text class="ion-padding"
-            >Action à effectuer sur l'animal :</ion-text
+            ><strong>Action à effectuer sur l'animal :</strong></ion-text
           >
           <ion-list lines="none">
-            <ion-card *ngFor="let action of actions$ |async">
-              <ion-card-content>{{action.observations}}</ion-card-content>
+            <ion-chip
+              color="tertiary"
+              *ngIf="(actions$ |async)?.length === 0"
+              class="ion-margin-top"
+            >
+              <ion-label color="tertiary"
+                >Aucune action à effectuer sur l'animal !</ion-label
+              >
+            </ion-chip>
+            <ion-card *ngFor="let action of actions$ |async" color="tertiary">
+              <ion-card-content
+                ><ion-icon name="flash-outline" color="light"></ion-icon>
+                <ion-text
+                  >{{action.observations}} - {{action.date |
+                  date:"dd/MM/yyyy"}}</ion-text
+                >
+                <ion-icon
+                  name="checkmark-circle-outline"
+                  class="done"
+                  (click)="deleteAction(action._id)"
+                ></ion-icon
+              ></ion-card-content>
             </ion-card>
           </ion-list>
         </ion-col>
