@@ -179,8 +179,9 @@
                     >{{ action.date | date : "dd/MM/yyyy" }} :</em
                   >
                   {{ action.observations }} - {{ action.animal }}
-                  <small class="text-muted">({{ action.creation }})</small>
+                  <small class="text-muted">({{ action.creation }}) </small>
                   <button
+                    *ngIf="action.animal == action.espece"
                     type="button"
                     class="btn btn-secondary btn-sm ms-2"
                     (click)="deleteAction(action)"

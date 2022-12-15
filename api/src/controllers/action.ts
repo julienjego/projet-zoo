@@ -17,7 +17,6 @@ const createAction = (req: Request, res: Response, next: NextFunction) => {
     action
         .save()
         .then(() => {
-            console.log(action);
             res.status(201).json({ message: "Action enregistrée !" });
         })
         .catch((error) => {

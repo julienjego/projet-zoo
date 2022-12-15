@@ -111,10 +111,19 @@ export class DetailsAnimalComponent implements OnInit {
       date
     );
     this.getActionsByAnimal(this.animalId);
+    document.querySelector<HTMLInputElement>('#actionInput')!.value = '';
+    document.querySelector<HTMLInputElement>('#actionDate')!.value = '';
   }
 
   public deleteAction(action: Action) {
-    this.actionService.deleteAction(action._id);
-    this.getActionsByAnimal(this.animalId);
+    if (this.animal) {
+      if (action.observations === 'Soigner') {
+        this.careAnimal();
+      } else if (action.observations === 'Déplacer') {
+        this.moveAnimal(this.animal._id, this.animal?.position);
+      }
+      this.actionService.deleteAction(action._id);
+      this.getActionsByAnimal(this.animalId);
+    }
   }
 }

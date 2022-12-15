@@ -62,9 +62,8 @@ export class ActionService {
 
   public deleteAction(id: string) {
     return this.http.delete(`${this.API_URL}/actions/delete/${id}`).subscribe({
-      next: (response) => {
+      next: () => {
         this.alerts.showAlert('#success-action-delete');
-        return response;
       },
       error: () => {
         this.alerts.showAlert('#success-action-delete');

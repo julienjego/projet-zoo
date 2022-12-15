@@ -3,7 +3,7 @@ import { EventService } from './../services/event/event.service';
 import { SpeciesService } from './../services/species/species.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Species } from './../models/species.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from '../models/animal.model';
 import { Event } from '../models/event.model';
@@ -111,11 +111,21 @@ export class DetailsSpeciesComponent implements OnInit {
         date
       );
       this.getActionsBySpecies(+this.speciesId!);
+      document.querySelector<HTMLInputElement>('#actionInput')!.value = '';
+      document.querySelector<HTMLInputElement>('#actionDate')!.value = '';
     }
   }
 
   deleteAction(action: Action) {
-    this.actionService.deleteAction(action._id);
+    if (this.species) {
+      if (action.observations === 'Nourrir') {
+        this.feedAnimals();
+      } else if (action.observations === 'Stimuler') {
+        this.stimulateAnimals();
+      }
+      this.actionService.deleteAction(action._id);
+      this.getActionsBySpecies(+this.species._id);
+    }
   }
 
   moveAnimals() {
