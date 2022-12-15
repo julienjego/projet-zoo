@@ -38,6 +38,9 @@ export class DetailsAnimalPage implements OnInit {
 
   deleteAction(id: string) {
     this.actionService.deleteAction(id);
+    if (this.animalId) {
+      this.getActions(this.animalId);
+    }
   }
 
   goBack() {

@@ -1,3 +1,4 @@
+import { ActionService } from './../services/action/action.service';
 import { EventService } from './../services/event/event.service';
 import { SpeciesService } from './../services/species/species.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Animal } from '../models/animal.model';
 import { Event } from '../models/event.model';
 import { AnimalService } from '../services/animal/animal.service';
+import { Action } from '../models/action.model';
 
 @Component({
   selector: 'app-details-species',
@@ -16,6 +18,7 @@ import { AnimalService } from '../services/animal/animal.service';
 export class DetailsSpeciesComponent implements OnInit {
   animals$: Observable<Animal[] | null> | undefined;
   events$: Observable<Event[] | null> | undefined;
+  actions$: Observable<Action[] | null> | undefined;
   species: Species | undefined;
   animalsMoving: any[] = [];
   animalsMovingId: string[] = [];
@@ -26,6 +29,7 @@ export class DetailsSpeciesComponent implements OnInit {
     private route: ActivatedRoute,
     private speciesService: SpeciesService,
     private animalService: AnimalService,
+    private actionService: ActionService,
     private eventService: EventService,
     private router: Router
   ) {}
@@ -38,6 +42,7 @@ export class DetailsSpeciesComponent implements OnInit {
 
       this.getAnimalsBySpecies(+this.speciesId);
       this.getEventsBySpecies(+this.speciesId);
+      this.getActionsBySpecies(+this.speciesId);
     }
   }
 
@@ -84,6 +89,33 @@ export class DetailsSpeciesComponent implements OnInit {
 
   getEventsBySpecies(id: number) {
     this.events$ = this.eventService.getEvents(id, 'events/species');
+  }
+
+  getActionsBySpecies(id: number) {
+    this.actions$ = this.actionService.getActions(id, 'actions/species');
+  }
+
+  createAction() {
+    if (this.species) {
+      const obs: string =
+        document.querySelector<HTMLInputElement>('#actionInput')!.value;
+
+      const date: string =
+        document.querySelector<HTMLInputElement>('#actionDate')!.value;
+
+      this.actionService.createAction(
+        this.species.enclos,
+        this.species.nom,
+        this.species.nom,
+        obs,
+        date
+      );
+      this.getActionsBySpecies(+this.speciesId!);
+    }
+  }
+
+  deleteAction(action: Action) {
+    this.actionService.deleteAction(action._id);
   }
 
   moveAnimals() {
