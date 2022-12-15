@@ -1,3 +1,4 @@
+import { ShowAlerts } from './../utils/showAlerts';
 import { Action } from './../models/action.model';
 import { EventService } from './../services/event/event.service';
 import { AnimalService } from '../services/animal/animal.service';
@@ -29,7 +30,8 @@ export class DetailsAnimalComponent implements OnInit {
     private animalService: AnimalService,
     private eventService: EventService,
     private actionService: ActionService,
-    private router: Router
+    private router: Router,
+    private alerts: ShowAlerts
   ) {}
 
   ngOnInit(): void {
@@ -81,14 +83,17 @@ export class DetailsAnimalComponent implements OnInit {
     }
   }
 
-  // TODO Update view when animal is moved
   public moveAnimal(id: string, position: string) {
     if (this.animalId) {
-      this.animalService.moveAnimal(id, position);
-      this.events$ = this.eventService.getEvents(
-        this.animalId,
-        'events/animals'
-      );
+      this.animalService.moveAnimal(id, position).subscribe({
+        next: (response: any) => {
+          this.alerts.showAlert('#success-move');
+          this.animal = response.animal;
+        },
+        error: () => {
+          this.alerts.showAlert('#fail-alert');
+        },
+      });
     }
   }
 

@@ -27,40 +27,34 @@ const createAnimal = (req: Request, res: Response, next: NextFunction) => {
 const moveAnimal = (req: Request, res: Response, next: NextFunction) => {
     const url = req.url;
     let inOut: string;
-    Animal.findById({ _id: req.params.id })
+    Animal.findByIdAndUpdate(
+        req.params.id,
+        url.includes("/out/")
+            ? ((inOut = "out"), { $set: { position: "dehors" } })
+            : ((inOut = "in"), { $set: { position: "dedans" } }),
+        { returnOriginal: false }
+    )
         .then((animal) => {
             if (animal) {
-                Animal.updateOne(
-                    { _id: req.params.id },
+                res.status(202).json(
                     url.includes("/out/")
-                        ? ((inOut = "out"), { $set: { position: "dehors" } })
-                        : ((inOut = "in"), { $set: { position: "dedans" } })
-                )
-                    .then(() => {
-                        res.status(202).json(
-                            url.includes("/out/")
-                                ? { message: "Animal sorti !" }
-                                : { message: "Animal rentré !" }
-                        );
-                        console.log(animal.position);
+                        ? { message: "Animal sorti !", animal: animal }
+                        : { message: "Animal rentré !", animal: animal }
+                );
 
-                        // Log l'animal entré ou sorti
-                        Animal.findById({ _id: req.params.id }).then(
-                            (animal) => {
-                                if (animal) {
-                                    logger.logEvent(
-                                        res.locals.jwt.username,
-                                        "enclos",
-                                        animal.espece,
-                                        animal.nom,
-                                        inOut === "in" ? "entree" : "sortie",
-                                        req.body.observations
-                                    );
-                                }
-                            }
+                // Log l'animal entré ou sorti
+                Animal.findById({ _id: req.params.id }).then((animal) => {
+                    if (animal) {
+                        logger.logEvent(
+                            res.locals.jwt.username,
+                            "enclos",
+                            animal.espece,
+                            animal.nom,
+                            inOut === "in" ? "entree" : "sortie",
+                            req.body.observations
                         );
-                    })
-                    .catch((error) => res.status(400).json({ error }));
+                    }
+                });
             } else {
                 res.status(404).json({ message: "Animal inconnu" });
             }

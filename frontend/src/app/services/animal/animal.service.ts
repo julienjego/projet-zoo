@@ -61,29 +61,9 @@ export class AnimalService {
 
   public moveAnimal(id: string, position: string) {
     if (position === 'dehors') {
-      return this.http
-        .post(`${this.API_URL}/animals/in/${id}`, null)
-        .subscribe({
-          next: (response) => {
-            this.alerts.showAlert('#success-move');
-            return response;
-          },
-          error: () => {
-            this.alerts.showAlert('#fail-alert');
-          },
-        });
+      return this.http.post(`${this.API_URL}/animals/in/${id}`, null);
     } else {
-      return this.http
-        .post(`${this.API_URL}/animals/out/${id}`, null)
-        .subscribe({
-          next: (response) => {
-            this.alerts.showAlert('#success-move');
-            return response;
-          },
-          error: () => {
-            this.alerts.showAlert('#fail-alert');
-          },
-        });
+      return this.http.post(`${this.API_URL}/animals/out/${id}`, null);
     }
   }
 }
