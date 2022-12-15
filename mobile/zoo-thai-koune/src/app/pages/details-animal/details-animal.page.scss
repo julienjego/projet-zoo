@@ -1,0 +1,29 @@
+img {
+  border-radius: 50%;
+  width: 33%;
+}
+.ion-justify-content-center {
+  text-align: center;
+}
+
+#header-animal {
+  background-color: var(--ion-color-tertiary);
+}
+
+#animal-name {
+  font-size: 2em;
+  font-weight: lighter;
+}
+
+#content-animal {
+  ion-icon {
+    display: inline-block;
+    font-size: 1.8em;
+    vertical-align: middle;
+  }
+  ion-text {
+    font-size: 1.1em;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}

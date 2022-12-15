@@ -8,5 +8,91 @@
 </ion-header>
 
 <ion-content *ngIf="animal">
-  <p>{{animal.nom}}</p>
+  <ion-grid>
+    <div id="header-animal" class="ion-padding ion-justify-content-center">
+      <ion-row>
+        <ion-col
+          ><img
+            src="../../assets/animals/{{animal.espece}}.jpg"
+            alt="{{animal.nom}}"
+        /></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col id="animal-name" class="title"
+          ><ion-text color="light">{{animal.nom}}</ion-text></ion-col
+        >
+      </ion-row>
+      <ion-row>
+        <ion-col
+          ><ion-text color="light"
+            >{{animal.espece | titlecase}}</ion-text
+          ></ion-col
+        >
+      </ion-row>
+    </div>
+    <div id="content-animal">
+      <ion-row
+        ><ion-item>
+          <ion-icon
+            name="male-female-outline"
+            color="tertiary"
+            class="ion-margin"
+          ></ion-icon>
+          <ion-text><strong>Sexe :</strong> {{animal.sexe}}</ion-text>
+        </ion-item></ion-row
+      >
+      <ion-row
+        ><ion-item
+          ><ion-icon
+            name="calendar-number-outline"
+            color="tertiary"
+            class="ion-margin"
+          ></ion-icon>
+          <ion-text
+            ><strong>Naissance :</strong> {{animal.naissance}}</ion-text
+          ></ion-item
+        ></ion-row
+      >
+      <ion-row
+        ><ion-item
+          ><ion-icon
+            name="glasses-outline"
+            color="tertiary"
+            class="ion-margin"
+          ></ion-icon>
+          <ion-text
+            ><strong>Observations : </strong>
+            <span *ngIf="!animal.observations">RAS</span
+            >{{animal.observations}}</ion-text
+          ></ion-item
+        ></ion-row
+      >
+      <ion-row
+        ><ion-item
+          ><ion-icon
+            name="repeat-outline"
+            color="tertiary"
+            class="ion-margin"
+          ></ion-icon>
+          <ion-text
+            ><strong>Position :</strong> {{animal.position}}</ion-text
+          ></ion-item
+        ></ion-row
+      >
+    </div>
+    <div class="ion-margin">
+      <ion-row>
+        <ion-col>
+          <ion-text class="ion-padding"
+            >Action à effectuer sur l'animal :</ion-text
+          >
+          <ion-list lines="none">
+            <ion-card *ngFor="let action of actions$ |async">
+              <ion-card-content>{{action.observations}}</ion-card-content>
+            </ion-card>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
 </ion-content>
