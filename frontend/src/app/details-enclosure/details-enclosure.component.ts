@@ -7,6 +7,8 @@ import { Animal } from '../models/animal.model';
 import { Enclosure } from '../models/enclosure.model';
 import { AnimalService } from '../services/animal/animal.service';
 import { EventService } from '../services/event/event.service';
+import { Action } from '../models/action.model';
+import { ActionService } from '../services/action/action.service';
 
 @Component({
   selector: 'app-details-enclosure',
@@ -16,6 +18,7 @@ import { EventService } from '../services/event/event.service';
 export class DetailsEnclosureComponent implements OnInit {
   animals$: Observable<Animal[] | null> | undefined;
   events$: Observable<Event[] | null> | undefined;
+  actions$: Observable<Action[] | null> | undefined;
   enclosure: Enclosure | undefined;
   enclosureId: string | null = this.route.snapshot.paramMap.get('id');
   role: string | null = localStorage.getItem('role');
@@ -24,6 +27,7 @@ export class DetailsEnclosureComponent implements OnInit {
     private route: ActivatedRoute,
     private animalService: AnimalService,
     private enclosureService: EnclosureService,
+    private actionService: ActionService,
     private router: Router,
     private eventService: EventService
   ) {}
@@ -36,6 +40,7 @@ export class DetailsEnclosureComponent implements OnInit {
 
       this.getAnimalsByEnclosure(+this.enclosureId);
       this.getEventsByEnclosure(+this.enclosureId);
+      this.getActionsByEnclosure(+this.enclosureId);
     }
   }
 
@@ -55,6 +60,41 @@ export class DetailsEnclosureComponent implements OnInit {
     if (this.enclosureId) {
       this.enclosureService.verifyEnclosure(id);
       this.events$ = this.eventService.getEvents(id, 'events/enclosures');
+    }
+  }
+
+  public getActionsByEnclosure(id: number) {
+    this.actions$ = this.actionService.getActions(id, 'actions/enclosures');
+  }
+
+  public createAction() {
+    if (this.enclosure) {
+      const obs: string =
+        document.querySelector<HTMLInputElement>('#actionInput')!.value;
+
+      const date: string =
+        document.querySelector<HTMLInputElement>('#actionDate')!.value;
+
+      this.actionService.createAction(
+        this.enclosure.nom,
+        this.enclosure.nom,
+        this.enclosure.nom,
+        obs,
+        date
+      );
+      this.getActionsByEnclosure(+this.enclosureId!);
+      document.querySelector<HTMLInputElement>('#actionInput')!.value = '';
+      document.querySelector<HTMLInputElement>('#actionDate')!.value = '';
+    }
+  }
+
+  public deleteAction(action: Action) {
+    if (this.enclosureId) {
+      if (action.observations === 'Vérifier') {
+        this.verifyEnclosure(+this.enclosureId);
+      }
+      this.actionService.deleteAction(action._id);
+      this.getActionsByEnclosure(+this.enclosureId);
     }
   }
 }

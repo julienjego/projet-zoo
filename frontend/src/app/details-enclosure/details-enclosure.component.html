@@ -72,7 +72,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-12">
+            <div class="col-6">
               <hr />
               <p class="fw-bold mt-4">
                 Les derniers événements de cet enclos :
@@ -101,7 +101,129 @@
                 </li>
               </ul>
             </div>
+            <div class="col-6 bg-light border rounded">
+              <hr />
+              <p class="fw-bold mt-4">Actions à faire :</p>
+              <p>
+                <em
+                  *ngIf="
+                    (actions$ | async)?.length === 0 ||
+                    (actions$ | async) === null
+                  "
+                  class="text-muted"
+                >
+                  Aucune action à traiter</em
+                >
+              </p>
+              <ul class="list-group list-group-flush">
+                <li
+                  class="list-group-item bg-light text-danger"
+                  *ngFor="let action of actions$ | async"
+                >
+                  <em class="text-muted"
+                    >{{ action.date | date : "dd/MM/yyyy" }} :</em
+                  >
+                  {{ action.observations }} - {{ action.animal }}
+                  <small class="text-muted">({{ action.creation }}) </small>
+                  <button
+                    *ngIf="action.enclos == action.animal"
+                    type="button"
+                    class="btn btn-secondary btn-sm ms-2"
+                    (click)="deleteAction(action)"
+                  >
+                    OK
+                  </button>
+                </li>
+              </ul>
+              <div
+                class="alert alert-success mt-4 d-none"
+                role="alert"
+                id="success-action-delete"
+              >
+                Action OK ! 👍
+              </div>
+              <!-- Button trigger modal -->
+              <button
+                type="button"
+                class="btn btn-primary me-2 mb-2"
+                data-bs-toggle="modal"
+                data-bs-target="#actionModal"
+              >
+                Créer une action sur l'enclos
+              </button>
+              <div
+                class="alert alert-success mt-4 d-none"
+                role="alert"
+                id="success-action"
+              >
+                Action créée ! 👍
+              </div>
+              <div
+                class="alert alert-danger mt-4 d-none"
+                role="alert"
+                id="fail-action"
+              >
+                Un problème est survenu. Êtes-vous bien connecté ?
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="actionModal"
+    tabindex="-1"
+    aria-labelledby="actionModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="actionModalLabel">
+            Création d'une action
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <input
+              class="form-control"
+              list="datalistOptions"
+              id="actionInput"
+              placeholder="Ex. : vérifier pattes"
+            />
+            <datalist id="datalistOptions">
+              <option value="Vérifier"></option>
+            </datalist>
+
+            <p>le :</p>
+            <input id="actionDate" class="form-control" type="date" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Annuler
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            (click)="createAction()"
+          >
+            Créer
+          </button>
         </div>
       </div>
     </div>
