@@ -36,10 +36,31 @@ export class DetailsAnimalPage implements OnInit {
     this.actions$ = this.actionService.getActions(id, 'actions/animals');
   }
 
-  deleteAction(id: string) {
-    this.actionService.deleteAction(id);
-    if (this.animalId) {
-      this.getActions(this.animalId);
+  careAnimal(id: string) {
+    this.animalService
+      .careAnimal(id)
+      .subscribe({ next: (response) => response, error: (error) => error });
+  }
+
+  moveAnimal(id: string, position: string) {
+    this.animalService.moveAnimal(id, position).subscribe({
+      next: (response: any) => {
+        this.animal = response.animal;
+        return response;
+      },
+      error: (error) => error,
+    });
+  }
+
+  doAction(action: Action) {
+    if (this.animal) {
+      if (action.observations === 'Soigner') {
+        this.careAnimal(this.animal._id);
+      } else if (action.observations === 'Déplacer') {
+        this.moveAnimal(this.animal._id, this.animal?.position);
+      }
+      this.actionService.deleteAction(action._id);
+      this.getActions(this.animal._id);
     }
   }
 
