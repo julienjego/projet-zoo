@@ -19,4 +19,8 @@ export class AnimalService {
   public getAnimalsByZone(id: number): Observable<Animal[]> {
     return this.http.get<Animal[]>(`${this.API_URL}/animals/zones/${id}`);
   }
+
+  public careAnimal(id: string) {
+    return this.http.post(`${this.API_URL}/animals/care/${id}`, null);
+  }
 }

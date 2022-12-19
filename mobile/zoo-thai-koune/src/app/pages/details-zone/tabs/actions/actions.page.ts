@@ -1,4 +1,5 @@
-import { ActivatedRoute } from '@angular/router';
+import { Toasts } from 'src/app/utils/toasts';
+
 import { ActionService } from 'src/app/services/action/action.service';
 import { Component, OnInit } from '@angular/core';
 import { Action } from 'src/app/models/action.model';
@@ -18,7 +19,8 @@ export class ActionsPage implements OnInit {
   constructor(
     private actionService: ActionService,
     private detailsZonePage: DetailsZonePage,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private toast: Toasts
   ) {}
 
   ngOnInit() {
@@ -33,15 +35,7 @@ export class ActionsPage implements OnInit {
 
   deleteAction(action: Action) {
     this.actionService.deleteAction(action._id);
-    this.presentToast();
+    this.toast.presentToast('Action effectuée !');
     this.getActionsByZone(+this.zoneId!, 'actions/zones');
-  }
-
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: 'Action effectuée !',
-      duration: 2000,
-    });
-    toast.present();
   }
 }
