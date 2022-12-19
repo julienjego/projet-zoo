@@ -1,8 +1,8 @@
 export interface IAction {
     creation: string;
-    enclos: string;
-    espece: string;
-    animal: string;
+    enclos: Object;
+    espece: Object;
+    animal: Object;
     date: Date;
     observations: string;
 }

@@ -104,9 +104,24 @@ export class DetailsAnimalComponent implements OnInit {
       document.querySelector<HTMLInputElement>('#actionDate')!.value;
 
     this.actionService.createAction(
-      this.enclosure,
-      animal.espece,
-      animal.nom,
+      {
+        nom: this.enclosure,
+        _id: '',
+        nomApp: '',
+        zone: '',
+        coordonnees: '',
+        superficie: 0,
+      },
+      {
+        nom: animal.espece,
+        _id: '',
+        nomApp: '',
+        sociable: false,
+        observations: '',
+        dangereux: false,
+        enclos: '',
+      },
+      animal,
       obs,
       date
     );

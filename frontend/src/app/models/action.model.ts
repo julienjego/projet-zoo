@@ -1,18 +1,21 @@
+import { Enclosure } from 'src/app/models/enclosure.model';
+import { Species } from 'src/app/models/species.model';
+import { Animal } from 'src/app/models/animal.model';
 export class Action {
   _id: string;
   creation: string;
-  enclos: string;
-  espece: string;
-  animal: string;
+  enclos: Enclosure;
+  espece: Species;
+  animal: Animal;
   date: Date;
   observations: string;
 
   constructor(
     id: string,
     creation: string,
-    enclos: string,
-    espece: string,
-    animal: string,
+    enclos: Enclosure,
+    espece: Species,
+    animal: Animal, //
     date: Date,
     observations: string
   ) {

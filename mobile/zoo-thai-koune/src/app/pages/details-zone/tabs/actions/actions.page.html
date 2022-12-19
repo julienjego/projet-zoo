@@ -20,8 +20,10 @@
       <ion-label class="ion-text-wrap">
         <h2 class="title">
           <ion-icon name="flash-outline" color="tertiary"></ion-icon>
-          {{action.animal}}
-          <ion-text color="medium"><small>({{action.espece}})</small></ion-text>
+          {{action.animal.nom | titlecase}}
+          <ion-text color="medium"
+            ><small>({{action.espece.nom}})</small></ion-text
+          >
         </h2>
         <p>
           {{action.observations}} -

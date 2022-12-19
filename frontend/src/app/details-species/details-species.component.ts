@@ -104,9 +104,26 @@ export class DetailsSpeciesComponent implements OnInit {
         document.querySelector<HTMLInputElement>('#actionDate')!.value;
 
       this.actionService.createAction(
-        this.species.enclos,
-        this.species.nom,
-        this.species.nom,
+        {
+          nom: this.species.enclos,
+          _id: '',
+          nomApp: '',
+          zone: '',
+          coordonnees: '',
+          superficie: 0,
+        },
+        this.species,
+        {
+          nom: this.species.nom,
+          _id: '',
+          espece: '',
+          naissance: '',
+          deces: '',
+          sexe: '',
+          observations: '',
+          position: '',
+          enclos: '',
+        },
         obs,
         date
       );

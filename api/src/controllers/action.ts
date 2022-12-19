@@ -48,7 +48,7 @@ const getActionsByZone = (req: Request, res: Response, next: NextFunction) => {
                 Enclosure.find({ zone: zone.nom }).then((enclos) => {
                     if (enclos) {
                         const listEnclos = enclos.map((e) => ({
-                            enclos: e.nom,
+                            "enclos.nom": e.nom,
                         }));
                         Action.find({ $or: listEnclos })
                             .then((actions) => res.status(200).json(actions))
@@ -75,7 +75,7 @@ const getActionsByEnclosure = (
     Enclosure.findById(req.params.id)
         .then((enclosure) => {
             if (enclosure) {
-                Action.find({ enclos: enclosure.nom })
+                Action.find({ "enclos.nom": enclosure.nom })
                     .then((actions) => res.status(200).json(actions))
                     .catch((error) => res.status(404).json({ error }));
             } else {
@@ -96,7 +96,7 @@ const getActionsBySpecies = (
     Species.findById(req.params.id)
         .then((species) => {
             if (species) {
-                Action.find({ espece: species.nom })
+                Action.find({ "espece.nom": species.nom })
                     .then((actions) => res.status(200).json(actions))
                     .catch((error) => res.status(404).json({ error }));
             } else {
@@ -117,7 +117,7 @@ const getActionsByAnimal = (
     Animal.findById(req.params.id)
         .then((animal) => {
             if (animal) {
-                Action.find({ animal: animal.nom })
+                Action.find({ "animal.nom": animal.nom })
                     .then((actions) => res.status(200).json(actions))
                     .catch((error) => res.status(404).json({ error }));
             } else {

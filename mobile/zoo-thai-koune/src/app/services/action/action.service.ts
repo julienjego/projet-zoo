@@ -1,3 +1,6 @@
+import { Enclosure } from 'src/app/models/enclosure.model';
+import { Species } from 'src/app/models/species.model';
+import { Animal } from 'src/app/models/animal.model';
 import { IActionData } from './../../models/action-data.model';
 import { HttpClient } from '@angular/common/http';
 import { Action } from './../../models/action.model';
@@ -35,9 +38,9 @@ export class ActionService {
   }
 
   public createAction(
-    enclos: string,
-    espece: string,
-    animal: string,
+    enclos: Enclosure,
+    espece: Species,
+    animal: Animal,
     obs: string,
     date: string
   ) {

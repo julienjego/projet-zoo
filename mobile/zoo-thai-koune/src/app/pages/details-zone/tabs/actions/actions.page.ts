@@ -1,5 +1,5 @@
+import { AnimalService } from 'src/app/services/animal/animal.service';
 import { Toasts } from 'src/app/utils/toasts';
-
 import { ActionService } from 'src/app/services/action/action.service';
 import { Component, OnInit } from '@angular/core';
 import { Action } from 'src/app/models/action.model';
@@ -18,6 +18,7 @@ export class ActionsPage implements OnInit {
 
   constructor(
     private actionService: ActionService,
+    private animalService: AnimalService,
     private detailsZonePage: DetailsZonePage,
     public toastController: ToastController,
     private toast: Toasts

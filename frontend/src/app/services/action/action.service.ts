@@ -1,3 +1,5 @@
+import { Species } from 'src/app/models/species.model';
+import { Animal } from 'src/app/models/animal.model';
 import { ShowAlerts } from './../../utils/showAlerts';
 import { IActionData } from './../../models/action-data.model';
 import { HttpClient } from '@angular/common/http';
@@ -5,6 +7,7 @@ import { Action } from './../../models/action.model';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Enclosure } from 'src/app/models/enclosure.model';
 
 @Injectable({
   providedIn: 'root',
@@ -36,9 +39,9 @@ export class ActionService {
   }
 
   public createAction(
-    enclos: string,
-    espece: string,
-    animal: string,
+    enclos: Enclosure,
+    espece: Species,
+    animal: Animal,
     obs: string,
     date: string
   ) {

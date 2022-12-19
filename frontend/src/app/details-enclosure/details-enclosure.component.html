@@ -123,10 +123,10 @@
                   <em class="text-muted"
                     >{{ action.date | date : "dd/MM/yyyy" }} :</em
                   >
-                  {{ action.observations }} - {{ action.animal }}
+                  {{ action.observations }} - {{ action.animal.nom }}
                   <small class="text-muted">({{ action.creation }}) </small>
                   <button
-                    *ngIf="action.enclos == action.animal"
+                    *ngIf="action.enclos.nom == action.animal.nom"
                     type="button"
                     class="btn btn-secondary btn-sm ms-2"
                     (click)="deleteAction(action)"

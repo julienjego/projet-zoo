@@ -76,9 +76,27 @@ export class DetailsEnclosureComponent implements OnInit {
         document.querySelector<HTMLInputElement>('#actionDate')!.value;
 
       this.actionService.createAction(
-        this.enclosure.nom,
-        this.enclosure.nom,
-        this.enclosure.nom,
+        this.enclosure,
+        {
+          nom: this.enclosure.nom,
+          _id: '',
+          nomApp: '',
+          sociable: false,
+          observations: '',
+          dangereux: false,
+          enclos: '',
+        },
+        {
+          nom: this.enclosure.nom,
+          _id: '',
+          espece: '',
+          naissance: '',
+          deces: '',
+          sexe: '',
+          observations: '',
+          position: '',
+          enclos: '',
+        },
         obs,
         date
       );
