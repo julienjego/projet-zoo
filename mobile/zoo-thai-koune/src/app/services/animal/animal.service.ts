@@ -23,4 +23,12 @@ export class AnimalService {
   public careAnimal(id: string) {
     return this.http.post(`${this.API_URL}/animals/care/${id}`, null);
   }
+
+  public moveAnimal(id: string, position: string) {
+    if (position === 'dehors') {
+      return this.http.post(`${this.API_URL}/animals/in/${id}`, null);
+    } else {
+      return this.http.post(`${this.API_URL}/animals/out/${id}`, null);
+    }
+  }
 }
