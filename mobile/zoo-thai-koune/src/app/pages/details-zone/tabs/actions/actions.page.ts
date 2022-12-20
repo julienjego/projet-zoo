@@ -1,3 +1,4 @@
+import { IActionData } from './../../../../models/action-data.model';
 import { Enclosure } from 'src/app/models/enclosure.model';
 import { Animal } from 'src/app/models/animal.model';
 import { Species } from 'src/app/models/species.model';
@@ -10,9 +11,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Action } from 'src/app/models/action.model';
 import { Observable } from 'rxjs';
 import { DetailsZonePage } from '../../details-zone.page';
-import { IonModal, ToastController } from '@ionic/angular';
+import { IonModal, ModalController, ToastController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { ZoneService } from 'src/app/services/zone/zone.service';
+import { ActionCreator } from 'src/app/utils/action-creator';
 
 @Component({
   selector: 'app-actions',
@@ -25,12 +27,14 @@ export class ActionsPage implements OnInit {
   animals$: Observable<Animal[] | null> | undefined;
   species$: Observable<Species[] | null> | undefined;
   zoneId: string | null = this.detailsZonePage.getId();
-  message = '';
   place!: string;
-  enclosure!: Enclosure;
-  animal!: Animal;
-  isNotAnimal: boolean = true;
-  isNotEnclosure: boolean = true;
+  enclosure!: Enclosure | undefined;
+  species!: Species | undefined;
+  animal!: Animal | undefined;
+  action!: string;
+  date!: string;
+  isNotClicked: boolean = true;
+  isNotFinished: boolean = true;
 
   constructor(
     private actionService: ActionService,
@@ -40,7 +44,8 @@ export class ActionsPage implements OnInit {
     private zoneService: ZoneService,
     private detailsZonePage: DetailsZonePage,
     public toastController: ToastController,
-    private toast: Toasts
+    private toast: Toasts,
+    private actionCreator: ActionCreator
   ) {}
 
   ngOnInit() {
@@ -48,6 +53,7 @@ export class ActionsPage implements OnInit {
       this.getActionsByZone(+this.zoneId, 'actions/zones');
       this.getEnclosuresByZone(+this.zoneId);
       this.getAnimalsByZone(+this.zoneId);
+      this.getSpeciesByZone(+this.zoneId);
     }
   }
 
@@ -61,6 +67,10 @@ export class ActionsPage implements OnInit {
 
   getAnimalsByZone(id: number) {
     this.animals$ = this.animalService.getAnimalsByZone(id);
+  }
+
+  getSpeciesByZone(id: number) {
+    this.species$ = this.speciesService.getSpeciesByZone(id);
   }
 
   careAnimal(id: string) {
@@ -120,37 +130,82 @@ export class ActionsPage implements OnInit {
     }
   }
 
+  createAction(response: string | undefined) {
+    if (response) {
+      const obj: IActionData = JSON.parse(JSON.stringify(response));
+      this.actionCreator.createAction(obj);
+    }
+  }
+
   @ViewChild(IonModal) modal!: IonModal;
   cancel() {
+    this.place = '';
+    this.date = '';
+    this.enclosure = undefined;
+    this.species = undefined;
+    this.animal = undefined;
+    this.isNotClicked = true;
+    this.isNotFinished = true;
     this.modal.dismiss(null, 'cancel');
   }
 
   confirm() {
-    this.modal.dismiss(this.enclosure, 'confirm');
+    this.modal.dismiss(
+      {
+        enclos: this.enclosure,
+        espece: this.species,
+        animal: this.animal,
+        observations: this.action,
+        date: this.date,
+      },
+      'confirm'
+    );
+    this.place = '';
+    this.date = '';
+    this.enclosure = undefined;
+    this.species = undefined;
+    this.animal = undefined;
+    this.isNotClicked = true;
+    this.isNotFinished = true;
   }
 
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
     if (ev.detail.role === 'confirm') {
-      this.message = `Hello, ${ev.detail.data}!`;
+      this.createAction(ev.detail.data);
+      this.getActionsByZone(+this.zoneId!, 'actions/zones');
     }
   }
 
   onPlaceChange(e: Event) {
+    this.isNotClicked = true;
     this.place = (e.target as HTMLInputElement).value;
   }
 
-  onAnimalChange(e: Event) {
-    this.isNotAnimal = false;
-    this.animal = JSON.parse(
-      JSON.stringify((e.target as HTMLInputElement).value)
-    );
+  onActionChange(e: Event) {
+    this.action = (e.target as HTMLInputElement).value;
   }
 
-  onEnclosureChange(e: Event) {
-    this.isNotEnclosure = false;
-    this.enclosure = JSON.parse(
-      JSON.stringify((e.target as HTMLInputElement).value)
-    );
+  onDateChange(e: Event) {
+    this.isNotFinished = false;
+    this.date = (e.target as HTMLInputElement).value;
+  }
+
+  onChange(e: Event, type: string) {
+    let eventAim: Object | undefined;
+    this.isNotClicked = false;
+
+    switch (type) {
+      case 'enclos':
+        eventAim = this.enclosure;
+        break;
+      case 'espece':
+        eventAim = this.species;
+        break;
+      case 'animal':
+        eventAim = this.animal;
+    }
+
+    eventAim = JSON.parse(JSON.stringify((e.target as HTMLInputElement).value));
   }
 }

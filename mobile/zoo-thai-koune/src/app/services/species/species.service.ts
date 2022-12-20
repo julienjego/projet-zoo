@@ -1,3 +1,5 @@
+import { Species } from 'src/app/models/species.model';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -16,5 +18,9 @@ export class SpeciesService {
 
   public stimulateAnimals(id: number) {
     return this.http.post(`${this.API_URL}/species/stimulate/${id}`, null);
+  }
+
+  public getSpeciesByZone(id: number): Observable<Species[]> {
+    return this.http.get<Species[]>(`${this.API_URL}/species/zones/${id}`);
   }
 }
