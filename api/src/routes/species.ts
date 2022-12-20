@@ -12,6 +12,8 @@ router.get("/:id", speciesController.getASpecies);
 
 router.get("/:id/enclosure", speciesController.getEnclosureOfSpecies);
 
+router.get("/zones/:id", speciesController.getSpeciesByZone);
+
 router.post(
     "/in/:id",
     auth.verifyToken,

@@ -1054,6 +1054,38 @@
                 }
             }
         },
+        "/species/zones/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identifiant de la zone à rechercher",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": ["Species"],
+                "summary": "Liste les espèces d'une zone",
+                "responses": {
+                    "200": {
+                        "description": "Succès.",
+                        "schema": {
+                            "$ref": "#/definitions/Species"
+                        }
+                    },
+                    "400": {
+                        "description": "Syntaxe de la requête érronée."
+                    },
+                    "401": {
+                        "description": "Utilisateur non autorisé à effectuer cette opération."
+                    },
+                    "404": {
+                        "description": "Identifiant de l'espèce inconnu."
+                    }
+                }
+            }
+        },
         "/species/in/{id}": {
             "parameters": [
                 {
@@ -1156,7 +1188,7 @@
                 }
             }
         },
-        "/species/stimulare/{id}": {
+        "/species/stimulate/{id}": {
             "parameters": [
                 {
                     "name": "id",

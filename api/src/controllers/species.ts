@@ -1,3 +1,4 @@
+import Zone from "../models/zone";
 import Enclosure from "../models/enclosure";
 import Species from "../models/species";
 import Animal from "../models/animal";
@@ -15,6 +16,30 @@ const getSpecies = (req: Request, res: Response, next: NextFunction) => {
 const getASpecies = (req: Request, res: Response, next: NextFunction) => {
     Species.findById(req.params.id)
         .then((specie) => res.status(200).json(specie))
+        .catch((error) => res.status(404).json({ error }));
+};
+
+const getSpeciesByZone = (req: Request, res: Response, next: NextFunction) => {
+    Zone.findById(req.params.id)
+        .then((zone) => {
+            if (zone) {
+                let enclosuresNames: Object[] = [];
+                Enclosure.find({ zone: zone.nom })
+                    .then((enclosures) => {
+                        enclosures.forEach((e) => {
+                            enclosuresNames.push({ enclos: e.nom });
+                        });
+                        Species.find({ $or: enclosuresNames })
+                            .then((species) => {
+                                res.status(200).json(species);
+                            })
+                            .catch((error) => res.status(400).json({ error }));
+                    })
+                    .catch((error) => res.status(400).json({ error }));
+            } else {
+                res.status(404).json({ message: "Enclos inconnu" });
+            }
+        })
         .catch((error) => res.status(404).json({ error }));
 };
 
@@ -201,6 +226,7 @@ export default {
     getASpecies,
     getAnimalsBySpecies,
     getEnclosureOfSpecies,
+    getSpeciesByZone,
     moveSpecies,
     feedSpecies,
     stimulateSpecies,
