@@ -1,4 +1,6 @@
 import { Enclosure } from 'src/app/models/enclosure.model';
+import { Animal } from 'src/app/models/animal.model';
+import { Species } from 'src/app/models/species.model';
 import { EnclosureService } from 'src/app/services/enclosure/enclosure.service';
 import { SpeciesService } from 'src/app/services/species/species.service';
 import { AnimalService } from 'src/app/services/animal/animal.service';
@@ -20,7 +22,15 @@ import { ZoneService } from 'src/app/services/zone/zone.service';
 export class ActionsPage implements OnInit {
   actions$: Observable<Action[] | null> | undefined;
   enclosures$: Observable<Enclosure[] | null> | undefined;
+  animals$: Observable<Animal[] | null> | undefined;
+  species$: Observable<Species[] | null> | undefined;
   zoneId: string | null = this.detailsZonePage.getId();
+  message = '';
+  place!: string;
+  enclosure!: Enclosure;
+  animal!: Animal;
+  isNotAnimal: boolean = true;
+  isNotEnclosure: boolean = true;
 
   constructor(
     private actionService: ActionService,
@@ -37,6 +47,7 @@ export class ActionsPage implements OnInit {
     if (this.zoneId) {
       this.getActionsByZone(+this.zoneId, 'actions/zones');
       this.getEnclosuresByZone(+this.zoneId);
+      this.getAnimalsByZone(+this.zoneId);
     }
   }
 
@@ -46,6 +57,10 @@ export class ActionsPage implements OnInit {
 
   getEnclosuresByZone(id: number) {
     this.enclosures$ = this.zoneService.getEnclosuresByZone(id);
+  }
+
+  getAnimalsByZone(id: number) {
+    this.animals$ = this.animalService.getAnimalsByZone(id);
   }
 
   careAnimal(id: string) {
@@ -106,18 +121,12 @@ export class ActionsPage implements OnInit {
   }
 
   @ViewChild(IonModal) modal!: IonModal;
-
-  message =
-    'This modal example uses triggers to automatically open a modal when the button is clicked.';
-  enclos!: string;
-
   cancel() {
     this.modal.dismiss(null, 'cancel');
   }
 
   confirm() {
-    this.modal.dismiss(this.enclos, 'confirm');
-    console.log(this.enclos);
+    this.modal.dismiss(this.enclosure, 'confirm');
   }
 
   onWillDismiss(event: Event) {
@@ -125,5 +134,23 @@ export class ActionsPage implements OnInit {
     if (ev.detail.role === 'confirm') {
       this.message = `Hello, ${ev.detail.data}!`;
     }
+  }
+
+  onPlaceChange(e: Event) {
+    this.place = (e.target as HTMLInputElement).value;
+  }
+
+  onAnimalChange(e: Event) {
+    this.isNotAnimal = false;
+    this.animal = JSON.parse(
+      JSON.stringify((e.target as HTMLInputElement).value)
+    );
+  }
+
+  onEnclosureChange(e: Event) {
+    this.isNotEnclosure = false;
+    this.enclosure = JSON.parse(
+      JSON.stringify((e.target as HTMLInputElement).value)
+    );
   }
 }

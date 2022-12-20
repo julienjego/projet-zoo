@@ -63,25 +63,45 @@
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
+        <p id="new-action">
+          <ion-text color="tertiary">Nouvelle action sur :</ion-text>
+        </p>
         <ion-list>
-          <ion-item>
+          <ion-radio-group [value]="" (ionChange)="onPlaceChange($event)">
+            <ion-item>
+              <ion-label>Enclos</ion-label>
+              <ion-radio slot="end" value="enclos"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Espèce</ion-label>
+              <ion-radio slot="end" value="espece"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Animal</ion-label>
+              <ion-radio slot="end" value="animal"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+        <ion-list>
+          <ion-item *ngIf="place === 'enclos'">
             <ion-select
               placeholder="Selectionner un enclos"
-              [(ngModel)]="enclos"
+              [(ngModel)]="enclosure"
+              (ionChange)="onEnclosureChange($event)"
             >
               <ion-select-option
                 *ngFor="let enclosure of enclosures$ |  async"
-                value="{{enclosure.nom}}"
+                [value]="enclosure"
                 >{{enclosure.nomApp}}</ion-select-option
               >
             </ion-select>
           </ion-item>
         </ion-list>
         <ion-list>
-          <ion-item>
+          <ion-item *ngIf="place === 'espece'">
             <ion-select
               placeholder="Selectionner une espèce"
-              [(ngModel)]="enclos"
+              [(ngModel)]="enclosure"
               disabled
             >
               <ion-select-option
@@ -93,30 +113,62 @@
           </ion-item>
         </ion-list>
         <ion-list>
-          <ion-item>
+          <ion-item *ngIf="place === 'animal'">
             <ion-select
               placeholder="Selectionner un animal"
-              [(ngModel)]="enclos"
+              [(ngModel)]="enclosure"
+              (ionChange)="onAnimalChange($event)"
             >
               <ion-select-option
-                *ngFor="let enclosure of enclosures$ |  async"
-                value="{{enclosure.nom}}"
-                >{{enclosure.nomApp}}</ion-select-option
+                *ngFor="let animal of animals$ |  async"
+                [value]="animal"
+                >{{animal.nom}} ({{animal.espece}})</ion-select-option
               >
             </ion-select>
           </ion-item>
         </ion-list>
-        <p>
-          <strong><ion-text>Actions disponibles : </ion-text></strong>
-        </p>
-        <ion-list>
-          <ion-radio-group [allowEmptySelection]="true" value="Vérifier">
-            <ion-item>
-              <ion-label>Vérifier</ion-label>
-              <ion-radio slot="end" value="Vérifier"></ion-radio>
-            </ion-item>
-          </ion-radio-group>
-        </ion-list>
+        <div class="actions" *ngIf=" place === 'enclos'">
+          <p>
+            <strong><ion-text>Actions disponibles : </ion-text></strong>
+          </p>
+          <ion-list>
+            <ion-radio-group value="">
+              <ion-item>
+                <ion-label>Vérifier</ion-label>
+                <ion-radio
+                  slot="end"
+                  value="Vérifier"
+                  [disabled]="isNotEnclosure"
+                ></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </div>
+        <div class="actions" *ngIf=" place === 'animal'">
+          <p>
+            <strong><ion-text>Actions disponibles : </ion-text></strong>
+          </p>
+          <ion-list>
+            <ion-radio-group value="">
+              <ion-item>
+                <ion-label>Soigner</ion-label>
+                <ion-radio
+                  slot="end"
+                  value="Soigner"
+                  [disabled]="isNotAnimal"
+                ></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Déplacer</ion-label>
+                <ion-radio
+                  slot="end"
+                  value="Déplacer"
+                  [disabled]="isNotAnimal"
+                ></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </div>
       </ion-content>
     </ng-template>
   </ion-modal>
