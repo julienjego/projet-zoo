@@ -20,6 +20,14 @@ export class AnimalService {
     return this.http.get<Animal[]>(`${this.API_URL}/animals/zones/${id}`);
   }
 
+  public getEnclosureofAnimal(
+    id: string
+  ): Observable<{ enclosId: number; espece: string; enclosApp: string }[]> {
+    return this.http.get<
+      { enclosId: number; espece: string; enclosApp: string }[]
+    >(`${this.API_URL}/animals/${id}/enclosure`);
+  }
+
   public careAnimal(id: string) {
     return this.http.post(`${this.API_URL}/animals/care/${id}`, null);
   }
