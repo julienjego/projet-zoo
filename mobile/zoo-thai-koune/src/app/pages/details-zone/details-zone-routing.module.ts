@@ -28,11 +28,21 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'scan',
+        loadChildren: () =>
+          import('./tabs/scan/scan.module').then((m) => m.ScanPageModule),
+      },
+      {
         path: '',
         redirectTo: 'actions',
         pathMatch: 'full',
       },
     ],
+  },
+  {
+    path: 'scan',
+    loadChildren: () =>
+      import('./tabs/scan/scan.module').then((m) => m.ScanPageModule),
   },
 ];
 
