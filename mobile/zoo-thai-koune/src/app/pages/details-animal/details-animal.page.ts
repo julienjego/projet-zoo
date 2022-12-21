@@ -5,6 +5,7 @@ import { Animal } from 'src/app/models/animal.model';
 import { Action } from 'src/app/models/action.model';
 import { Observable } from 'rxjs';
 import { ActionService } from 'src/app/services/action/action.service';
+import { Toasts } from 'src/app/utils/toasts';
 
 @Component({
   selector: 'app-details-animal',
@@ -19,7 +20,8 @@ export class DetailsAnimalPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private animalService: AnimalService,
-    private actionService: ActionService
+    private actionService: ActionService,
+    private toast: Toasts
   ) {}
 
   ngOnInit() {
@@ -60,6 +62,7 @@ export class DetailsAnimalPage implements OnInit {
         this.moveAnimal(this.animal._id, this.animal?.position);
       }
       this.actionService.deleteAction(action._id);
+      this.toast.presentToast('Action effectuée !');
       this.getActions(this.animal._id);
     }
   }
