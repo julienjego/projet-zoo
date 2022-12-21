@@ -90,7 +90,7 @@
               <ul class="list-group list-group-flush">
                 <li
                   class="list-group-item"
-                  *ngFor="let event of events$ | async"
+                  *ngFor="let event of events$ | async | slice : 0 : 10"
                 >
                   <em class="text-muted"
                     >{{ event.date | date : "dd/MM/yyyy - HH:mm" }} :</em

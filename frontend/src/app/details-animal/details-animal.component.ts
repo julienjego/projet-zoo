@@ -94,6 +94,11 @@ export class DetailsAnimalComponent implements OnInit {
           this.alerts.showAlert('#fail-alert');
         },
       });
+
+      this.events$ = this.eventService.getEvents(
+        this.animalId,
+        'events/animals'
+      );
     }
   }
 

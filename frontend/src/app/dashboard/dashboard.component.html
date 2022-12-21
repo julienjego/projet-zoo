@@ -1,5 +1,5 @@
-<div class="container" *ngIf="authService.currentUser">
-  <h2>
+<div class="container">
+  <h2 *ngIf="authService.currentUser">
     Bonjour {{ authService.currentUser.prenom }} ! Sélectionnez votre zone de
     travail :
   </h2>
