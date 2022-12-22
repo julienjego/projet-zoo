@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/auth.service';
 import { Enclosure } from 'src/app/models/enclosure.model';
 import { Species } from 'src/app/models/species.model';
 import { Animal } from 'src/app/models/animal.model';
@@ -14,7 +15,7 @@ import { environment } from 'src/environments/environment';
 export class ActionService {
   API_URL = environment.API_URL;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   public getActions(
     id: string | number | null,
@@ -30,7 +31,7 @@ export class ActionService {
         },
         error: (error) => {
           if (error.status === 401) {
-            console.log('401');
+            this.auth.logout();
           }
         },
       })
