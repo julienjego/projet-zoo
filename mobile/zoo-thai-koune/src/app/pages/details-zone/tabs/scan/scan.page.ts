@@ -19,7 +19,7 @@ export class ScanPage implements OnInit {
     this.html5QrcodeScanner = new Html5Qrcode('reader');
     this.html5QrcodeScanner.start(
       { facingMode: 'environment' },
-      { fps: 10, qrbox: { width: 300, height: 300 } },
+      { fps: 10, qrbox: { width: 250, height: 250 } },
       this.onSuccess,
       this.onFail
     );
