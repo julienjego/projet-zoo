@@ -1,4 +1,3 @@
-import { ActionsPage } from './tabs/actions/actions.page';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 

@@ -1,6 +1,6 @@
 import { Toasts } from 'src/app/utils/toasts';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { Html5Qrcode } from 'html5-qrcode';
 
 @Component({
@@ -35,4 +35,8 @@ export class ScanPage implements OnInit {
   onFail = () => {
     console.warn('no match');
   };
+
+  ionViewWillLeave() {
+    this.html5QrcodeScanner.stop();
+  }
 }
