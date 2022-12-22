@@ -37,6 +37,8 @@ export class ScanPage implements OnInit {
   };
 
   ionViewWillLeave() {
-    this.html5QrcodeScanner.stop();
+    if (this.html5QrcodeScanner) {
+      this.html5QrcodeScanner.stop();
+    }
   }
 }
