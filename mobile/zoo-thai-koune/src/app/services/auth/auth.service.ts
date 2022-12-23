@@ -59,17 +59,18 @@ export class AuthService {
           }
         },
         error: (error) => {
-          console.log(error);
-          this.presentAlert();
+          error.status === 0
+            ? this.presentAlert('Un problème est survenu.')
+            : this.presentAlert("Mauvais nom d'utilisateur ou mot de passe !");
         },
       });
   }
 
   // Message d'alerte mauvais login
-  async presentAlert() {
+  async presentAlert(message: string) {
     const alert = await this.alertController.create({
       header: 'Erreur',
-      message: "Mauvais nom d'utilisateur ou mot de passe !",
+      message: message,
       buttons: ['OK'],
     });
     await alert.present();
