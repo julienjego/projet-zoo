@@ -11,7 +11,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Action } from 'src/app/models/action.model';
 import { Observable } from 'rxjs';
 import { DetailsZonePage } from '../../details-zone.page';
-import { IonModal, ModalController, ToastController } from '@ionic/angular';
+import { IonModal, ToastController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { ZoneService } from 'src/app/services/zone/zone.service';
 import { ActionCreator } from 'src/app/utils/action-creator';

@@ -24,6 +24,12 @@ export class EventsPage implements OnInit {
     }
   }
 
+  ionViewWillEnter() {
+    if (this.zoneId) {
+      this.getEventsByZone(+this.zoneId, 'events/zones');
+    }
+  }
+
   getEventsByZone(id: number, endpoint: string) {
     this.events$ = this.eventService.getEvents(id, endpoint);
   }
