@@ -3,7 +3,7 @@ import { EventService } from './../services/event/event.service';
 import { SpeciesService } from './../services/species/species.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Species } from './../models/species.model';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from '../models/animal.model';
 import { Event } from '../models/event.model';
